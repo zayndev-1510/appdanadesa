@@ -1,0 +1,362 @@
+@font-face {
+    font-family: myfont;
+    src: url('../../fonts/Poppins-Regular.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#cover-spin {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 9999;
+    display: none;
+}
+
+.tab-nav {
+    background-color: #d9e5f9;
+    color: #387be2;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px 5px 5px 5px;
+    cursor: pointer;
+    top: 10px;
+    left: 10px;
+    ;
+}
+
+.tab-nav h5 {
+    font-size: 15px;
+}
+
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.card-image img {
+    margin: 0 auto;
+    display: block;
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+#cekkepsek {
+    background-color: brown;
+    color: white;
+    padding: 5px;
+    width: 70%;
+    font-size: 13px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.detail-sekolah {
+    border-bottom: 2px solid whitesmoke;
+    padding: 5px;
+}
+
+#bg-jadwal {
+    background-color: white;
+    margin-top: 5px;
+}
+
+.mybtn {
+    background-color: #483D8B;
+    color: white;
+    border: none;
+    padding: 5px;
+    width: 100px;
+    border-radius: 10px;
+}
+
+.mybtn-primary {
+    background-color: #0275d8;
+    color: white;
+    border: none;
+    padding: 5px;
+    width: 100px;
+    border-radius: 10px;
+}
+
+.mybtn-inverse {
+    background-color: #292b2c;
+    color: white;
+    border: none;
+    padding: 5px;
+    width: 100px;
+    border-radius: 10px;
+}
+
+.mybtn-warning {
+    background-color: #f0ad4e;
+    color: white;
+    border: none;
+    padding: 5px;
+    width: 100px;
+    border-radius: 10px;
+}
+
+.mybtn-danger {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 5px;
+    width: 100px;
+    border-radius: 10px;
+}
+
+.mybtn-info {
+    background-color: #5bc0de;
+    color: white;
+    border: none;
+    padding: 5px;
+    width: 100px;
+    border-radius: 10px;
+}
+
+.modal-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: .8em 1.2em;
+    color: black;
+    background-color: white;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+@keyframes load {
+    0% {
+        opacity: 0.08;
+        /*         font-size: 10px; */
+        /* 				font-weight: 400; */
+        filter: blur(5px);
+        letter-spacing: 3px;
+    }
+    100% {
+        /*         opacity: 1; */
+        /*         font-size: 12px; */
+        /* 				font-weight:600; */
+        /* 				filter: blur(0); */
+    }
+}
+
+.animate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: auto;
+    /* 	width: 350px; */
+    /* 	font-size:26px; */
+    font-family: Helvetica, sans-serif, Arial;
+    animation: load 1.2s infinite 0s ease-in-out;
+    animation-direction: alternate;
+    text-shadow: 0 0 1px white;
+}
+
+.card-2-column {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 50% auto;
+}
+
+.column {
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.column .caption {
+    font-size: 13px;
+    font-family: 'comic sans ms';
+    text-align: center;
+}
+
+.set-image {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.card-2-column {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 50% auto;
+}
+
+.column {
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.column .caption {
+    font-size: 13px;
+    font-family: 'comic sans ms';
+    text-align: center;
+}
+
+.set-image {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.column-2 {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 50% auto;
+    border-radius: 10px;
+    border: 2px solid whitesmoke;
+    padding: 10px;
+}
+
+.column-3 {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 30% 30% auto;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.column-1 {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 100%;
+    border-radius: 10px;
+    border: 2px solid whitesmoke;
+    padding: 10px;
+}
+
+.white {
+    background-color: white;
+}
+
+.information-detail {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 100%;
+    border-radius: 10px;
+    border: 2px solid whitesmoke;
+    padding: 10px;
+}
+
+.information-3-colomn {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 30% 5% auto;
+}
+
+.information-3-colomn p {
+    font-size: 13px;
+}
+
+.information-3-colomn .bottom {
+    border-bottom: 2px solid whitesmoke;
+}
+
+.desc-pengajar {
+    font-size: 13px;
+    margin-top: -10px;
+}
+
+#design-btn-2 {
+    font-family: myfont;
+    font-size: 12px;
+    background-color: #574DE8;
+    color: white;
+    padding: 3px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* form upload thumbnail */
+.form-upload-thumbnail
+{
+    border: 2px solid whitesmoke;
+    margin-top: 20px;
+    padding: 10px;
+    margin-left: 1px;
+    margin-right: 1px;
+    margin-bottom: 20px;
+    justify-content: center;
+    justify-items: center;
+    font-family: myfont;
+}
+.form-upload-thumbnail p{
+    margin-top: 10px;
+}
+.detail-profil-mhs{
+    font-family:myfont;
+    padding: 10px;
+}
+.sub-profil{
+    border-bottom: 3px solid whitesmoke;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+.profil-mhs{
+    padding: 10px;
+
+}
+.profil-mhs .field{
+    border: 2px solid #0275d8;
+    border-radius: 10px;
+    padding: 10px;
+}
+.profil-mhs .field-form{
+    border: 2px solid #0275d8;
+    border-radius: 10px;
+    padding: 10px;
+}
+.form-filter{
+    border-radius: 10px;
+}
+.form-filter .field-form{
+    border: 2px solid #0275d8;
+    border-radius: 10px;
+    padding: 5px;
+}
+.field-form .form-control{
+    border: none;
+}
+
+
+.cursor{
+    cursor: pointer;
+}
+.cursor .field:hover{
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    border:2px solid #292b2c;
+}
+
+.content{
+    display: flex;
+    align-items: center; /* Centers items vertically */
+    justify-content: left; /* Centers items horizontally */
+    height: 100vh; /* Adjust to your desired height */
+}
+.form-periode{
+    margin-top: 10px;
+}

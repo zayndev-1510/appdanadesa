@@ -1,0 +1,32 @@
+.header-report {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    padding: 5px;
+}
+
+.header-profil {
+    display: grid;
+    grid-template-columns: 40% 10% 60%;
+    padding: 5px;
+    width: 50%;
+}
+
+.header-report img {
+    height: 120px;
+}
+
+.table {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.table tr th {
+    font-size: 15px;
+    border-bottom: 2px solid black;
+    padding: 5px;
+}
+
+.table tr td {
+    padding: 5px;
+    border-bottom: 2px solid #CCC;
+}

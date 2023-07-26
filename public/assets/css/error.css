@@ -1,0 +1,28 @@
+
+
+.form-berita .error-input
+{
+    outline: none !important;
+    border:2px solid red;
+    box-shadow: 0 0 10px #719ECE;
+}
+.form-bereita .error-input:focus{
+    outline: none !important;
+    border:2px solid black;
+    box-shadow: 0 0 10px #719ECE;
+}
+.form-gp .error-input{
+    outline: none !important;
+    border-bottom:2px solid red;
+}
+
+.form-login .error-input:focus{
+    outline: none !important;
+    border:2px solid black;
+    box-shadow: 0 0 10px #719ECE;
+}
+.form-periode .error-input{
+    outline: none !important;
+    border:2px solid red;
+    box-shadow: 0 0 10px #719ECE;
+}
