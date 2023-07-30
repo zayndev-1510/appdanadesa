@@ -10,24 +10,21 @@ app.controller("homeController", function($scope, service) {
     var fun = $scope;
     var service = service;
     var message="";
-    var id_fakultas=0;
+    var id=0;
 
-
-    console.log(URL_API);
-    
     var responjson=[
         {sukses:"Simpan data berhasil",error:"Simpan data gagal"},
         {sukses:"Update Data Berhasil",error:"Update data gagal"},
         {sukses:"Delete Data Berhasil",error:"Delete data gagal"}
     ];
 
-    var fakultas=document.getElementsByClassName("fakultas");
+    var jabatan=document.getElementsByClassName("jabatan");
 
 
     fun.aksi=true;
     fun.loadData=()=>{
-        service.dataFakultas((res)=>{
-            fun.datafakultas=res.data;
+        service.dataJabatan((res)=>{
+            fun.datajabatan=res.data;
         })
     }
 
@@ -41,36 +38,29 @@ app.controller("homeController", function($scope, service) {
 
     fun.tambahData=()=>{
         fun.aksi=false;
-        fun.ket="Form Tambah Fakultas";
+        fun.ket="Form Tambah Jabatan";
         fun.clearTex();
 
     }
 
     fun.editData=(row)=>{
-        fakultas[0].value=row.kode_fakultas;
-        fakultas[1].value=row.nama_fakultas;
-        id_fakultas=row.id_fakultas;
+        fakultas[0].value=row.jabatan
+        id=row.id;
         fun.aksi=true;
     }
 
 
 
     fun.checkValidation=()=>{
-        if(fakultas[0].value.length==0 && fakultas[1].value.length==0){
-            message="Kode Dan Nama Fakultas Masih Kosong";
-            return true;
-        }else if(fakultas[0].value.length==0){
-            message="Kode Fakultas Masih Kosong";
-            return true;
-        }else if(fakultas[1].value.length==0){
-            message="Nama Fakultas Masih Kosong";
+        if(jabatan[0].value.length==0){
+            message="Jabatan Masih Kosong";
             return true;
         }
 
     }
 
 
-    fun.saveFakultas=()=>{
+    fun.saveJabatan=()=>{
         var check=fun.checkValidation();
         if(check){
             swal({
@@ -81,11 +71,10 @@ app.controller("homeController", function($scope, service) {
             return;
         }
         var data={
-            kode_fakultas:fakultas[0].value,
-            nama_fakultas:fakultas[1].value
+           jabatan:jabatan[0].value
         };
-        service.createFakultas(data,(res)=>{
-            if(res.check>0){
+        service.createJabatan(data,(res)=>{
+            if(res.success){
                 swal({
                     text:responjson[0].sukses,
                     icon:"success"
@@ -93,7 +82,6 @@ app.controller("homeController", function($scope, service) {
                 fun.loadData();
                 return;
             }
-
             swal({
                 text:responjson[0].error,
                 icon:"error"
@@ -102,15 +90,14 @@ app.controller("homeController", function($scope, service) {
 
     }
 
-    fun.updateFakultas=()=>{
+    fun.updateJabatan=()=>{
         var data={
-            kode_fakultas:fakultas[0].value,
-            nama_fakultas:fakultas[1].value,
-            id_fakultas:id_fakultas
+           id:id,
+           jabatan:jabatan[0].value
         };
-        console.log(data)
-        service.updateFakultas(data,(res)=>{
-            if(res.check>0){
+
+        service.updateJabatan(data,(res)=>{
+            if(res.success){
                 swal({
                     text:responjson[1].sukses,
                     icon:"success"
@@ -128,10 +115,8 @@ app.controller("homeController", function($scope, service) {
 
 
     fun.delete=(row)=>{
-
-        service.deleteFakultas(row.id_fakultas,(res)=>{
-            console.log(res.check)
-            if(res.check>0){
+        service.deleteJabatan(row.id,(res)=>{
+            if(res.success>0){
                 swal({
                     text:responjson[2].sukses,
                     icon:"success"
