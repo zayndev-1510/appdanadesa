@@ -32,4 +32,15 @@ class PageController extends Controller
         ];
         return view("admin.jabatan_desa",compact("data","datalogin"));
     }
+
+    function pagePerangkat(){
+        $data=(object)[
+            "keterangan"=>"Data Jabatan"
+        ];
+        $datalogin[0]=(object)[
+            "foto"=>"default.jpg",
+            "nama_lengkap"=>"Zayn"
+        ];
+        return view("admin.perangkat_desa",compact("data","datalogin"));
+    }
 }

@@ -12,6 +12,8 @@ app.controller("homeController", function($scope, service) {
     var message="";
     var id=0;
 
+
+
     var responjson=[
         {sukses:"Simpan data berhasil",error:"Simpan data gagal"},
         {sukses:"Update Data Berhasil",error:"Update data gagal"},
@@ -19,9 +21,8 @@ app.controller("homeController", function($scope, service) {
     ];
 
     var jabatan=document.getElementsByClassName("jabatan");
-
-
     fun.aksi=true;
+
     fun.loadData=()=>{
         service.dataJabatan((res)=>{
             fun.datajabatan=res.data;
@@ -32,14 +33,14 @@ app.controller("homeController", function($scope, service) {
 
     fun.clearText=()=>{
         for(var i=0;i<fakultas.length;i++){
-            fakultas[i].value="";
+            jabatan[i].value="";
         }
     }
 
     fun.tambahData=()=>{
         fun.aksi=false;
         fun.ket="Form Tambah Jabatan";
-        fun.clearTex();
+        fun.clearText();
 
     }
 

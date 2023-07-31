@@ -28,7 +28,7 @@ Route::get("logout",[LoginControllerAdmin::class,"logout"])->middleware("auth");
 Route::middleware(["auth","checkrole:admin"])->prefix("admin")->group(function(){
     Route::get("dashboard",[PageController::class,"pageHome"]);
     Route::get("jabatan",[PageController::class,"pageJabatan"]);
-    Route::get("jurusan",[PageController::class,"pageJurusan"]);
+    Route::get("perangkat",[PageController::class,"pagePerangkat"]);
     Route::get("mahasiswa",[PageController::class,"pageMahasiswa"]);
     Route::get("berita",[PageController::class,"pageBerita"]);
     Route::get("periode-kkn",[Page::class,"pagePeriodeKkn"]);
