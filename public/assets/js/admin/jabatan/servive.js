@@ -1,8 +1,8 @@
 app.service("service", ["$http", function($http) {
 
-    this.dataFakultas = function(callback) {
+    this.dataJabatan = function(callback) {
         $http({
-            url: URL_API+"fakultas/load-data-fakultas",
+            url: URL_API+"jabatan-desa",
             method: "GET"
         }).then(function(e) {
 
@@ -11,10 +11,10 @@ app.service("service", ["$http", function($http) {
 
         });
     }
-    this.createFakultas = function(obj, callback) {
+    this.createJabatan = function(obj, callback) {
 
         $http({
-            url:URL_API+"fakultas/save-data-fakultas",
+            url:URL_API+"jabatan-desa",
             method: "POST",
             data: obj
         }).then(function(e) {
@@ -24,9 +24,9 @@ app.service("service", ["$http", function($http) {
 
         });
     }
-    this.updateFakultas = function(obj, callback) {
+    this.updateJabatan = function(obj, id,callback) {
         $http({
-            url: URL_API+"fakultas/update-data-fakultas",
+            url: URL_API+"jabatan-desa/"+id,
             method: "PUT",
             data: obj
         }).then(function(e) {
@@ -37,9 +37,9 @@ app.service("service", ["$http", function($http) {
         });
     }
 
-    this.deleteFakultas = function(id,callback) {
+    this.deleteJabatan = function(id,callback) {
         $http({
-            url: URL_API+"fakultas/delete-data-fakultas/"+id,
+            url: URL_API+"jabatan-desa/"+id,
             method: "DELETE",
 
         }).then(function(e) {

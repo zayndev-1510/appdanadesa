@@ -86,22 +86,14 @@
                                 <a href="#" aria-expanded="true"><i class="ti-calendar"></i><span> Data Master
                                     </span></a>
                                 <ul class="collapse">
-                                    <li><a href="{{ url('admin/matkul') }}">
+                                    <li><a href="{{ url('admin/jabatan') }}">
                                             <i class="ti-user" aria-hidden="true"></i>
-                                            <span>Mata Kuliah</span></a></li>
+                                            <span>Data Jabatan</span></a></li>
                                     <li>
                                     <li><a href="{{ url('admin/dosen') }}">
                                             <i class="ti-user" aria-hidden="true"></i>
-                                            <span>Dosen</span></a></li>
+                                            <span>Data Perangkat Desa</span></a></li>
                                     <li>
-                                    <li>
-                                        <a href="{{ url('admin/mahasiswa') }}" aria-expanded="true">
-                                            <i class="ti-user"></i><span> Mahasiswa </span></a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('admin/alumni') }}" aria-expanded="true">
-                                            <i class="ti-user"></i><span> Alumni </span></a>
-                                    </li>
 
                                 </ul>
                             </li>

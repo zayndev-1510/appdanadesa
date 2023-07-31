@@ -1,8 +1,9 @@
 app.service("service", ["$http", function($http) {
 
-    this.dataCalonKkn = function(callback) {
+
+    this.dataJabatan = function(callback) {
         $http({
-            url: URL_API+"mahasiswa/load-data-calon-kkn",
+            url: URL_API+"jabatan-desa",
             method: "GET"
         }).then(function(e) {
 
@@ -12,9 +13,9 @@ app.service("service", ["$http", function($http) {
         });
     }
 
-    this.getBerkasCalonKkn=function(id,callback){
+    this.dataPerangkat = function(callback) {
         $http({
-            url: URL_API+"mahasiswa/berkas-calon-kkn/"+id,
+            url: URL_API+"perangkat-desa",
             method: "GET"
         }).then(function(e) {
 
@@ -23,24 +24,38 @@ app.service("service", ["$http", function($http) {
 
         });
     }
+    this.createPerangkat = function(obj, callback) {
 
-    this.konfirmasiCalon=function(obj,callback){
         $http({
-            url: URL_API+"mahasiswa/konfirmasi-status",
+            url:URL_API+"perangkat-desa",
+            method: "POST",
+            data: obj
+        }).then(function(e) {
+
+            callback(e.data);
+        }).catch(function(err) {
+
+        });
+    }
+
+    this.updatePerangkat = function(obj, id,callback) {
+        $http({
+            url: URL_API+"perangkat-desa/"+id,
             method: "PUT",
-            data:obj
+            data: obj
         }).then(function(e) {
+
             callback(e.data);
         }).catch(function(err) {
 
         });
     }
 
-
-    this.getPeriodeKkn=function(callback){
+    this.deletePerangkat = function(id,callback) {
         $http({
-            url: URL_API+"periode-kkn/load-data",
-            method: "GET"
+            url: URL_API+"perangkat-desa/"+id,
+            method: "DELETE",
+
         }).then(function(e) {
 
             callback(e.data);
@@ -48,17 +63,7 @@ app.service("service", ["$http", function($http) {
 
         });
     }
-    this.getCalonKknPeriode=function(id,callback){
-        $http({
-            url: URL_API+"mahasiswa/get-calon-kkn-periode/"+id,
-            method: "GET"
-        }).then(function(e) {
 
-            callback(e.data);
-        }).catch(function(err) {
-
-        });
-    }
 
 
 }]);

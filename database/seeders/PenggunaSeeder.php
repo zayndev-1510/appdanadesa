@@ -31,21 +31,18 @@ class PenggunaSeeder extends Seeder
 
     public function run(): void
     {
-        $faker = Faker::create('id_ID');
-        $result=DB::table("tbl_mahasiswa")->whereNot("id_mhs",5)->select()->get();
 
         // // insert data ke table pengguna
 
-        for($i=0;$i<count($result);$i++){
         DB::table('users')->insert([
-        	'id_pengguna' => $result[$i]->id_mhs,
-            'email'=>$faker->email(),
-            "role"=>"mahasiswa",
-        	'username' => $faker->userName(),
+        	'id_pengguna' => 0,
+            'email'=>"kopralgamers1510@gmail.com",
+            "role"=>"admin",
+        	'username' => "admin",
+            "name"=>"admin",
         	'password' => Hash::make("12345678"),
         	'remember_token' => Str::password(40),
         ]);
-        }
 
     }
 }
