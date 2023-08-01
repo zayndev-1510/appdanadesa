@@ -35,7 +35,7 @@ class PageController extends Controller
 
     function pagePerangkat(){
         $data=(object)[
-            "keterangan"=>"Data Jabatan"
+            "keterangan"=>"Data Perangkat"
         ];
         $datalogin[0]=(object)[
             "foto"=>"default.jpg",
@@ -43,4 +43,17 @@ class PageController extends Controller
         ];
         return view("admin.perangkat_desa",compact("data","datalogin"));
     }
+
+    function pageProfilDesa(){
+        $data=(object)[
+            "keterangan"=>"Data Profil Desa"
+        ];
+        $datalogin[0]=(object)[
+            "foto"=>"default.jpg",
+            "nama_lengkap"=>"Zayn"
+        ];
+        return view("admin.profil_desa",compact("data","datalogin"));
+    }
+
+
 }

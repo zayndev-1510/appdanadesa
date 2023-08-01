@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\admin\master\JabatanController;
 use App\Http\Controllers\api\admin\master\perangkatController;
+use App\Http\Controllers\api\admin\master\ProfilController;
 use App\Http\Controllers\api\akademik\BerkasController;
 
 use App\Http\Controllers\api\akademik\BeritaController;
@@ -40,6 +41,12 @@ Route::prefix("v1")->group(function(){
             route::post("/",[JabatanController::class,"save_data"]);
             route::put("/{id_pr}",[JabatanController::class,"update_data"]);
             route::delete("/{id}",[JabatanController::class,"delete_data"]);
+        });
+
+         // Profil
+         route::prefix("profil-desa")->group(function(){
+            route::get("/",[ProfilController::class,"get_data_profil_desa"]);
+            route::put("/{id}",[ProfilController::class,"update_data_profil_desa"]);
         });
 
     });

@@ -32,7 +32,7 @@ app.controller("homeController", function($scope, service) {
     fun.loadData();
 
     fun.clearText=()=>{
-        for(var i=0;i<fakultas.length;i++){
+        for(var i=0;i<jabatan.length;i++){
             jabatan[i].value="";
         }
     }
@@ -81,6 +81,7 @@ app.controller("homeController", function($scope, service) {
                     icon:"success"
                 });
                 fun.loadData();
+                fun.clearText();
                 return;
             }
             swal({

@@ -425,4 +425,10 @@ html {
   .form-item .forms-label:focus + label{
     color: blue
   }
+
+  .table-perangkat{
+    font-family: myfont;
+    font-weight: 800;
+  }
   
+

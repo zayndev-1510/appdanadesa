@@ -29,7 +29,8 @@ class PerangkatResources extends JsonResource
             "updateat"=>$this->updated_at,
             "username"=>$this->username,
             "password"=>$this->password,
-            "email"=>$this->email
+            "email"=>$this->email,
+            "role"=>$this->role
         ];
     }
 }
