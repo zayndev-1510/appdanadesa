@@ -12,6 +12,7 @@ use App\Models\master\PerangkatModel;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -34,7 +35,7 @@ class Perangkatrepo
             // load data perangkat desa
             $resultjoin = DB::table("perangkat_desa as ps")->join("jabatan_desa as d","ps.id_jabatan","=","d.id")
             ->join("users as u","ps.id","=","u.id_pengguna")
-            ->selectRaw("ps.id,ps.nama_lengkap,ps.tempat_lahir,ps.tgl_lahir,ps.jenis_kelamin,ps.id_jabatan,
+            ->selectRaw("ps.id,ps.nama_lengkap,ps.tempat_lahir,ps.tgl_lahir,ps.jenis_kelamin,ps.id_jabatan,u.role,
             ps.no_sk,ps.tgl_sk,ps.no_handphone,ps.created_at,ps.updated_at,d.jabatan,u.username,u.password,u.email")->get();
             $data = PerangkatResources::collection($resultjoin);
             return response()->json(["message"=>"success","success"=>true,"data"=>$data],200);
@@ -49,7 +50,7 @@ class Perangkatrepo
     * @param \App\Http\Requests\master\PerangkatRequest $perangkatRequest
     * @return \Illuminate\Http\JsonResponse|mixed
     */
-   public function saveData(PerangkatRequest $perangkatRequest)
+   public function saveData(PerangkatRequest $perangkatRequest):JsonResponse
    {
         try {
             // set value data perangkat desa
@@ -73,11 +74,13 @@ class Perangkatrepo
 
             return response()->json(["message"=>"success","success"=>true],200);
 
+
         }catch (QueryException $e){
             $errorCode = $e->errorInfo[1];
             if($errorCode == 1062){
                 return response()->json(["message"=>"email already exists","success"=>false],500);
             }
+            return response()->json(["message"=>"error ".$e->getMessage(),"success"=>false],500);
         }
         catch (\Throwable $th) {
             DB::rollBack();

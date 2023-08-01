@@ -85,11 +85,12 @@
                             @{{message}}
                           </div>
                         {{--  --}}
-
-                        {{-- profil --}}
-                        <h5>Profil</h5>
-                        <hr></hr>
+                          {{-- Form Perangkat Desa --}}
                         <div class="form">
+                                {{-- profil --}}
+                                <h5>Profil</h5>
+                                <hr></hr>
+                                {{--  --}}
                             <div class="form-item">
                               <input type="text"  class="perangkat forms-label">
                               <label for="username">Nama Lengkap</label>
@@ -168,16 +169,24 @@
                                 <label for="password">Password Baru</label>
                                 <p ng-show="pass_new"><small style="color: red"> * </small> Jika Tidak Memperbarui Password Anda Bisa Melewatkan Ini</p>
                             </div>
-                            {{--  --}}
 
+                            <div class="form-item">
+                                <select class="perangkat forms-label">
+                                    <option value="perangkat">Perangkat</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                                <label for="role">Role</label>
+                            </div>
+                           {{--  --}}
                           </div>
+                        {{--  --}}
                         <div class="row">
                             <div class="col-10">
                                 <button class="btn btn-success" ng-hide="aksi" ng-click="savePerangkat()">Simpan</button>
                                 <button class="btn btn-primary" ng-show="aksi" ng-click="updatePerangkat()">Perbarui</button>
                             </div>
                             <div class="col-2">
-                                <button class="btn btn-danger">Batal</button>
+                                <button class="btn btn-danger" ng-click="batal()">Batal</button>
                             </div>
                         </div>
                     </div>

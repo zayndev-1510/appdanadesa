@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('tbl_berita', function (Blueprint $table) {
-            $table->time("waktu");
+        Schema::table('profil_desa', function (Blueprint $table) {
+            $table->dropColumn(("nama"));
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('tbl_berita', function (Blueprint $table) {
-            //
+        Schema::table('profil_desa', function (Blueprint $table) {
+            $table->string("nama");
         });
     }
 };

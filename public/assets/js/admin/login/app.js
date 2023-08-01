@@ -45,16 +45,24 @@ app.controller("homeController", function($scope, service) {
         }
         service.LoginAkun(obj, (res) => {
 
+
             var success=res.success;
             if(success){
                 swal({
                     text:res.message,
                     icon:"success"
                 });
+                setInterval(function(){
+                    window.location.href=res.redirect;
+                },2000);
+                return true;
             }
-            setInterval(function(){
-                window.location.href=res.redirect;
-            },2000)
+
+            swal({
+                text:"Login Gagal",
+                icon:"error"
+            });
+
         })
 
        }

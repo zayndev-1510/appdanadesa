@@ -15,7 +15,7 @@ app.controller("homeController", function($scope, service) {
 
     fun.check=true;
     fun.error=false;
-
+    fun.pass_new=false;
     var responjson=[
         {sukses:"Simpan data berhasil",error:"Simpan data gagal"},
         {sukses:"Update Data Berhasil",error:"Update data gagal"},
@@ -122,6 +122,11 @@ app.controller("homeController", function($scope, service) {
             message="Password Belum Di Masukan";
             return true;
         }
+        else if(perangkat[12].value.length==0){
+            message="Role Belum Di Pilih";
+            return true;
+        }
+
         return false;
     }
 
@@ -145,16 +150,15 @@ app.controller("homeController", function($scope, service) {
             id_jabatan:parseInt(perangkat[8].value),
             username:perangkat[9].value,
             password:perangkat[10].value,
-            role:"perangkat"
+            role:perangkat[12].value,
         }
-
         service.createPerangkat(data,(res)=>{
             if(res.success){
                 swal({
                     text:responjson[0].sukses,
                     icon:"success"
                 });
-                fun.loadData();
+                fun.clearText();
                 return;
             }
             swal({
@@ -175,11 +179,11 @@ app.controller("homeController", function($scope, service) {
             email:perangkat[5].value,
             no_sk:perangkat[6].value,
             tgl_sk:perangkat[7].value,
-            id_jabatan:parcleseInt(perangkat[8].value),
+            id_jabatan:parseInt(perangkat[8].value),
             username:perangkat[9].value,
             password:old_password,
             password_new:null,
-            role:"perangkat"
+            role:perangkat[12].value
         }
         if(perangkat[10].value.length != 0 && perangkat[11].value.length !=0){
             data.password=perangkat[10].value;
@@ -221,6 +225,12 @@ app.controller("homeController", function($scope, service) {
                 icon:"error"
             });
         })
+    }
+
+    fun.batal=()=>{
+        fun.loadData();
+        fun.clearText();
+        fun.check=true;
     }
 
 
