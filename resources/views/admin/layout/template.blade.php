@@ -127,6 +127,19 @@
                                         </a>
                                     </li>
 
+                                    <li>
+                                        <a href="{{ url('admin/bidang') }}">
+                                            <i class="ti-home" aria-hidden="true"></i>
+                                            <span>Data Bidang</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('admin/sub-bidang') }}">
+                                            <i class="ti-home" aria-hidden="true"></i>
+                                            <span>Data Sub Bidang</span>
+                                        </a>
+                                    </li>
+
                                 </ul>
                                 {{--  --}}
 
