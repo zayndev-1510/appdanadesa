@@ -4,8 +4,8 @@
  * Summary of namespace App\Http\Repository\admin\master
  */
 namespace App\Http\Repository\admin\master;
-use App\Http\Requests\admin\LoginRequest;
-use App\Http\Requests\master\PerangkatRequest;
+
+use App\Http\Requests\admin\master\PerangkatRequest;
 use App\Http\Resources\master\PerangkatResources;
 use App\Models\master\PerangkatModel;
 
@@ -29,7 +29,7 @@ class Perangkatrepo
     * Summary of getData
     * @return \Illuminate\Http\JsonResponse|mixed
     */
-   public function getData()
+   public function getData():JsonResponse
    {
         try {
             // load data perangkat desa
@@ -45,10 +45,11 @@ class Perangkatrepo
         }
    }
 
+
    /**
     * Summary of saveData
-    * @param \App\Http\Requests\master\PerangkatRequest $perangkatRequest
-    * @return \Illuminate\Http\JsonResponse|mixed
+    * @param \App\Http\Requests\admin\master\PerangkatRequest $perangkatRequest
+    * @return \Illuminate\Http\JsonResponse
     */
    public function saveData(PerangkatRequest $perangkatRequest):JsonResponse
    {
@@ -90,9 +91,9 @@ class Perangkatrepo
 
    /**
     * Summary of updateData
-    * @param \App\Http\Requests\master\PerangkatRequest $perangkatRequest
+    * @param \App\Http\Requests\admin\master\PerangkatRequest $perangkatRequest
     * @param mixed $id_perangkat
-    * @return \Illuminate\Http\JsonResponse|mixed
+    * @return JsonResponse|mixed
     */
    public function updateData(PerangkatRequest $perangkatRequest,$id_perangkat)
    {

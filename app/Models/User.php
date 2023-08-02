@@ -22,7 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'id_pengguna',
-        'role'
+        'role',
     ];
 
     public $timestamps=true;

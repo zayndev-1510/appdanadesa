@@ -6,23 +6,27 @@
 namespace App\Http\Repository\admin\master;
 
 use App\Http\Requests\admin\master\JabatanRequest;
+use App\Http\Requests\admin\master\SumberdanaRequest;
+use App\Http\Requests\admin\master\SumberdanRequest;
 use App\Http\Resources\master\JabatanResource;
 use App\Models\master\JabatanModel;
+use App\Models\master\SumberDanaModel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 
 
-class Jabatanrepo
+class SumberdanaRepo
 {
    /**
     * Summary of getData
     * @return \Illuminate\Http\JsonResponse|mixed
     */
-   public function getData()
+   public function getData() : JsonResponse
    {
         try {
             // load data jabatan desa
-            $data=JabatanResource::collection(JabatanModel::all());
+            $data=SumberDanaModel::query()->selectRaw("*")->get();
             return response()->json(["message"=>"success","success"=>true,"data"=>$data],200);
 
         } catch (\Throwable $th) {
@@ -30,11 +34,16 @@ class Jabatanrepo
         }
    }
 
-   public function saveData(JabatanRequest $jabatanRequest)
+   /**
+    * Summary of saveData
+    * @param \App\Http\Requests\admin\master\SumberdanaRequest $sumberdanaRequest
+    * @return \Illuminate\Http\JsonResponse|mixed
+    */
+   public function saveData(SumberdanaRequest $sumberdanaRequest) : JsonResponse
    {
         try {
             // create data
-            JabatanModel::create($jabatanRequest->validated());
+            SumberDanaModel::query()->create($sumberdanaRequest->validated());
             return response()->json(["message"=>"success","success"=>true],200);
 
         } catch (\Throwable $th) {
@@ -42,14 +51,21 @@ class Jabatanrepo
         }
    }
 
-   public function updateData(JabatanRequest $jabatanRequest,$id_jabatan)
+   /**
+    * Summary of updateData
+    * @param \App\Http\Requests\admin\master\SumberdanaRequest $sumberdanaRequest
+    * @param mixed $id_sumber
+    * @return \Illuminate\Http\JsonResponse|mixed
+    */
+   public function updateData(SumberdanaRequest $sumberdanaRequest,$id_sumber) : JsonResponse
    {
         try {
-            // validation id jabatan is valid or not
-            JabatanModel::findOrFail($id_jabatan);
+            // validation id  is valid or not
+            SumberDanaModel::query()->findOrFail($id_sumber);
 
             // update data
-            JabatanModel::where("id",$id_jabatan)->update($jabatanRequest->validated());
+            SumberDanaModel::query()->whereRaw("id=?",[$id_sumber])->update($sumberdanaRequest->validated());
+
             return response()->json(["message"=>"success","success"=>true],200);
         }
         catch(ModelNotFoundException $e){
@@ -61,14 +77,18 @@ class Jabatanrepo
         }
    }
 
-   public function deleteData($id_jabatan){
+   /**
+    * Summary of deleteData
+    * @param mixed $id_sumber
+    * @return \Illuminate\Http\JsonResponse|mixed
+    */
+   public function deleteData($id_sumber) : JsonResponse{
     try {
 
-        // validation id jabatan is valid or not
-        JabatanModel::findOrFail($id_jabatan);
-
+        SumberDanaModel::query()->findOrFail($id_sumber);
         // delete data
-        JabatanModel::where("id",$id_jabatan)->delete();
+        SumberDanaModel::query()->whereRaw("id = ?",[$id_sumber])->delete();
+
         return response()->json(["message"=>"success","success"=>true],200);
     }
     catch(ModelNotFoundException $e){
@@ -78,5 +98,6 @@ class Jabatanrepo
         DB::rollBack();
         return response()->json(["message"=>"error ".$th->getMessage(),"success"=>false],500);
     }
+
    }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\master;
+namespace App\Http\Requests\admin\master;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Contracts\Validation\Validator;
 
-class ProfildesaRequest extends FormRequest
+class JabatanRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,15 +24,11 @@ class ProfildesaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "provinsi"=>"string|max:50",
-            "kecamatan"=>"string|max:50",
-            "kabupaten"=>"string|max:50",
-            "desa"=>"string|max:50",
-            "id_pengisi"=>"integer"
+            "jabatan"=>["required","string","max:50"]
         ];
     }
 
-    /**
+     /**
      * Summary of failedValidation
      * @param \Illuminate\Contracts\Validation\Validator $validator
      * @throws \Illuminate\Http\Exceptions\HttpResponseException

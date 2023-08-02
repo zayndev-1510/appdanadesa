@@ -70,7 +70,7 @@
             <div class="sidebar-header" style="background-color: #483D8B;color:white;">
                 <div class="logo">
 
-                    <p style="color: white;font-weight: bolder;">MANAJEMEN MAHASISWA DAN ALUMNI</p>
+                    <p style="color: white;font-weight: bolder;">{{$data->title}}</p>
 
                 </div>
             </div>
@@ -78,25 +78,60 @@
                 <div class="menu-inner">
                     <nav>
                         <ul class="metismenu" id="menu">
+                            {{-- // Navigation Dashboard --}}
                             <li>
                                 <a href="{{ url('admin/dashboard') }}" aria-expanded="true"><i
                                         class="ti-dashboard"></i><span>dashboard</span></a>
                             </li>
+                            {{--  --}}
+
+                            {{-- // Navigation Data Master --}}
                             <li>
                                 <a href="#" aria-expanded="true"><i class="ti-calendar"></i><span> Data Master
                                     </span></a>
+
+                                {{-- // Sub Menu Data Master --}}
                                 <ul class="collapse">
-                                    <li><a href="{{ url('admin/jabatan') }}">
-                                            <i class="ti-user" aria-hidden="true"></i>
-                                            <span>Data Jabatan</span></a></li>
+
+                                    {{-- // Menu Data Jabatan --}}
                                     <li>
-                                    <li><a href="{{ url('admin/dosen') }}">
+                                        <a href="{{ url('admin/jabatan') }}">
                                             <i class="ti-user" aria-hidden="true"></i>
-                                            <span>Data Perangkat Desa</span></a></li>
+                                            <span>Data Jabatan</span>
+                                        </a>
+                                    </li>
+                                    {{--  --}}
+
+                                    {{-- // Data Perangkat Desa --}}
                                     <li>
+                                        <a href="{{ url('admin/dosen') }}">
+                                            <i class="ti-user" aria-hidden="true"></i>
+                                            <span>Data Perangkat Desa</span>
+                                        </a>
+                                    </li>
+                                    {{--  --}}
+
+                                    {{-- // Data Profil Desa --}}
+                                    <li>
+                                        <a href="{{ url('admin/profil-desa') }}">
+                                            <i class="ti-home" aria-hidden="true"></i>
+                                            <span>Data Profil Desa</span>
+                                        </a>
+                                    </li>
+                                    {{--  --}}
+
+                                    <li>
+                                        <a href="{{ url('admin/sumber-dana') }}">
+                                            <i class="ti-home" aria-hidden="true"></i>
+                                            <span>Data Sumber Dana</span>
+                                        </a>
+                                    </li>
 
                                 </ul>
+                                {{--  --}}
+
                             </li>
+                            {{--  --}}
                             <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i
                                         class="ti-layout-sidebar-left"></i><span>Data Akademik
@@ -176,9 +211,8 @@
                         <ul class="notification-area pull-right">
 
                             <li class="dropdown">
-                                <i class="ti-bell dropdown-toggle" data-toggle="dropdown">
+                                <i class="ti-bell dropdown-toggle" data-toggle="dropdown"></i>
 
-                                </i>
                                 <div class="dropdown-menu bell-notify-box notify-box">
                                     <span class="notify-title">You have 3 new notifications <a href="#">
                                             view all</a></span>
@@ -236,6 +270,7 @@
                                         </a>
                                     </div>
                                 </div>
+
                             </li>
                             <li class="settings-btn">
                                 <i class="ti-settings"></i>
@@ -249,17 +284,16 @@
             <div class="page-title-area">
                 <div class="row align-items-center">
                     @yield('header-lvl-1')
-
                     <div class="col-sm-6 clearfix">
                         <div class="user-profile pull-right">
-                            <img class="avatar user-thumb" src="{{ asset('akun/' . $datalogin[0]->foto) }}"
+                            <img class="avatar user-thumb" src="{{ asset('akun/' . $datalogin->foto) }}"
                                 alt="avatar">
-                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">
-                                {{ $datalogin[0]->nama_lengkap }}
+                            <h4 class="user-name dropdown-toggle poppins" data-toggle="dropdown">
+                                {{ $datalogin->name }}
                                 <i class="fa fa-angle-down"></i>
                             </h4>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ url('logout') }}">Log Out</a>
+                                <a class="dropdown-item poppins" href="{{ url('logout') }}">Log Out</a>
                             </div>
                         </div>
                     </div>
@@ -273,7 +307,7 @@
         <!-- footer area start-->
         <footer>
             <div class="footer-area">
-                <p>© Copyright 2018. All right reserved. Template by <a href="">IT KREATIF</a>.</p>
+                <p class="poppins">© Copyright 2018. All right reserved. Template by <a href="">IT KREATIF</a>.</p>
             </div>
         </footer>
         <!-- footer area end-->

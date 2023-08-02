@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\master\PerangkatModel;
+use App\Models\master\ProfilDesaModel;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 class PageController extends Controller
 {
     function pageLogin(){
@@ -10,49 +14,46 @@ class PageController extends Controller
         return view("login",compact("message"));
     }
 
-    function pageHome(){
+    private static function getResultData($ket){
+        $profildesa=ProfilDesaModel::query()->selectRaw("desa")->first();
         $data=(object)[
-            "keterangan"=>"Data Home"
+            "keterangan"=>$ket,
+            "title"=>Str::upper("aplikasi manajemen dana desa ".$profildesa["desa"])
         ];
-        $datalogin[0]=(object)[
-            "foto"=>"default.jpg",
-            "nama_lengkap"=>"Zayn"
-        ];
+
+        $perangkat=PerangkatModel::query()->selectRaw("foto")->first();
+        $datalogin=new \stdClass();
+        $datalogin->id_pengguna=Auth::user()->id_pengguna;
+        $datalogin->name=Auth::user()->name;
+        $datalogin->foto=$perangkat->foto;
+        return [$data,$datalogin];
+    }
+
+    function pageHome(){
+        [$data,$datalogin]=self::getResultData("Dashboard");
         return view("admin.home",compact("data","datalogin"));
     }
 
 
     function pageJabatan(){
-        $data=(object)[
-            "keterangan"=>"Data Jabatan"
-        ];
-        $datalogin[0]=(object)[
-            "foto"=>"default.jpg",
-            "nama_lengkap"=>"Zayn"
-        ];
+        [$data,$datalogin]=self::getResultData("Data Jabatan");
         return view("admin.jabatan_desa",compact("data","datalogin"));
     }
 
     function pagePerangkat(){
-        $data=(object)[
-            "keterangan"=>"Data Perangkat"
-        ];
-        $datalogin[0]=(object)[
-            "foto"=>"default.jpg",
-            "nama_lengkap"=>"Zayn"
-        ];
+        [$data,$datalogin]=self::getResultData("Data Perangkat");
         return view("admin.perangkat_desa",compact("data","datalogin"));
     }
 
     function pageProfilDesa(){
-        $data=(object)[
-            "keterangan"=>"Data Profil Desa"
-        ];
-        $datalogin[0]=(object)[
-            "foto"=>"default.jpg",
-            "nama_lengkap"=>"Zayn"
-        ];
+        [$data,$datalogin]=self::getResultData("Profil Desa");
         return view("admin.profil_desa",compact("data","datalogin"));
+    }
+
+
+    function pageSumberDana(){
+        [$data,$datalogin]=self::getResultData("Jenis Sumber Dana Desa");
+        return view("admin.sumber_dana",compact("data","datalogin"));
     }
 
 

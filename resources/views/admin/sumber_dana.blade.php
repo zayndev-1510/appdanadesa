@@ -30,16 +30,16 @@
                                 <thead class="bg-light" style="font-size: 12px;">
                                     <tr class="text-center">
                                         <th>No</th>
-                                        <th>Jabatan</th>
+                                        <th>Sumber Dana</th>
                                         <th>
                                             Aksi
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody style="font-size: 12px">
-                                    <tr class="text-center" ng-repeat="row in datajabatan">
+                                    <tr class="text-center" ng-repeat="row in datasumber">
                                         <td>@{{ $index + 1 }}</td>
-                                        <td>@{{ row.jabatan }}</td>
+                                        <td>@{{ row.jenis }}</td>
                                         <td>
                                             <span class="fa fa-edit" style="font-size: 20px;color: yellow;cursor: pointer;"
                                                 ng-click="editData(row)" data-toggle="modal" data-target="#myModal"></span>
@@ -69,17 +69,16 @@
                     <!-- Modal body -->
                     <div class="modal-body">
                         <div class="form-item">
-                            <input type="text" class="jabatan forms-label">
-                            <label for="jabatan">Jabatan</label>
+                            <input type="text" class="sumber forms-label">
+                            <label for="jenis">Jenis Sumber Dana</label>
                             <p ng-show="pass_new" class="poppins"><small style="color: red"> * </small> Wajib Di Isi</p>
                         </div>
-
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" ng-hide="aksi" ng-click="saveJabatan()"><i class="ti-save"></i> SIMPAN</button>
-                        <button type="button" class="btn btn-success" ng-show="aksi" ng-click="updateJabatan()"><i class="ti-save"></i> PERBARUI</button>
+                        <button type="button" class="btn btn-success" ng-hide="aksi" ng-click="saveSumberDana()"><i class="ti-save"></i> SIMPAN</button>
+                        <button type="button" class="btn btn-success" ng-show="aksi" ng-click="updateSumberDana()"><i class="ti-save"></i> PERBARUI</button>
                         <button type="button" class="btn btn-danger"data-dismiss="modal"><i class="ti-close"></i> BATAL</button>
                     </div>
 
@@ -102,6 +101,6 @@
     <script src="{{ asset('assets/angularjs/angular-route.min.js') }}"></script>
     <script src="{{ asset('assets/angularjs/angular-datatables.min.js') }}"></script>
     <script src="{{ asset('assets/angularjs/sweetalert.min.js') }}"></script>
-    <script src="{{ asset('assets/js/admin/jabatan/app.js') }}"></script>
-    <script src="{{ asset('assets/js/admin/jabatan/servive.js') }}"></script>
+    <script src="{{ asset('assets/js/admin/sumber_dana/app.js') }}"></script>
+    <script src="{{ asset('assets/js/admin/sumber_dana/service.js') }}"></script>
 @endsection
