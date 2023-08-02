@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Http\Requests\master;
+namespace App\Http\Requests\admin\master;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -38,7 +37,6 @@ class PerangkatRequest extends FormRequest
             "email"=>["required","string"]
         ];
     }
-
 
     /**
      * Summary of failedValidation

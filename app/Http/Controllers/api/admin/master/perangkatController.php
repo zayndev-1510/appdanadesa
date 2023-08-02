@@ -4,8 +4,7 @@ namespace App\Http\Controllers\api\admin\master;
 
 use App\Http\Controllers\Controller;
 use App\Http\Repository\admin\master\Perangkatrepo;
-use App\Http\Requests\master\PerangkatRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\admin\master\PerangkatRequest;
 
 /**
  * Summary of perangkatController
@@ -37,8 +36,8 @@ class perangkatController extends Controller
 
     /**
      * Summary of save_data
-     * @param \App\Http\Requests\master\PerangkatRequest $perangkatRequest
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @param \App\Http\Requests\admin\master\PerangkatRequest $perangkatRequest
+     * @return mixed
      */
     public function save_data(PerangkatRequest $perangkatRequest){
         return $this->perangkatrepo->saveData($perangkatRequest);
@@ -46,9 +45,9 @@ class perangkatController extends Controller
 
     /**
      * Summary of update_data
-     * @param \App\Http\Requests\master\PerangkatRequest $perangkat
+     * @param \App\Http\Requests\admin\master\PerangkatRequest $perangkat
      * @param mixed $id
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return mixed
      */
     public function update_data(PerangkatRequest $perangkat,$id){
         return $this->perangkatrepo->updateData($perangkat,$id);

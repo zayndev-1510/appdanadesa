@@ -5,6 +5,9 @@
     font-style: normal;
 }
 
+.poppins{
+    font-family: myfont;
+}
 #cover-spin {
     position: fixed;
     width: 100%;
@@ -430,5 +433,9 @@ html {
     font-family: myfont;
     font-weight: 800;
   }
-  
+  .table-jabatan{
+    font-family: myfont;
+    font-size: 13px;
+  }
+
 

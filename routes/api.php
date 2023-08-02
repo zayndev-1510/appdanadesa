@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\admin\master\JabatanController;
 use App\Http\Controllers\api\admin\master\perangkatController;
 use App\Http\Controllers\api\admin\master\ProfilController;
+use App\Http\Controllers\api\admin\master\SumberdanaController;
 use App\Http\Controllers\api\akademik\BerkasController;
 
 use App\Http\Controllers\api\akademik\BeritaController;
@@ -47,6 +48,14 @@ Route::prefix("v1")->group(function(){
          route::prefix("profil-desa")->group(function(){
             route::get("/",[ProfilController::class,"get_data_profil_desa"]);
             route::put("/{id}",[ProfilController::class,"update_data_profil_desa"]);
+        });
+
+        // Sumber Dana
+        route::prefix("sumber-dana")->group(function(){
+            route::get("/",[SumberdanaController::class,"get_data"]);
+            route::post("/",[SumberdanaController::class,"save_data"]);
+            route::put("/{id}",[SumberdanaController::class,"update_data"]);
+            route::delete("/{id}",[SumberdanaController::class,"delete_data"]);
         });
 
     });

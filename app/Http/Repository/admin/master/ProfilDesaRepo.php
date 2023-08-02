@@ -4,8 +4,8 @@
  * Summary of namespace App\Http\Repository\admin\master
  */
 namespace App\Http\Repository\admin\master;
-use App\Http\Requests\master\ProfildesaRequest;
-use App\Http\Resources\master\ProfilResource;
+
+use App\Http\Requests\admin\master\ProfildesaRequest;
 use App\Models\master\ProfilDesaModel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;

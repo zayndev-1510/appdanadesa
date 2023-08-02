@@ -30,4 +30,5 @@ Route::middleware(["auth","checkrole:admin"])->prefix("admin")->group(function()
     Route::get("jabatan",[PageController::class,"pageJabatan"]);
     Route::get("perangkat",[PageController::class,"pagePerangkat"]);
     Route::get("profil-desa",[PageController::class,"pageProfilDesa"]);
+    Route::get("sumber-dana",[PageController::class,"pageSumberDana"]);
 });
