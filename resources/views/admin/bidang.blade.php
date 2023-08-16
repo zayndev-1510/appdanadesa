@@ -5,7 +5,7 @@
             <h4 class="page-title pull-left">Dashboard</h4>
             <ul class="breadcrumbs pull-left">
                 <li><a href="index.html">Home</a></li>
-                <li><span>{{ $data->keterangan }}</span></li>
+                <li class="poppins"><span>{{ $data->keterangan }}</span></li>
             </ul>
         </div>
     </div>
@@ -30,18 +30,16 @@
                                 <thead class="bg-light" style="font-size: 12px;">
                                     <tr class="text-center">
                                         <th>No</th>
-                                        <th>Kode</th>
-                                        <th>Sumber Dana</th>
+                                        <th>Bidang</th>
                                         <th>
                                             Aksi
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody style="font-size: 12px">
-                                    <tr class="text-center" ng-repeat="row in datasumber">
+                                    <tr class="text-center" ng-repeat="row in databidang">
                                         <td>@{{ $index + 1 }}</td>
-                                        <td>@{{ row.kode_sumber}}</td>
-                                        <td>@{{ row.jenis }}</td>
+                                        <td>@{{ row.keterangan }}</td>
                                         <td>
                                             <span class="fa fa-edit" style="font-size: 20px;color: yellow;cursor: pointer;"
                                                 ng-click="editData(row)" data-toggle="modal" data-target="#myModal"></span>
@@ -70,24 +68,17 @@
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                       <div class="form">
                         <div class="form-item">
-                            <input type="text" class="sumber forms-label">
-                            <label for="kode">Kode Sumber</label>
-                            <p ng-show="pass_new" class="poppins"><small style="color: red"> * </small> Wajib Di Isi</p>
+                            <input type="text" class="bidang forms-label">
+                            <label for="jenis">Bidang</label>
+                            <p class="poppins"><small style="color: red"> * </small> Wajib Di Isi</p>
                         </div>
-                        <div class="form-item">
-                            <input type="text" class="sumber forms-label">
-                            <label for="jenis">Jenis Sumber Dana</label>
-                            <p ng-show="pass_new" class="poppins"><small style="color: red"> * </small> Wajib Di Isi</p>
-                        </div>
-                       </div>
                     </div>
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" ng-hide="aksi" ng-click="saveSumberDana()"><i class="ti-save"></i> SIMPAN</button>
-                        <button type="button" class="btn btn-success" ng-show="aksi" ng-click="updateSumberDana()"><i class="ti-save"></i> PERBARUI</button>
+                        <button type="button" class="btn btn-success" ng-hide="aksi" ng-click="saveBidang()"><i class="ti-save"></i> SIMPAN</button>
+                        <button type="button" class="btn btn-success" ng-show="aksi" ng-click="updateBidang()"><i class="ti-save"></i> PERBARUI</button>
                         <button type="button" class="btn btn-danger"data-dismiss="modal"><i class="ti-close"></i> BATAL</button>
                     </div>
 
@@ -110,6 +101,6 @@
     <script src="{{ asset('assets/angularjs/angular-route.min.js') }}"></script>
     <script src="{{ asset('assets/angularjs/angular-datatables.min.js') }}"></script>
     <script src="{{ asset('assets/angularjs/sweetalert.min.js') }}"></script>
-    <script src="{{ asset('assets/js/admin/sumber_dana/app.js') }}"></script>
-    <script src="{{ asset('assets/js/admin/sumber_dana/service.js') }}"></script>
+    <script src="{{ asset('assets/js/admin/bidang/app.js') }}"></script>
+    <script src="{{ asset('assets/js/admin/bidang/service.js') }}"></script>
 @endsection

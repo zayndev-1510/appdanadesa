@@ -25,7 +25,7 @@ class PageController extends Controller
         $datalogin=new \stdClass();
         $datalogin->id_pengguna=Auth::user()->id_pengguna;
         $datalogin->name=Auth::user()->name;
-        $datalogin->foto=$perangkat->foto;
+        $datalogin->foto=$perangkat["foto"];
         return [$data,$datalogin];
     }
 
@@ -54,6 +54,10 @@ class PageController extends Controller
     function pageSumberDana(){
         [$data,$datalogin]=self::getResultData("Jenis Sumber Dana Desa");
         return view("admin.sumber_dana",compact("data","datalogin"));
+    }
+    function pageBidang(){
+        [$data,$datalogin]=self::getResultData("Data Bidang");
+        return view("admin.bidang",compact("data","datalogin"));
     }
 
 

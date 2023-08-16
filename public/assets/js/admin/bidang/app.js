@@ -20,51 +20,48 @@ app.controller("homeController", function($scope, service) {
         {sukses:"Delete Data Berhasil",error:"Delete data gagal"}
     ];
 
-    var sumber=document.getElementsByClassName("sumber");
+    var bidang=document.getElementsByClassName("bidang");
+
     fun.aksi=true;
 
     fun.loadData=()=>{
-        service.dataSumberDana((res)=>{
-            fun.datasumber=res.data;
+        service.dataBidang((res)=>{
+            fun.databidang=res.data;
         })
     }
 
     fun.loadData();
 
     fun.clearText=()=>{
-        for(var i=0;i<sumber.length;i++){
-            sumber[i].value="";
+        for(var i=0;i<bidang.length;i++){
+            bidang[i].value="";
         }
     }
 
     fun.tambahData=()=>{
         fun.aksi=false;
-        fun.ket="Form Tambah Sumber Dana";
+        fun.ket="Form Tambah Bidang";
         fun.clearText();
 
     }
 
     fun.editData=(row)=>{
         id=row.id;
-        sumber[0].value=row.kode_sumber;
-        sumber[1].value=row.jenis;
+        bidang[0].value=row.keterangan
         fun.aksi=true;
     }
 
 
 
     fun.checkValidation=()=>{
-        if(sumber[0].value.length==0){
-            message="Kode Sumber Dana Masih Kosong";
+        if(bidang[0].value.length==0){
+            message="Bidang Masih Kosong";
             return true;
         }
-        if(sumber[1].value.length == 0){
-            message="Jenis Sumber Dana Masih Kosong";
-            return true;
-        }
+
     }
 
-    fun.saveSumberDana=()=>{
+    fun.saveBidang=()=>{
         var check=fun.checkValidation();
         if(check){
             swal({
@@ -75,10 +72,9 @@ app.controller("homeController", function($scope, service) {
             return;
         }
         var data={
-            kode_sumber:sumber[0].value,
-            jenis:sumber[1].value
+            keterangan:bidang[0].value
         };
-        service.createSumberDana(data,(res)=>{
+        service.createBidang(data,(res)=>{
             if(res.success){
                 swal({
                     text:responjson[0].sukses,
@@ -96,13 +92,12 @@ app.controller("homeController", function($scope, service) {
 
     }
 
-    fun.updateSumberDana=()=>{
+    fun.updateBidang=()=>{
         var data={
-            kode_sumber:sumber[0].value,
-            jenis:sumber[1].value
+           keterangan:bidang[0].value
         };
 
-        service.updateSumberDana(data,id,(res)=>{
+        service.updateBidang(data,id,(res)=>{
             if(res.success){
                 swal({
                     text:responjson[1].sukses,
@@ -120,7 +115,7 @@ app.controller("homeController", function($scope, service) {
     }
 
     fun.delete=(row)=>{
-        service.deleteSumberDana(row.id,(res)=>{
+        service.deleteBidang(row.id,(res)=>{
             if(res.success>0){
                 swal({
                     text:responjson[2].sukses,

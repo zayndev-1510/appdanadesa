@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class SumberdanaRequest extends FormRequest
+class BidangRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,10 @@ class SumberdanaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "jenis"=>["required","string","max:100"],
-            "kode_sumber"=>["required","string","max:10"]
+            "keterangan"=>["string","max:200","required"]
         ];
     }
+
      /**
      * Summary of failedValidation
      * @param \Illuminate\Contracts\Validation\Validator $validator

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\admin\master\BidangController;
 use App\Http\Controllers\api\admin\master\JabatanController;
 use App\Http\Controllers\api\admin\master\perangkatController;
 use App\Http\Controllers\api\admin\master\ProfilController;
@@ -56,6 +57,14 @@ Route::prefix("v1")->group(function(){
             route::post("/",[SumberdanaController::class,"save_data"]);
             route::put("/{id}",[SumberdanaController::class,"update_data"]);
             route::delete("/{id}",[SumberdanaController::class,"delete_data"]);
+        });
+
+        // Bidang
+        route::prefix("bidang")->group(function(){
+            route::get("/",[BidangController::class,"get_data"]);
+            route::post("/",[BidangController::class,"save_data"]);
+            route::put("/{id}",[BidangController::class,"update_data"]);
+            route::delete("/{id}",[BidangController::class,"delete_data"]);
         });
 
     });
