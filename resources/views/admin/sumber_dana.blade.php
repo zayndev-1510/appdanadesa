@@ -30,6 +30,7 @@
                                 <thead class="bg-light" style="font-size: 12px;">
                                     <tr class="text-center">
                                         <th>No</th>
+                                        <th>Kode</th>
                                         <th>Sumber Dana</th>
                                         <th>
                                             Aksi
@@ -39,6 +40,7 @@
                                 <tbody style="font-size: 12px">
                                     <tr class="text-center" ng-repeat="row in datasumber">
                                         <td>@{{ $index + 1 }}</td>
+                                        <td>@{{ row.kode_sumber}}</td>
                                         <td>@{{ row.jenis }}</td>
                                         <td>
                                             <span class="fa fa-edit" style="font-size: 20px;color: yellow;cursor: pointer;"
@@ -68,11 +70,18 @@
 
                     <!-- Modal body -->
                     <div class="modal-body">
+                       <div class="form">
+                        <div class="form-item">
+                            <input type="text" class="sumber forms-label">
+                            <label for="kode">Kode Sumber</label>
+                            <p ng-show="pass_new" class="poppins"><small style="color: red"> * </small> Wajib Di Isi</p>
+                        </div>
                         <div class="form-item">
                             <input type="text" class="sumber forms-label">
                             <label for="jenis">Jenis Sumber Dana</label>
                             <p ng-show="pass_new" class="poppins"><small style="color: red"> * </small> Wajib Di Isi</p>
                         </div>
+                       </div>
                     </div>
 
                     <!-- Modal footer -->

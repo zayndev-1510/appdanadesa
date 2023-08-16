@@ -24,7 +24,8 @@ class SumberdanaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "jenis"=>["required","string","max:100"]
+            "jenis"=>["required","string","max:100"],
+            "kode_sumber"=>["required","string","max:10"]
         ];
     }
      /**

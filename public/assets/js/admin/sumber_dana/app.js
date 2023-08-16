@@ -46,7 +46,8 @@ app.controller("homeController", function($scope, service) {
 
     fun.editData=(row)=>{
         id=row.id;
-        sumber[0].value=row.jenis;
+        sumber[0].value=row.kode_sumber;
+        sumber[1].value=row.jenis;
         fun.aksi=true;
     }
 
@@ -54,10 +55,13 @@ app.controller("homeController", function($scope, service) {
 
     fun.checkValidation=()=>{
         if(sumber[0].value.length==0){
+            message="Kode Sumber Dana Masih Kosong";
+            return true;
+        }
+        if(sumber[1].value.length == 0){
             message="Jenis Sumber Dana Masih Kosong";
             return true;
         }
-
     }
 
     fun.saveSumberDana=()=>{
@@ -71,7 +75,8 @@ app.controller("homeController", function($scope, service) {
             return;
         }
         var data={
-            jenis:sumber[0].value
+            kode_sumber:sumber[0].value,
+            jenis:sumber[1].value
         };
         service.createSumberDana(data,(res)=>{
             if(res.success){
@@ -93,7 +98,8 @@ app.controller("homeController", function($scope, service) {
 
     fun.updateSumberDana=()=>{
         var data={
-           jenis:sumber[0].value
+            kode_sumber:sumber[0].value,
+            jenis:sumber[1].value
         };
 
         service.updateSumberDana(data,id,(res)=>{

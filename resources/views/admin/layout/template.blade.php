@@ -145,58 +145,7 @@
 
                             </li>
                             {{--  --}}
-                            <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i
-                                        class="ti-layout-sidebar-left"></i><span>Data Akademik
-                                    </span></a>
-                                <ul class="collapse">
-                                    <li>
-                                        <a href="{{ url('admin/fakultas') }}">
-                                            <i class="ti-rss"></i>
-                                            <span>Fakultas</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('admin/jurusan') }}">
-                                            <i class="ti-user"></i>
-                                            <span>Jurusan</span></a>
-                                    </li>
-                                    <li><a href="{{ url('admin/mahasiswa') }}">
-                                            <i class="ti-book" aria-hidden="true"></i>
-                                            <span>Mahasiswa</span></a></li>
-                                    <li>
-                                        <a href="{{ url('admin/periode-kkn') }}">
-                                            <i class="ti-calendar"></i>
-                                            <span>Periode KKN</span></a>
-                                    </li>
-
-                                    <li>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li>
-                                <a href="#" aria-expanded="true"><i class="ti-calendar"></i><span> KKN
-                                    </span></a>
-                                <ul class="collapse">
-
-                                    <li>
-                                        <a href="{{ url('admin/calon-peserta-kkn') }}" aria-expanded="true">
-                                            <i class="ti-user"></i><span> Calon Peserta KKN </span></a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('admin/desa-kkn') }}" aria-expanded="true">
-                                            <i class="ti-user"></i><span> Desa KKN </span></a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('admin/dpl') }}" aria-expanded="true">
-                                            <i class="ti-user"></i><span> DPL KKN</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('admin/pengajar') }}" aria-expanded="true">
-                                            <i class="ti-user"></i><span> Grup Peserta KKN </span></a>
-                                    </li>
-                                </ul>
-                            </li>
+                        
                         </ul>
                     </nav>
                 </div>
