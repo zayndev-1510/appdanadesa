@@ -46,9 +46,12 @@ app.controller("homeController", function($scope, service) {
     }
 
     fun.editData=(row)=>{
+        const {keterangan,kode_bidang}=row;
         id=row.id;
-        bidang[0].value=row.keterangan
+        bidang[0].value=kode_bidang;
+        bidang[1].value=keterangan;
         fun.aksi=true;
+        fun.ket="Form Edit Bidang";
     }
 
 
@@ -72,7 +75,8 @@ app.controller("homeController", function($scope, service) {
             return;
         }
         var data={
-            keterangan:bidang[0].value
+            kode_bidang:bidang[0].value,
+            keterangan:bidang[1].value
         };
         service.createBidang(data,(res)=>{
             if(res.success){
@@ -94,7 +98,8 @@ app.controller("homeController", function($scope, service) {
 
     fun.updateBidang=()=>{
         var data={
-           keterangan:bidang[0].value
+            kode_bidang:bidang[0].value,
+            keterangan:bidang[1].value
         };
 
         service.updateBidang(data,id,(res)=>{

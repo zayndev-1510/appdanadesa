@@ -5,15 +5,16 @@
  */
 namespace App\Http\Repository\admin\master;
 
-use App\Http\Requests\admin\master\BidangRequest;
+use App\Http\Requests\admin\master\SubBidangRequest;
 use App\Models\master\BidangModel;
+use App\Models\master\SubBidangModel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 
-class BidangRepo
+class SubBidangRepo
 {
     /**
      * Summary of getData
@@ -23,7 +24,9 @@ class BidangRepo
     {
         try {
             // load data jabatan desa
-            $data = BidangModel::query()->get();
+            $data["sub_bidang"] = DB::table("bidang as b")->join("sub_bidang as sb", "b.id", "=", "sb.id_bidang")
+                ->selectRaw("sb.id,sb.id_bidang,b.kode_bidang,b.keterangan as bidang,sb.kode_sub_bidang,sb.keterangan as sub_bidang")->get();
+            $data["bidang"]=BidangModel::all();
             return response()->json(["message" => "success", "success" => true, "data" => $data], 200);
 
         } catch (\Throwable $th) {
@@ -31,11 +34,11 @@ class BidangRepo
         }
     }
 
-    public function saveData(BidangRequest $bidangRequest): JsonResponse
+    public function saveData(SubBidangRequest $bidangRequest): JsonResponse
     {
         try {
             // create data
-            BidangModel::query()->create($bidangRequest->validated());
+            SubBidangModel::query()->create($bidangRequest->validated());
             return response()->json(["message" => "success", "success" => true], 200);
 
         } catch (\Throwable $th) {
@@ -43,11 +46,11 @@ class BidangRepo
         }
     }
 
-    public function updateData(BidangRequest $bidangRequest, $id): JsonResponse
+    public function updateData(SubBidangRequest $bidangRequest, $id): JsonResponse
     {
         try {
             // validation id jabatan is valid do it update
-            BidangModel::query()->findOrFail($id)->update($bidangRequest->validated());
+            SubBidangModel::query()->findOrFail($id)->update($bidangRequest->validated());
 
             return response()->json(["message" => "success", "success" => true], 200);
         } catch (ModelNotFoundException $e) {
@@ -63,8 +66,7 @@ class BidangRepo
         try {
 
             // validation id  is valid or not
-            BidangModel::query()->findOrFail($id)->delete();
-
+            SubBidangModel::query()->findOrFail($id)->delete();
             return response()->json(["message" => "success", "success" => true], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(["message" => "invalid ID", "success" => false], 500);

@@ -2,15 +2,13 @@
 
 use App\Http\Controllers\api\admin\master\BidangController;
 use App\Http\Controllers\api\admin\master\JabatanController;
+use App\Http\Controllers\api\admin\master\KegiatanController;
 use App\Http\Controllers\api\admin\master\perangkatController;
 use App\Http\Controllers\api\admin\master\ProfilController;
+use App\Http\Controllers\api\admin\master\SubBidangController;
 use App\Http\Controllers\api\admin\master\SumberdanaController;
-use App\Http\Controllers\api\akademik\BerkasController;
-
-use App\Http\Controllers\api\akademik\BeritaController;
 use App\Http\Controllers\api\admin\LoginControllerAdmin;
 use Illuminate\Support\Facades\Route;
-use PHPUnit\Framework\Attributes\Group;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +63,22 @@ Route::prefix("v1")->group(function(){
             route::post("/",[BidangController::class,"save_data"]);
             route::put("/{id}",[BidangController::class,"update_data"]);
             route::delete("/{id}",[BidangController::class,"delete_data"]);
+        });
+
+         // Sub Bidang
+         route::prefix("sub_bidang")->group(function(){
+            route::get("/",[SubBidangController::class,"get_data"]);
+            route::post("/",[SubBidangController::class,"save_data"]);
+            route::put("/{id}",[SubBidangController::class,"update_data"]);
+            route::delete("/{id}",[SubBidangController::class,"delete_data"]);
+        });
+
+         // Kegiatan
+         route::prefix("kegiatan")->group(function(){
+            route::get("/",[KegiatanController::class,"get_data"]);
+            route::post("/",[KegiatanController::class,"save_data"]);
+            route::put("/{id}",[KegiatanController::class,"update_data"]);
+            route::delete("/{id}",[KegiatanController::class,"delete_data"]);
         });
 
     });
