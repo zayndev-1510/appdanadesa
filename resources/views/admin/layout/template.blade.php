@@ -139,13 +139,19 @@
                                             <span>Data Sub Bidang</span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="{{ url('admin/kegiatan') }}">
+                                            <i class="ti-home" aria-hidden="true"></i>
+                                            <span>Data Kegiatan</span>
+                                        </a>
+                                    </li>
 
                                 </ul>
                                 {{--  --}}
 
                             </li>
                             {{--  --}}
-                        
+
                         </ul>
                     </nav>
                 </div>

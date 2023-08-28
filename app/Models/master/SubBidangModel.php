@@ -5,15 +5,15 @@ namespace App\Models\master;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BidangModel extends Model
+class SubBidangModel extends Model
 {
     use HasFactory;
 
-    protected $table="bidang";
+    protected $table="sub_bidang";
     protected $primaryKey="id";
     public $timestamps=true;
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-    protected $fillable=["id","keterangan","kode_bidang"];
+    protected $fillable=["id","id_bidang","keterangan","kode_sub_bidang"];
 }

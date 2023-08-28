@@ -23,7 +23,7 @@
                                 <div class="s-report-inner pr--10 pt--30 mb-3">
                                     <div class="icon"><i class="ti-room"></i></div>
                                     <div class="s-report-title d-flex justify-content-between">
-                                        <h4 class="header-title mb-0">Mahasiswa</h4>
+                                        <h4 class="header-title mb-0">Jabatan</h4>
 
                                     </div>
                                     <div class="d-flex justify-content-between pb-2">
@@ -39,7 +39,7 @@
                                 <div class="s-report-inner pr--10 pt--30 mb-3">
                                     <div class="icon"><i class="ti-book"></i></div>
                                     <div class="s-report-title d-flex justify-content-between">
-                                        <h4 class="header-title mb-0">Alumni</h4>
+                                        <h4 class="header-title mb-0">Perangkat Desa</h4>
 
                                     </div>
                                     <div class="d-flex justify-content-between pb-2">
