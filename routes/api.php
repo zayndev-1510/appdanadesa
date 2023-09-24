@@ -1,9 +1,17 @@
 <?php
 
+use App\Http\Controllers\api\admin\master\anggaran\KegiatanAnggaranController;
 use App\Http\Controllers\api\admin\master\BidangController;
 use App\Http\Controllers\api\admin\master\JabatanController;
+use App\Http\Controllers\api\admin\master\JenisBelanja;
+use App\Http\Controllers\api\admin\master\JenisPendapatan;
 use App\Http\Controllers\api\admin\master\KegiatanController;
+use App\Http\Controllers\api\admin\master\KelompokBelanja;
+use App\Http\Controllers\api\admin\master\KelompokPendapatan;
+use App\Http\Controllers\api\admin\master\ObjekBelanja;
+use App\Http\Controllers\api\admin\master\ObjekPendapatan;
 use App\Http\Controllers\api\admin\master\perangkatController;
+use App\Http\Controllers\api\admin\master\PolaKegiatanController;
 use App\Http\Controllers\api\admin\master\ProfilController;
 use App\Http\Controllers\api\admin\master\SubBidangController;
 use App\Http\Controllers\api\admin\master\SumberdanaController;
@@ -46,7 +54,7 @@ Route::prefix("v1")->group(function(){
          // Profil
          route::prefix("profil-desa")->group(function(){
             route::get("/",[ProfilController::class,"get_data_profil_desa"]);
-            route::put("/{id}",[ProfilController::class,"update_data_profil_desa"]);
+            route::post("/{id}",[ProfilController::class,"update_data_profil_desa"]);
         });
 
         // Sumber Dana
@@ -79,6 +87,75 @@ Route::prefix("v1")->group(function(){
             route::post("/",[KegiatanController::class,"save_data"]);
             route::put("/{id}",[KegiatanController::class,"update_data"]);
             route::delete("/{id}",[KegiatanController::class,"delete_data"]);
+        });
+
+        // Pola Kegiatan
+        route::prefix("pola-kegiatan")->group(function(){
+            route::get("/",[PolaKegiatanController::class,"get_all"]);
+            route::post("/",[PolaKegiatanController::class,"save_data"]);
+            route::put("/{id}",[PolaKegiatanController::class,"update_data"]);
+            route::delete("/{id}",[PolaKegiatanController::class,"delete_data"]);
+        });
+
+         // Kelompok Belanja
+         route::prefix("kelompok-belanja")->group(function(){
+            route::get("/",[KelompokBelanja::class,"get_all"]);
+            route::post("/",[KelompokBelanja::class,"save_data"]);
+            route::put("/{id}",[KelompokBelanja::class,"update_data"]);
+            route::delete("/{id}",[KelompokBelanja::class,"delete_data"]);
+        });
+
+          // Jenis Belanja
+          route::prefix("jenis-belanja")->group(function(){
+            route::get("/",[JenisBelanja::class,"get_all"]);
+            route::post("/",[JenisBelanja::class,"save_data"]);
+            route::put("/{id}",[JenisBelanja::class,"update_data"]);
+            route::delete("/{id}",[JenisBelanja::class,"delete_data"]);
+        });
+
+           // Objek Belanja
+           route::prefix("objek-belanja")->group(function(){
+            route::get("/",[ObjekBelanja::class,"get_all"]);
+            route::post("/",[ObjekBelanja::class,"save_data"]);
+            route::put("/{id}",[ObjekBelanja::class,"update_data"]);
+            route::delete("/{id}",[ObjekBelanja::class,"delete_data"]);
+        });
+
+        // Kelompok Pendapatan
+        route::prefix("kelompok-pendapatan")->group(function(){
+            route::get("/",[KelompokPendapatan::class,"get_all"]);
+            route::post("/",[KelompokPendapatan::class,"save_data"]);
+            route::put("/{id}",[KelompokPendapatan::class,"update_data"]);
+            route::delete("/{id}",[KelompokPendapatan::class,"delete_data"]);
+        });
+
+          // Jenis Pendapatan
+          route::prefix("jenis-pendapatan")->group(function(){
+            route::get("/",[JenisPendapatan::class,"get_all"]);
+            route::post("/",[JenisPendapatan::class,"save_data"]);
+            route::put("/{id}",[JenisPendapatan::class,"update_data"]);
+            route::delete("/{id}",[JenisPendapatan::class,"delete_data"]);
+        });
+
+           // Objek Pendapatan
+           route::prefix("objek-pendapatan")->group(function(){
+            route::get("/",[ObjekPendapatan::class,"get_all"]);
+            route::post("/",[ObjekPendapatan::class,"save_data"]);
+            route::put("/{id}",[ObjekPendapatan::class,"update_data"]);
+            route::delete("/{id}",[ObjekPendapatan::class,"delete_data"]);
+        });
+
+         // Anggaran Kegiatan
+         route::prefix("anggaran-kegiatan")->group(function(){
+            route::get("/",[KegiatanAnggaranController::class,"get_all"]);
+            route::post("/",[KegiatanAnggaranController::class,"save_data"]);
+            route::put("/{id}",[KegiatanAnggaranController::class,"update_data"]);
+            route::delete("/{id}",[KegiatanAnggaranController::class,"delete_data"]);
+        });
+
+        // Tahun Anggaran
+        route::prefix("tahun-anggaran")->group(function(){
+            route::get("/",[KegiatanAnggaranController::class,"get_tahun_anggaran"]);
         });
 
     });

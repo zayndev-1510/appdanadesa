@@ -26,6 +26,26 @@
                                     Data</button>
                             </div>
                         </div>
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="col-4">
+                                <select class="form-control" ng-change="get_sub_bidang()" ng-model="id_bidangs">
+                                    <option value="">Pilih Bidang</option>
+                                    <option ng-repeat="row in data_bidang" value="@{{ row.id_bidang }}">
+                                        @{{ row.bidang }}</option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <select class="form-control" ng-model="id_sub_bidangs">
+                                    <option value="">Pilih Sub Bidang</option>
+                                    <option ng-repeat="row in data_sub_bidang" value="@{{ row.id }}">
+                                        @{{ row.sub_bidang }}</option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <button class="btn btn-success poppins" ng-click="get_kegiatan()"> Filter Data</button>
+                                <button class="btn btn-danger poppins" ng-click="loadData()"> Segarkan Data</button>
+                            </div>
+                        </div>
                         <div class="data-tab">
                             <table datatable="ng" class="table table-bordered table-jabatan">
                                 <thead class="bg-light" style="font-size: 12px;">
@@ -46,10 +66,15 @@
                                         <td>@{{ row.sub_bidang }}</td>
                                         <td>@{{ row.kegiatan }}</td>
                                         <td>
-                                            <span class="fa fa-edit" style="font-size: 20px;color: yellow;cursor: pointer;"
-                                                ng-click="editData(row)" data-toggle="modal" data-target="#myModal"></span>
-                                            <span class="fa fa-trash" style="font-size: 20px;color:red;cursor: pointer;"
-                                                ng-click="delete(row)"></span>
+                                           <div class="row">
+                                            <div class="col-5">
+                                                <button class="alert alert-info" ng-click="editData(row)"> Edit</button>
+                                            </div>
+                                            <div class="col-5">
+                                                <button class="alert alert-danger" ng-click="delete(row)"> Hapus</button>
+                                            </div>
+                                           </div>
+
                                         </td>
                                     </tr>
                                 </tbody>
@@ -75,9 +100,11 @@
                     <div class="modal-body">
 
                         <div class="form-item">
-                            <select class="bidang forms-label" name="id_bidang" ng-change="getSubBidang(id_bidang)" ng-model="id_bidang">
+                            <select class="bidang forms-label" name="id_bidang" ng-change="getSubBidang(id_bidang)"
+                                ng-model="id_bidang">
                                 <option value="">Pilih Bidang</option>
-                                <option value="@{{ row.id_bidang }}" ng-repeat="row in databidang">@{{ row.bidang }}
+                                <option value="@{{ row.id_bidang }}" ng-repeat="row in databidang">
+                                    @{{ row.bidang }}
                                 </option>
                             </select>
                             <label for="bidang">Bidang</label>
@@ -85,7 +112,8 @@
                         </div>
                         <div class="form-item">
                             <select class="bidang forms-label" name="id_sub_bidang">
-                                <option value="@{{ row.id }}" ng-repeat="row in subbidangs">@{{ row.sub_bidang }}
+                                <option value="@{{ row.id }}" ng-repeat="row in subbidangs">
+                                    @{{ row.sub_bidang }}
                                 </option>
                             </select>
                             <label for="bidang">Sub Bidang</label>

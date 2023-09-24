@@ -15,5 +15,5 @@ class ProfilDesaModel extends Model
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-    protected $fillable=["id","provinsi","kecamatan","kabupaten","desa","id_pengisi"];
+    protected $fillable=["id","provinsi","kecamatan","kabupaten","desa","id_pengisi","foto"];
 }
