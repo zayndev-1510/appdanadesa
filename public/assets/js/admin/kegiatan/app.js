@@ -12,6 +12,8 @@ app.controller("homeController", function ($scope, service) {
     var message = "";
     var id = 0;
     var data = {};
+    var data_bidang=[];
+    var data_kegiatan=[];
     var bidang = document.getElementsByClassName("bidang");
 
     var responjson = [
@@ -25,18 +27,32 @@ app.controller("homeController", function ($scope, service) {
     fun.loadData = () => {
         service.dataKegiatan((res) => {
             fun.databidang = res.data.sub_bidang;
+            fun.data_bidang=res.data.sub_bidang;
+            data_bidang=res.data.sub_bidang;
             fun.datakegiatan = res.data.kegiatan;
+            data_kegiatan=res.data.kegiatan;
         })
     }
 
     fun.loadData();
 
+    fun.get_sub_bidang=()=>{
+        const filter=data_bidang.filter(value=>{
+            return value.id_bidang==fun.id_bidangs;
+        })
+        fun.data_sub_bidang=filter[0].sub_bidangs;
+    }
+    fun.get_kegiatan=()=>{
+        const filter=data_kegiatan.filter(value=>{
+            return value.id_sub_bidang==fun.id_sub_bidangs;
+        })
+        fun.datakegiatan=filter[0];
+    }
     fun.clearText = () => {
         for (var i = 0; i < bidang.length; i++) {
             bidang[i].value = "";
         }
     }
-
     fun.tambahData = () => {
         fun.aksi = false;
         fun.ket = "Form Tambah Kegiatan";

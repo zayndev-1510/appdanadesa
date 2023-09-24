@@ -70,7 +70,7 @@
             <div class="sidebar-header" style="background-color: #483D8B;color:white;">
                 <div class="logo">
 
-                    <p style="color: white;font-weight: bolder;">{{$data->title}}</p>
+                    <p style="color: white;font-weight: bolder;">{{ $data->title }}</p>
 
                 </div>
             </div>
@@ -93,58 +93,169 @@
                                 {{-- // Sub Menu Data Master --}}
                                 <ul class="collapse">
 
-                                    {{-- // Menu Data Jabatan --}}
-                                    <li>
-                                        <a href="{{ url('admin/jabatan') }}">
-                                            <i class="ti-user" aria-hidden="true"></i>
-                                            <span>Data Jabatan</span>
-                                        </a>
-                                    </li>
-                                    {{--  --}}
-
                                     {{-- // Data Perangkat Desa --}}
                                     <li>
-                                        <a href="{{ url('admin/dosen') }}">
+                                        <a href="{{ url('admin/perangkat-desa') }}">
                                             <i class="ti-user" aria-hidden="true"></i>
-                                            <span>Data Perangkat Desa</span>
+                                            <span>Pembelanjaan Desa</span>
                                         </a>
+                                        {{-- // Sub Menu Data Master --}}
+                                        <ul class="collapse">
+                                            {{-- // Menu Data Jabatan --}}
+                                            <li>
+                                                <a href="{{ url('admin/kelompok-belanja') }}">
+                                                    <i class="ti-user" aria-hidden="true"></i>
+                                                    <span>Data Kelompok</span>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="{{ url('admin/jenis-belanja') }}">
+                                                    <i class="ti-user" aria-hidden="true"></i>
+                                                    <span>Data Jenis</span>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="{{ url('admin/objek-belanja') }}">
+                                                    <i class="ti-user" aria-hidden="true"></i>
+                                                    <span>Data Objek</span>
+                                                </a>
+                                            </li>
+                                            {{--  --}}
+
+                                        </ul>
                                     </li>
+
+                                      {{-- // Data Perangkat Desa --}}
+                                      <li>
+                                        <a href="{{ url('admin/perangkat-desa') }}">
+                                            <i class="ti-user" aria-hidden="true"></i>
+                                            <span>Pendapatan Desa</span>
+                                        </a>
+                                        {{-- // Sub Menu Data Master --}}
+                                        <ul class="collapse">
+                                            {{-- // Menu Data Jabatan --}}
+                                            <li>
+                                                <a href="{{ url('admin/kelompok-pendapatan') }}">
+                                                    <i class="ti-user" aria-hidden="true"></i>
+                                                    <span>Data Kelompok</span>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="{{ url('admin/jenis-pendapatan') }}">
+                                                    <i class="ti-user" aria-hidden="true"></i>
+                                                    <span>Data Jenis</span>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="{{ url('admin/objek-pendapatan') }}">
+                                                    <i class="ti-user" aria-hidden="true"></i>
+                                                    <span>Data Objek</span>
+                                                </a>
+                                            </li>
+                                            {{--  --}}
+
+                                        </ul>
+                                    </li>
+
+
                                     {{--  --}}
 
                                     {{-- // Data Profil Desa --}}
                                     <li>
                                         <a href="{{ url('admin/profil-desa') }}">
                                             <i class="ti-home" aria-hidden="true"></i>
-                                            <span>Data Profil Desa</span>
+                                            <span>Data Desa</span>
                                         </a>
+
+                                        <ul class="collapse">
+
+                                            {{-- // Menu Data Jabatan --}}
+                                            <li>
+                                                <a href="{{ url('admin/profil-desa') }}">
+                                                    <i class="ti-user" aria-hidden="true"></i>
+                                                    <span>Profil</span>
+                                                </a>
+                                            </li>
+
+
+                                            {{-- // Menu Data Jabatan --}}
+                                            <li>
+                                                <a href="{{ url('admin/jabatan') }}">
+                                                    <i class="ti-user" aria-hidden="true"></i>
+                                                    <span>Jabatan</span>
+                                                </a>
+                                            </li>
+                                            {{--  --}}
+
+                                            {{-- // Data Perangkat Desa --}}
+                                            <li>
+                                                <a href="{{ url('admin/perangkat-desa') }}">
+                                                    <i class="ti-user" aria-hidden="true"></i>
+                                                    <span>Perangkat Desa</span>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     {{--  --}}
 
                                     <li>
                                         <a href="{{ url('admin/sumber-dana') }}">
-                                            <i class="ti-home" aria-hidden="true"></i>
+                                            <i class="ti-money" aria-hidden="true"></i>
                                             <span>Data Sumber Dana</span>
                                         </a>
                                     </li>
 
                                     <li>
                                         <a href="{{ url('admin/bidang') }}">
-                                            <i class="ti-home" aria-hidden="true"></i>
+                                            <i class="ti-package" aria-hidden="true"></i>
                                             <span>Data Bidang</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="{{ url('admin/sub-bidang') }}">
-                                            <i class="ti-home" aria-hidden="true"></i>
+                                            <i class="ti-package" aria-hidden="true"></i>
                                             <span>Data Sub Bidang</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="{{ url('admin/kegiatan') }}">
-                                            <i class="ti-home" aria-hidden="true"></i>
+                                            <i class="ti-calendar" aria-hidden="true"></i>
                                             <span>Data Kegiatan</span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="{{ url('admin/pola-kegiatan') }}">
+                                            <i class="ti-calendar" aria-hidden="true"></i>
+                                            <span>Data Pola Kegiatan</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                                {{--  --}}
+
+                            </li>
+                            {{--  --}}
+
+                            {{-- // Navigation Data Master --}}
+                            <li>
+                                <a href="#" aria-expanded="true"><i class="ti-calendar"></i><span>Penganggaran
+                                    </span></a>
+
+                                {{-- // Sub Menu Data Master --}}
+                                <ul class="collapse">
+                                    {{-- // Menu Data Jabatan --}}
+                                    <li>
+                                        <a href="{{ url('admin/anggaran-kegiatan') }}">
+                                            <i class="ti-user" aria-hidden="true"></i>
+                                            <span>RAB DESA </span>
+                                        </a>
+                                    </li>
+
+                                    {{--  --}}
 
                                 </ul>
                                 {{--  --}}
@@ -275,7 +386,8 @@
         <!-- footer area start-->
         <footer>
             <div class="footer-area">
-                <p class="poppins">© Copyright 2018. All right reserved. Template by <a href="">IT KREATIF</a>.</p>
+                <p class="poppins">© Copyright 2018. All right reserved. Template by <a href="">IT KREATIF</a>.
+                </p>
             </div>
         </footer>
         <!-- footer area end-->
@@ -288,9 +400,9 @@
     <script src="{{ asset('assets/js/plugins.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
     <script>
-        var URL_API="<?php echo getenv("URL_API");?>";
-        var URL_FILE="<?php echo getenv("URL_FILE");?>";
-        var URL_APP="<?php echo getenv("URL_APP");?>";
+        var URL_API = "<?php echo getenv('URL_API'); ?>";
+        var URL_FILE = "<?php echo getenv('URL_FILE'); ?>";
+        var URL_APP = "<?php echo getenv('URL_APP'); ?>";
     </script>
 
     @yield('javascript')

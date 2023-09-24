@@ -1,5 +1,30 @@
 app.service("service", ["$http", function($http) {
 
+
+    this.dataBidang = function(callback) {
+        $http({
+            url: URL_API+"bidang",
+            method: "GET"
+        }).then(function(e) {
+
+            callback(e.data);
+        }).catch(function(err) {
+
+        });
+    }
+
+    this.dataSubBidang = function(callback) {
+        $http({
+            url: URL_API+"sub_bidang",
+            method: "GET"
+        }).then(function(e) {
+
+            callback(e.data);
+        }).catch(function(err) {
+
+        });
+    }
+
     this.dataKegiatan = function(callback) {
         $http({
             url: URL_API+"kegiatan",

@@ -11,17 +11,23 @@ app.service("service", ["$http", function($http) {
 
         });
     }
-    this.updateProfilDesa = function(obj,id,callback) {
+    this.updateProfilDesa = function(fd,id,callback) {
         $http({
-            url: URL_API+"profil-desa/"+id,
-            method: "PUT",
-            data:obj
-        }).then(function(e) {
-
+            url: URL_API + "profil-desa/"+id,
+            method: "POST",
+            data: fd,
+            headers: {
+                'Content-Type': undefined
+            },
+        }).then(function successCallback(e) {
             callback(e.data);
-        }).catch(function(err) {
-
+        }).catch(function (err) {
+            callback(err);
         });
+    }
+
+    this.uploadFotoMahasiswa=function(fd, id,callback) {
+
     }
 
 }]);

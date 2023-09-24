@@ -18,71 +18,95 @@
                     <div class="card-body" id="tabel-toko">
                         <div class="row" style="margin-bottom: 10px;">
                             <div class="col-12">
-                               <h4 class="text-center">Profil Desa</h4>
+                                <h4 class="text-center">Profil Desa</h4>
                             </div>
                         </div>
                         <div class="data-tab">
 
-                            {{-- // form profil desa --}}
-                            <div class="form">
-                                <div class="form-item">
-                                <input type="text" class="profil-desa forms-label" value="@{{ provinsi }}">
-                                <label for="provinsi">Provinsi</label>
-                                </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    {{-- // form profil desa --}}
+                                    <div class="form">
+                                        <div class="form-item">
+                                            <input type="text" class="profil-desa forms-label"
+                                                value="@{{ provinsi }}">
+                                            <label for="provinsi">Provinsi</label>
+                                        </div>
 
-                                <div class="form-item">
-                                    <input type="text"" class="profil-desa  forms-label" value="@{{ kecamatan}}">
-                                    <label for="kecamatan">Kecamatan</label>
-                                </div>
+                                        <div class="form-item">
+                                            <input type="text"" class="profil-desa  forms-label"
+                                                value="@{{ kecamatan }}">
+                                            <label for="kecamatan">Kecamatan</label>
+                                        </div>
 
-                                <div class="form-item">
-                                    <input type="text" class="profil-desa  forms-label" value="@{{ kabupaten }}">
-                                    <label for="kabupaten">Kabupaten</label>
-                                </div>
+                                        <div class="form-item">
+                                            <input type="text" class="profil-desa  forms-label"
+                                                value="@{{ kabupaten }}">
+                                            <label for="kabupaten">Kabupaten</label>
+                                        </div>
 
-                                <div class="form-item">
-                                    <input type="text" class="profil-desa  forms-label" value="@{{desa}}">
-                                    <label for="desa">Kelurahan/Desa</label>
+                                        <div class="form-item">
+                                            <input type="text" class="profil-desa  forms-label"
+                                                value="@{{ desa }}">
+                                            <label for="desa">Kelurahan/Desa</label>
+                                        </div>
+
+                                        <div class="form-item">
+                                            <select class="forms-label profil-desa ">
+                                                <option ng-repeat="row in dataperangkat" value="@{{ row.id }}">
+                                                    @{{ row.nama_lengkap }}</option>
+                                            </select>
+                                            <label for="username">Nama Pengisi</label>
+                                        </div>
+                                        <div class="form-item">
+                                            <input type="text" class="profil-desa  forms-label"
+                                                value="@{{ jabatan }}">
+                                            <label for="jabatan">Jabatan</label>
+                                        </div>
+                                    </div>
+                                    {{--  --}}
                                 </div>
-                                <div class="form-item">
-                                    <select class="forms-label profil-desa ">
-                                        <option ng-repeat="row in dataperangkat" value="@{{row.id}}">@{{row.nama_lengkap}}</option>
-                                    </select>
-                                    <label for="username">Nama Pengisi</label>
-                                </div>
-                                <div class="form-item">
-                                    <input type="text" class="profil-desa  forms-label" value="@{{ jabatan }}">
-                                    <label for="jabatan">Jabatan</label>
+                                <div class="col-md-4">
+                                    <div class="image-desa">
+                                        <img src="http://localhost:8000/default.jpg" id="load_image" />
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input type="file" name="file" id="file" style="display: none;" />
+                                            <button class="btn btn-primary btn-block" ng-click="openLogo()">Pilih
+                                                Logo</button>
+                                            <p class="poppins">File ektension harus format JPG,jpeg,png</p>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-                        {{--  --}}
 
-                        {{-- // button --}}
-                        <div class="row">
-                            <div class="col-10">
-                                <button class="btn btn-primary" ng-click="updateProfil()">Perbarui</button>
+                            {{-- // button --}}
+                            <div class="row">
+                                <div class="col-10">
+                                    <button class="btn btn-primary" ng-click="updateProfil()">Perbarui</button>
+                                </div>
                             </div>
+                            {{--  --}}
                         </div>
-                        {{--  --}}
                     </div>
                 </div>
+
             </div>
-
         </div>
-    </div>
 
-    <div id="cover-spin">
-        <div class="modal-message">
-            <h2 class="animate">Loading</h2>
+        <div id="cover-spin">
+            <div class="modal-message">
+                <h2 class="animate">Loading</h2>
+            </div>
         </div>
-    </div>
-
-@endsection
-@section('javascript')
-    <script src="{{ asset('assets/angularjs/angular.min.js') }}"></script>
-    <script src="{{ asset('assets/angularjs/angular-route.min.js') }}"></script>
-    <script src="{{ asset('assets/angularjs/angular-datatables.min.js') }}"></script>
-    <script src="{{ asset('assets/angularjs/sweetalert.min.js') }}"></script>
-    <script src="{{ asset('assets/js/admin/profil/app.js') }}"></script>
-    <script src="{{ asset('assets/js/admin/profil/service.js') }}"></script>
-@endsection
+    @endsection
+    @section('javascript')
+        <script src="{{ asset('assets/angularjs/angular.min.js') }}"></script>
+        <script src="{{ asset('assets/angularjs/angular-route.min.js') }}"></script>
+        <script src="{{ asset('assets/angularjs/angular-datatables.min.js') }}"></script>
+        <script src="{{ asset('assets/angularjs/sweetalert.min.js') }}"></script>
+        <script src="{{ asset('assets/js/admin/profil/app.js') }}"></script>
+        <script src="{{ asset('assets/js/admin/profil/service.js') }}"></script>
+    @endsection
