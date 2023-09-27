@@ -169,9 +169,16 @@ class PageController extends Controller
         return view("admin.pendapatan.objek", compact("data", "datalogin"));
     }
 
-    function pageAnggaranKegiatan(){
+    function pageAnggaranKegiatan()
+    {
         [$data, $datalogin] = self::getResultData("Data Anggaran Kegiatan");
         return view("admin.penganggaran.kegiatan", compact("data", "datalogin"));
+    }
+
+    function pageRap()
+    {
+        [$data, $datalogin] = self::getResultData("Rencana Anggaran Pendapatan");
+        return view("admin.pendapatan.rap", compact("data", "datalogin"));
     }
 
 

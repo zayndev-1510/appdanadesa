@@ -5,27 +5,25 @@
  */
 namespace App\Http\Repository\admin\master;
 
-use App\Http\Requests\admin\master\ObjekPendapatanRequest;
-use App\Models\master\ObjekPendapatanModel;
+use App\Http\Requests\admin\master\RapRequest;
+use App\Models\master\RapModel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 
-class ObjekPendapatanRepo
+class RapRepo
 {
-
     public function getAll(): JsonResponse
     {
         try {
-            $data["objek"] = DB::table("objek_pendapatan_desa as obd")
-                ->join("kelompok_pendapatan_desa as kbd", "kbd.id", "=", "obd.id_kelompok")
-                ->join("jenis_pendapatan_desa as jbd", "jbd.id", "=", "obd.id_jenis")
-                ->selectRaw("obd.id,obd.id_kelompok,obd.id_jenis,obd.kode,
-                kbd.kode as kode_kelompok,jbd.kode as kode_jenis,
-                obd.keterangan,kbd.keterangan as ket_kelompok,jbd.keterangan as ket_jenis")
-                ->get();
-            $data["kelompok"] = DB::table("kelompok_pendapatan_desa")->selectRaw("*")->get();
-            $data["jenis"] = DB::table("jenis_pendapatan_desa")->selectRaw("*")->get();
+            $data = DB::table("rap")->
+                join("objek_pendapatan_desa as op", "op.id", "=", "rap.id_objek")
+                ->join("jenis_pendapatan_desa as jp", "jp.id", "=", "op.id_jenis")
+                ->join("kelompok_pendapatan_desa as kp", "kp.id", "=", "op.id_kelompok")
+                ->selectRaw("rap.id,rap.id_objek,op.kode as kode_objek,
+                jp.kode as kode_jenis,kp.kode as kode_kelompok,
+                op.keterangan as rincian,rap.total as anggaran,rap.created_at,rap.updated_at")->get();
+
             return response()->json(
                 [
                     "message" => "Success",
@@ -41,10 +39,10 @@ class ObjekPendapatanRepo
         }
     }
 
-    public function save(ObjekPendapatanRequest $req): JsonResponse
+    public function save(RapRequest $req): JsonResponse
     {
         try {
-            ObjekPendapatanModel::query()->create($req->validated());
+            RapModel::query()->create($req->validated());
             return response()->json(
                 [
                     "message" => "Success",
@@ -53,16 +51,16 @@ class ObjekPendapatanRepo
             );
         } catch (\Throwable $th) {
             return response()->json([
-                "message" => "Error " . $th->getMessage(),
+                "message" => "Error",
                 "success" => false
             ]);
         }
     }
 
-    public function update(ObjekPendapatanRequest $req, $id): JsonResponse
+    public function update(RapRequest $req, $id): JsonResponse
     {
         try {
-            ObjekPendapatanModel::query()->findOrFail($id)->update($req->validated());
+            RapModel::query()->findOrFail($id)->update($req->validated());
             return response()->json(
                 [
                     "message" => "Success",
@@ -85,7 +83,7 @@ class ObjekPendapatanRepo
     public function delete($id): JsonResponse
     {
         try {
-            ObjekPendapatanModel::query()->findOrFail($id)->delete();
+            RapModel::query()->findOrFail($id)->delete();
             return response()->json(
                 [
                     "message" => "Success",
@@ -104,5 +102,4 @@ class ObjekPendapatanRepo
             ]);
         }
     }
-
 }

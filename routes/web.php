@@ -49,6 +49,8 @@ Route::middleware(["auth", "checkrole:admin"])->prefix("admin")->group(function 
     Route::get("kelompok-pendapatan", [PageController::class, "pageKelompokPendapatan"]);
     Route::get("jenis-pendapatan", [PageController::class, "pageJenisPendapatan"]);
     Route::get("objek-pendapatan", [PageController::class, "pageObjekPendapatan"]);
+    Route::get("rap", [PageController::class, "pageRap"]);
+
 
     // anggaran kegiatan
     Route::get("anggaran-kegiatan", [PageController::class, "pageAnggaranKegiatan"]);

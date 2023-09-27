@@ -19,7 +19,7 @@ app.controller("homeController", function ($scope, service) {
         fun.table = true;
         fun.form = false;
         service.get_all(res => {
-            fun.objekdata = res.data;
+            fun.objekdata = res.data.objek;
         });
     }
 

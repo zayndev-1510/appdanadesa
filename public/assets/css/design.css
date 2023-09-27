@@ -453,6 +453,25 @@ html {
     color: blue
 }
 
+/* Show label above input when it's disabled or readonly */
+.form-item input[disabled]+label,
+.form-item input[readonly]+label {
+    color: blue;
+    top: -5px;
+    font-size: 13px;
+    /* Adjust this value to position the label as needed */
+}
+
+.form-item .forms-label:focus+label,
+.form-item .forms-label:valid+label {
+    font-size: 13px;
+    top: -5px;
+}
+
+.form-item .forms-label:focus+label {
+    color: blue;
+}
+
 .table-perangkat {
     font-family: myfont;
     font-weight: 800;
@@ -468,8 +487,14 @@ html {
     margin: auto;
     text-align: center;
 }
-.image-desa img{
+
+.image-desa img {
     height: 200px;
-    width: 200px;;
+    width: 200px;
+    ;
+}
+
+.margin-table-top {
+    margin-top: 10px;
 
 }
