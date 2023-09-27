@@ -233,14 +233,31 @@
                                             <span>Data Pola Kegiatan</span>
                                         </a>
                                     </li>
-
                                 </ul>
                                 {{--  --}}
 
                             </li>
                             {{--  --}}
 
-                            {{-- // Navigation Data Master --}}
+                              {{-- // Navigation Data Pendapatan --}}
+                              <li>
+                                <a href="#" aria-expanded="true"><i class="ti-calendar"></i><span>Pendapatan
+                                    </span></a>
+                                    <ul class="collapse">
+                                        {{-- // Menu Data Jabatan --}}
+                                        <li>
+                                            <a href="{{ url('admin/rap') }}">
+                                                <i class="ti-user" aria-hidden="true"></i>
+                                                <span>RAP DESA </span>
+                                            </a>
+                                        </li>
+
+                                        {{--  --}}
+
+                                    </ul>
+                            </li>
+
+                            {{-- // Navigation Data Penganggaran --}}
                             <li>
                                 <a href="#" aria-expanded="true"><i class="ti-calendar"></i><span>Penganggaran
                                     </span></a>

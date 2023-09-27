@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\admin\master\anggaran\KegiatanAnggaranController;
 use App\Http\Controllers\api\admin\master\BidangController;
+use App\Http\Controllers\api\admin\master\DetailRapController;
 use App\Http\Controllers\api\admin\master\JabatanController;
 use App\Http\Controllers\api\admin\master\JenisBelanja;
 use App\Http\Controllers\api\admin\master\JenisPendapatan;
@@ -13,6 +14,7 @@ use App\Http\Controllers\api\admin\master\ObjekPendapatan;
 use App\Http\Controllers\api\admin\master\perangkatController;
 use App\Http\Controllers\api\admin\master\PolaKegiatanController;
 use App\Http\Controllers\api\admin\master\ProfilController;
+use App\Http\Controllers\api\admin\master\RapController;
 use App\Http\Controllers\api\admin\master\SubBidangController;
 use App\Http\Controllers\api\admin\master\SumberdanaController;
 use App\Http\Controllers\api\admin\LoginControllerAdmin;
@@ -156,6 +158,24 @@ Route::prefix("v1")->group(function(){
         // Tahun Anggaran
         route::prefix("tahun-anggaran")->group(function(){
             route::get("/",[KegiatanAnggaranController::class,"get_tahun_anggaran"]);
+        });
+
+        // Rencana Anggaran Pendapatan
+        route::prefix("rap")->group(function(){
+            route::get("/",[RapController::class,"get_all"]);
+            route::post("/",[RapController::class,"save_data"]);
+            route::put("/{id}",[RapController::class,"update_data"]);
+            route::delete("/{id}",[RapController::class,"delete_data"]);
+        });
+
+        // Detail Rencana Anggaran Pendapatan
+        route::prefix("detail-rap")->group(function(){
+            route::get("/",[DetailRapController::class,"get_all"]);
+            route::post("/",[DetailRapController::class,"save_data"]);
+            route::put("/{id}",[DetailRapController::class,"update_data"]);
+            route::delete("/{id}",[DetailRapController::class,"delete_data"]);
+            route::get("check_nomor_urut/{id}",[DetailRapController::class,"check_nomor_urut"]);
+
         });
 
     });
