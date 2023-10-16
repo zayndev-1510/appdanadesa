@@ -6,7 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Login Akun</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/icon/icon website.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('uploads/'.$data["pengaturan"]->logo_login) }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/themify-icons.css') }}">
@@ -51,10 +51,10 @@
                 <form ng-submit="loginAkun()" method="POST">
                     @csrf
                     <div class="login-form-head">
-                        <img src="{{ asset('other/logo.jpg') }}" class="img-responsive" style="width: 150px;height:150px;">
+                        <img src="{{ asset('uploads/'.$data["pengaturan"]->logo_login) }}" class="img-responsive" style="width: 150px;height:150px;">
                     </div>
                     <div class="login-form-body" style="margin-top: -50px;">
-                        <h4 class="text-center" style="margin-bottom: 20px;">{{$message}}</h4>
+                        <h4 class="text-center" style="margin-bottom: 20px;">{{$data["message"]}}</h4>
 
                             <div class="form-gp">
 

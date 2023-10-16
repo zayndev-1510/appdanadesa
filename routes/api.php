@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\admin\master\anggaran\DetailAnggaranController;
 use App\Http\Controllers\api\admin\master\anggaran\KegiatanAnggaranController;
 use App\Http\Controllers\api\admin\master\BidangController;
 use App\Http\Controllers\api\admin\master\DetailRapController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\api\admin\master\perangkatController;
 use App\Http\Controllers\api\admin\master\PolaKegiatanController;
 use App\Http\Controllers\api\admin\master\ProfilController;
 use App\Http\Controllers\api\admin\master\RapController;
+use App\Http\Controllers\api\admin\master\SettingController;
 use App\Http\Controllers\api\admin\master\SubBidangController;
 use App\Http\Controllers\api\admin\master\SumberdanaController;
 use App\Http\Controllers\api\admin\LoginControllerAdmin;
@@ -155,6 +157,14 @@ Route::prefix("v1")->group(function(){
             route::delete("/{id}",[KegiatanAnggaranController::class,"delete_data"]);
         });
 
+        // Detail Anggaran Kegiatan
+        route::prefix("detail-kegiatan")->group(function(){
+            route::get("/{id}",[DetailAnggaranController::class,"get_all"]);
+            route::post("/",[DetailAnggaranController::class,"save_data"]);
+            route::put("/{id}",[DetailAnggaranController::class,"update_data"]);
+            route::delete("/{id}",[DetailAnggaranController::class,"delete_data"]);
+        });
+
         // Tahun Anggaran
         route::prefix("tahun-anggaran")->group(function(){
             route::get("/",[KegiatanAnggaranController::class,"get_tahun_anggaran"]);
@@ -175,9 +185,17 @@ Route::prefix("v1")->group(function(){
             route::put("/{id}",[DetailRapController::class,"update_data"]);
             route::delete("/{id}",[DetailRapController::class,"delete_data"]);
             route::get("check_nomor_urut/{id}",[DetailRapController::class,"check_nomor_urut"]);
-
         });
 
+        // Detail Rencana Anggaran Pendapatan
+        route::prefix("setting")->group(function(){
+            route::get("/",[SettingController::class,"get_all"]);
+            route::post("/",[SettingController::class,"update_data"]);
+        });
+
+        route::prefix("get-form")->group(function(){
+            route::get("/",[DetailAnggaranController::class,"get_form"]);
+        });
     });
 
 });

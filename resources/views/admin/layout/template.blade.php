@@ -6,7 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>SISTEM INFORMASI AKADEMIK TK</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/icon/icon website.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('uploads/'.$data->logo_rel) }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/themify-icons.css') }}">
@@ -127,8 +127,8 @@
                                         </ul>
                                     </li>
 
-                                      {{-- // Data Perangkat Desa --}}
-                                      <li>
+                                    {{-- // Data Perangkat Desa --}}
+                                    <li>
                                         <a href="{{ url('admin/perangkat-desa') }}">
                                             <i class="ti-user" aria-hidden="true"></i>
                                             <span>Pendapatan Desa</span>
@@ -239,22 +239,22 @@
                             </li>
                             {{--  --}}
 
-                              {{-- // Navigation Data Pendapatan --}}
-                              <li>
+                            {{-- // Navigation Data Pendapatan --}}
+                            <li>
                                 <a href="#" aria-expanded="true"><i class="ti-calendar"></i><span>Pendapatan
                                     </span></a>
-                                    <ul class="collapse">
-                                        {{-- // Menu Data Jabatan --}}
-                                        <li>
-                                            <a href="{{ url('admin/rap') }}">
-                                                <i class="ti-user" aria-hidden="true"></i>
-                                                <span>RAP DESA </span>
-                                            </a>
-                                        </li>
+                                <ul class="collapse">
+                                    {{-- // Menu Data Jabatan --}}
+                                    <li>
+                                        <a href="{{ url('admin/rap') }}">
+                                            <i class="ti-user" aria-hidden="true"></i>
+                                            <span>RAP DESA </span>
+                                        </a>
+                                    </li>
 
-                                        {{--  --}}
+                                    {{--  --}}
 
-                                    </ul>
+                                </ul>
                             </li>
 
                             {{-- // Navigation Data Penganggaran --}}
@@ -268,6 +268,39 @@
                                     <li>
                                         <a href="{{ url('admin/anggaran-kegiatan') }}">
                                             <i class="ti-user" aria-hidden="true"></i>
+                                            <span>RAK DESA </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('admin/detail-kegiatan') }}">
+                                            <i class="ti-user" aria-hidden="true"></i>
+                                            <span>Detail RAK DESA </span>
+                                        </a>
+                                    </li>
+
+                                    {{--  --}}
+
+                                </ul>
+                                {{--  --}}
+
+                            </li>
+                            {{-- // Navigation Data Penganggaran --}}
+                            <li>
+                                <a href="#" aria-expanded="true"><i class="ti-calendar"></i><span>Laporan
+                                    </span></a>
+
+                                {{-- // Sub Menu Data Master --}}
+                                <ul class="collapse">
+                                    <li>
+                                        <a href="{{ url('admin/rap') }}">
+                                            <i class="ti-user" aria-hidden="true"></i>
+                                            <span>RAP DESA </span>
+                                        </a>
+                                    </li>
+                                    {{-- // Menu Data Jabatan --}}
+                                    <li>
+                                        <a href="{{ url('admin/anggaran-kegiatan') }}">
+                                            <i class="ti-user" aria-hidden="true"></i>
                                             <span>RAB DESA </span>
                                         </a>
                                     </li>
@@ -277,6 +310,10 @@
                                 </ul>
                                 {{--  --}}
 
+                            </li>
+                            <li>
+                                <a href="pengaturan" aria-expanded="true"><i class="ti-settings"></i><span>Pengaturan
+                                    </span></a>
                             </li>
                             {{--  --}}
 

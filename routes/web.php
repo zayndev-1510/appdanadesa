@@ -1,7 +1,7 @@
 <?php
 use App\Http\Controllers\admin\PageController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\admin\LoginControllerAdmin;
+use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\Controller\ErrorController;
 
 /*
@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Controller\ErrorController;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
+ */
 
 // route login admin with check middleware already login
 Route::get("/", [PageController::class, "pageLogin"])->name("login")->middleware(["guest"]);
@@ -51,9 +51,11 @@ Route::middleware(["auth", "checkrole:admin"])->prefix("admin")->group(function 
     Route::get("objek-pendapatan", [PageController::class, "pageObjekPendapatan"]);
     Route::get("rap", [PageController::class, "pageRap"]);
 
-
     // anggaran kegiatan
     Route::get("anggaran-kegiatan", [PageController::class, "pageAnggaranKegiatan"]);
+    Route::get("detail-kegiatan", [PageController::class, "pageDetailKegiatan"]);
 
+    // Pengaturan
+    Route::get("pengaturan", [PageController::class, "pageSetting"]);
 
 });

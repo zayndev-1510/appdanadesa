@@ -1,0 +1,10 @@
+[
+    { "label": "fisik-pembangunan" },
+    { "label": "fisik-peningkatan" },
+    { "label": "fisik-rehabilitasi" },
+    { "label": "fisik-pengadaan" },
+    { "label": "fisik-pemeliharaan" },
+    { "label": "non fisik pelatihan" },
+    { "label": "non fisik-bimtek" },
+    { "label": "non fisik-pengenalan" }
+]

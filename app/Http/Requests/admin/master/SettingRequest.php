@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Requests\admin\master\anggaran;
+namespace App\Http\Requests\admin\master;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class KegiatanAnggaranRequest extends FormRequest
+class SettingRequest extends FormRequest
 {
-    /**
+   /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
         return true;
     }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,13 +24,9 @@ class KegiatanAnggaranRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "id_kegiatan" => ["required", "integer"],
-            "id_perangkat_desa"=>["required","integer"],
-            "lokasi"=>["required","string","max:100"],
-            "waktu"=>["required","string","max:100"],
-            "keluaran"=>["required","string","max:200"],
-            "volume"=>["required","string","max:50"],
-            "pagu"=>["required"]
+           "judul_aplikasi"=>["required","string","max:100"],
+           "logo_login"=>["required"],
+           "logo_rel"=>["required"]
         ];
     }
 
