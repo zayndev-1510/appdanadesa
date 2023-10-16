@@ -68,7 +68,7 @@
                                         <td>
                                            <div class="row">
                                             <div class="col-5">
-                                                <button class="alert alert-info" ng-click="editData(row)"> Edit</button>
+                                                <button class="alert alert-info" ng-click="editData(row)" data-toggle="modal" data-target="#myModal"> Edit</button>
                                             </div>
                                             <div class="col-5">
                                                 <button class="alert alert-danger" ng-click="delete(row)"> Hapus</button>

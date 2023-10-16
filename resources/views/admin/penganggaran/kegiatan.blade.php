@@ -53,13 +53,25 @@
                                         <td>@{{ row.nama_lengkap }}</td>
                                         <td>@{{ row.pagu }}</td>
                                         <td>
-                                            <span class="fa fa-edit" style="font-size: 20px;color: yellow;cursor: pointer;"
-                                                ng-click="edit(row)" data-toggle="modal" data-target="#myModal"></span>
-                                            <span class="fa fa-trash" style="font-size: 20px;color:red;cursor: pointer;"
-                                                ng-click="delete(row)"></span>
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <button class="alert alert-info" ng-click="edit(row)" data-toggle="modal" data-target="#myModal"> Edit</button>
+                                                </div>
+                                                <div class="col-3">
+                                                    <button class="alert alert-danger" ng-click="delete(row)"> Hapus</button>
+                                                </div>
+                                               </div>
                                         </td>
                                     </tr>
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="8"></td>
+                                        <td>
+                                            <button class="your-button-class">Your Button Text</button>
+                                        </td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>

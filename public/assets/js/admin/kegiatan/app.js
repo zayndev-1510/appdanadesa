@@ -43,10 +43,11 @@ app.controller("homeController", function ($scope, service) {
         fun.data_sub_bidang=filter[0].sub_bidangs;
     }
     fun.get_kegiatan=()=>{
+        console.log(fun.id_sub_bidangs);
         const filter=data_kegiatan.filter(value=>{
             return value.id_sub_bidang==fun.id_sub_bidangs;
         })
-        fun.datakegiatan=filter[0];
+        fun.datakegiatan=filter;
     }
     fun.clearText = () => {
         for (var i = 0; i < bidang.length; i++) {

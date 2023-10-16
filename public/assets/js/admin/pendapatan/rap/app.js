@@ -112,7 +112,6 @@ app.controller("homeController", function ($scope, service) {
     $("#harga_satuan").focus(function (event) {
         if (fun.harga_satuan !== undefined) {
             let inputValue = $(this).val();
-
             // Remove non-digit characters and parse the numeric value
             inputValue = inputValue.replace(/\D/g, '');
 
@@ -149,13 +148,14 @@ app.controller("homeController", function ($scope, service) {
     });
 
 
-    fun.batal=()=>{
-        fun.table=true;
-        fun.form=false;
-        fun.detail=false;
+    fun.batal = () => {
+        fun.table = true;
+        fun.form = false;
+        fun.detail = false;
         fun.get_all();
     }
     fun.detailRincian = (row) => {
+        fun.detailtemp = row;
         fun.ket = "Menambahkan Detail Rincian Anggaran Pendapatan";
         fun.table = false;
         fun.form = false;
@@ -163,36 +163,50 @@ app.controller("homeController", function ($scope, service) {
         fun.kode_rincian = row.kode_kelompok + "." + row.kode_jenis + "." + row.kode_objek;
         fun.rincian = row.rincian;
         fun.id_rap = row.id;
+
         service.check_nomor_urut(row.id, (res) => {
             const { detail, sumberdana } = res.data;
             const len = detail.length;
-            fun.detailrap=detail;
+            fun.detailrap = detail;
+            const totalanggaran = detail.reduce((accumulator, value) => {
+                // Split the "jumlah_satuan" string and parse it as a number
+                const split = value.jumlah_satuan.split(" ");
+                const hargaSatuan = parseFloat(split[0]) * value.harga_satuan;
+
+                // Add the parsed number to the accumulator
+                return accumulator + hargaSatuan;
+            }, 0); // Initialize the accumulator to 0
+
+            fun.totalanggaran = totalanggaran;
             fun.datalen = len;
             fun.sumberdana = sumberdana;
             fun.no_urut = (len + 1).toString().padStart(3, '0');
-
-
         })
+    }
+    fun.tambah_detail_pendapatan = () => {
+        $("#uraian").val("");
+        $("#jumlah_satuan").val("");
+        $("#harga_satuan").val("");
+        $("#sumber_dana").val("");
     }
     fun.add_form = () => {
         fun.table = false;
         fun.form = true;
         fun.detail = false;
-        $("#kode").val("");
-
-        $("#keterangan").val("");
         fun.ket = "Form Menambahkan Pola Kegiatan";
         fun.aksi = false;
     }
 
     fun.edit = (row) => {
+        fun.id = row.id;
         fun.aksi = true;
-        const { id, kode, keterangan } = row;
-        fun.ket = "Form Memperbarui Kelompok Pendapatan Desa";
-        fun.id = id;
-        $("#kode").val(kode)
-        $("#keterangan").val(keterangan);
-
+        const { no_urut, uraian, jumlah_satuan, harga_satuan, total, id_sumber } = row;
+        fun.no_urut = no_urut
+        $("#uraian").val(uraian);
+        $("#jumlah_satuan").val(jumlah_satuan);
+        $("#harga_satuan").val(fun.formatRupiah(harga_satuan));
+        $("#sumber_dana").val(id_sumber);
+        fun.harga_satuan = harga_satuan;
     }
 
     fun.validation = (obj) => {
@@ -238,7 +252,7 @@ app.controller("homeController", function ($scope, service) {
             const jml_satuan = params.jumlah_satuan.split(" ");
             params.id_sumber = parseInt(params.sumber_dana);
             delete params.sumber_dana;
-            params.id=fun.id_rap;
+            params.id = fun.id_rap;
             params.total = Number(jml_satuan[0]) * Number(params.harga_satuan);
 
             service.save_data(params, res => {
@@ -247,8 +261,8 @@ app.controller("homeController", function ($scope, service) {
                         text: "Simpan data berhasil",
                         icon: "success"
                     });
-
-                    fun.detailRincian(params);
+                    fun.tambah_detail_pendapatan();
+                    fun.detailRincian(fun.detailtemp);
                     return;
                 }
                 swal({
@@ -257,30 +271,52 @@ app.controller("homeController", function ($scope, service) {
                 });
             })
         }
-
-
-
-
     }
     fun.update = () => {
-        const obj = {
-            kode: $("#kode").val(),
-            keterangan: $("#keterangan").val()
-        }
-        service.update_data(obj, fun.id, res => {
-            if (res.success) {
+        const params = {};
+        const elementform = $(".form-item");
+        var check = 1;
+        for (var i = 0; i < elementform.length; i++) {
+            const value = $(".detail_rap").eq(i).val();
+            const labelForFormItem = elementform.find("label");
+            const labelText = labelForFormItem.eq(i).text();
+            if (value === "") {
                 swal({
-                    text: "Perbarui data berhasil",
-                    icon: "success"
-                });
-                fun.get_all();
-                return;
+                    text: labelText + " " + "Tidak Boleh Kosong !",
+                    icon: "warning"
+                })
+                check = 0;
+                break;
             }
-            swal({
-                text: "Perbarui data gagal",
-                icon: "error"
-            });
-        })
+            const name = $(".detail_rap").eq(i).attr("name");
+            params[name] = value;
+        }
+        if (check > 0) {
+            params.id_rap = fun.id_rap;
+
+
+            params.harga_satuan = Number(fun.harga_satuan);
+            const jml_satuan = params.jumlah_satuan.split(" ");
+
+            params.id_sumber = parseInt(params.sumber_dana);
+            delete params.sumber_dana;
+            params.id = fun.id_rap;
+            params.total = Number(jml_satuan[0]) * Number(params.harga_satuan);
+            service.update_data(params, fun.id, res => {
+                if (res.success) {
+                    swal({
+                        text: "Perbarui data berhasil",
+                        icon: "success"
+                    });
+
+                    return;
+                }
+                swal({
+                    text: "Perbarui data gagal",
+                    icon: "error"
+                });
+            })
+        }
     }
 
     fun.delete = (row) => {
@@ -290,7 +326,7 @@ app.controller("homeController", function ($scope, service) {
                     text: "Hapus data berhasil",
                     icon: "success"
                 });
-                fun.get_all();
+                fun.detailRincian(fun.detailtemp);
                 return;
             }
             swal({

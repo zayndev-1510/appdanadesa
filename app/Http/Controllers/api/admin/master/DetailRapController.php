@@ -31,7 +31,7 @@ class DetailRapController extends Controller
         return $this->repo->update($req,$id);
     }
 
-    public function delete($id):JsonResponse
+    public function delete_data($id):JsonResponse
     {
         return $this->repo->delete($id);
     }

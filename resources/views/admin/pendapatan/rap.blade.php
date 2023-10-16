@@ -164,6 +164,11 @@
                                                 <td>:</td>
                                                 <td>@{{ rincian }}</td>
                                             </tr>
+                                            <tr>
+                                                <td>Total Anggaran</td>
+                                                <td>:</td>
+                                                <td>@{{ totalanggaran | currency: "Rp. ": 0}}</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -188,25 +193,24 @@
                                                         data-target="#myModal">Tambah Detail Rincian</button>
                                                 </td>
                                             </tr>
-                                            <tr ng-repeat="row in detailrap">
+                                            <tr ng-repeat="row in detailrap" class="text-center poppins">
                                                 <td> <p class="margin-table-top">@{{ row.no_urut }}</p></td>
                                                 <td> <p class="margin-table-top">@{{ row.uraian }}</p></td>
                                                 <td> <p class="margin-table-top">@{{ row.jumlah_satuan }}</p></td>
                                                 <td> <p class="margin-table-top">@{{ row.harga_satuan  | currency: "Rp. ": 0  }}</p></td>
                                                 <td> <p class="margin-table-top">@{{ row.total  | currency: "Rp. ": 0 }}</p></td>
-                                                <td> <p class="margin-table-top">@{{ row.id_sumber }}</p></td>
+                                                <td> <p class="margin-table-top">@{{ row.jenis }}</p></td>
                                                 <td class="text-center">
                                                     <button class="alert alert-warning" data-toggle="modal"
-                                                        data-target="#myModal">Edit Data</button>
-                                                        <button class="alert alert-danger" data-toggle="modal"
-                                                        data-target="#myModal">Hapus Data</button>
+                                                        data-target="#myModal" ng-click="edit(row)">Edit Data</button>
+                                                        <button class="alert alert-danger" ng-click="delete(row)">Hapus Data</button>
                                                 </td>
                                             </tr>
                                             <tr ng-if="datalen!=0">
                                                 <td colspan="6" class="text-center">@{{no_urut}}</td>
                                                 <td class="text-center">
                                                     <button class="alert alert-success" data-toggle="modal"
-                                                        data-target="#myModal">Tambah Detail Rincian</button>
+                                                        data-target="#myModal" ng-click="tambah_detail_pendapatan()">Tambah Detail Rincian</button>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -244,7 +248,7 @@
                                 </div>
                                 <div class="form-item">
                                     <input type="text" class="forms-label detail_rap" name="jumlah_satuan"
-                                        id="jml_satuan">
+                                        id="jumlah_satuan">
                                     <label for="jml_satuan">Jumlah Satuan</label>
                                     <p class="poppins" style="font-size: 12px;"><small style="color: red"> * </small>
                                         Wajib Di Isi</p>
