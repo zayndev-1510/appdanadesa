@@ -195,4 +195,16 @@ class PageController extends Controller
         return view("admin.pengaturan", compact("data", "datalogin"));
     }
 
+    public function pageRab()
+    {
+        [$data, $datalogin] = self::getResultData("Data RAB Desa");
+        return view("admin.belanja.rab", compact("data", "datalogin"));
+    }
+
+    public function pageRabRincian()
+    {
+        [$data, $datalogin] = self::getResultData("Data RAB Rincian Desa");
+        return view("admin.belanja.rab_rinci", compact("data", "datalogin"));
+    }
+
 }

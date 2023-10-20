@@ -6,6 +6,8 @@
 namespace App\Http\Repository\admin\master\penganggaran;
 
 use App\Http\Requests\admin\master\anggaran\KegiatanAnggaranRequest;
+use App\Models\master\belanja\RabModel;
+use App\Models\master\penganggaran\DetailAnggaranModel;
 use App\Models\master\penganggaran\KegiatanAnggaranModel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -74,6 +76,9 @@ class KegiatanAnggaranRepo
         try {
             // validation id  is valid or not
             KegiatanAnggaranModel::query()->findOrFail($id)->delete();
+            DetailAnggaranModel::query()->where("id_anggaran_kegiatan",$id)->delete();
+            RabModel::query()->where("id_kegiatan",$id)->delete();
+
             return response()->json(["message" => "success", "success" => true], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(["message" => "invalid ID", "success" => false], 500);

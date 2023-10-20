@@ -78,6 +78,11 @@ app.controller("homeController", function ($scope, service) {
         })
     }
 
+    fun.batal = () => {
+        fun.get_all();
+        fun.table = true;
+        fun.form = false;
+    }
     fun.get_all();
     fun.get_bidang();
     fun.get_kegiatan();
@@ -97,10 +102,8 @@ app.controller("homeController", function ($scope, service) {
             return res.id == id_perangkat;
         })
         fun.jabatan = filter[0].jabatan;
-
     }
-
-    fun.formatRupiah=(amount)=> {
+    fun.formatRupiah = (amount) => {
         const formatter = new Intl.NumberFormat('id-ID', {
             style: 'currency',
             currency: 'IDR',
@@ -110,22 +113,69 @@ app.controller("homeController", function ($scope, service) {
         return formatter.format(amount);
     }
 
-    $("#pagu").blur(function() {
+    fun.formatNumberWithCommas = (number) => {
+        // Convert the number to a string
+        const numberString = number.toString();
 
-        $("#pagu").val(fun.formatRupiah(this.value));
+        // Split the number into parts before and after the decimal point (if any)
+        const parts = numberString.split(".");
+
+        // Get the integer part and format it with commas
+        const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+        // Combine the integer part with the decimal part (if any)
+        let formattedNumber = integerPart;
+        if (parts.length > 1) {
+            formattedNumber += "." + parts[1];
+        }
+
+        return formattedNumber;
+    }
+
+    $("#pagu").blur(function () {
+
+        const unformattedNumber = this.value.replace(/\./g, '');
+        fun.pagu = unformattedNumber;
+        $("#pagu").val(fun.formatRupiah(unformattedNumber));
+    });
+
+    $("#pagu").focus(function (event) {
+        if (fun.pagu !== undefined) {
+            let inputValue = $(this).val();
+            // Remove non-digit characters and parse the numeric value
+            inputValue = inputValue.replace(/\D/g, '');
+
+            // Format the numeric value with commas
+            const formattedValue = inputValue.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+            // Update the input field with the formatted value
+            $(this).val(formattedValue);
+        }
+
 
     });
 
-    $("#pagu").keypress(function(event) {
+    $("#pagu").on("input", function (event) {
+
         // Get the key code of the pressed key
         const keyCode = event.which;
-        fun.pagu=this.value;
+
         // Check if the key code corresponds to a number (0-9) or the backspace key
         if ((keyCode < 48 || keyCode > 57) && keyCode !== 8) {
             // Prevent the default action (i.e., prevent non-numeric input)
             event.preventDefault();
         }
+        let inputValue = $(this).val();
+
+        // Remove non-digit characters and parse the numeric value
+        inputValue = inputValue.replace(/\D/g, '');
+
+        // Format the numeric value with commas
+        const formattedValue = inputValue.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        // Update the input field with the formatted value
+        $(this).val(formattedValue);
     });
+
     fun.add_form = () => {
         fun.kode_kegiatan = "";
         fun.kegiatan = "";
@@ -134,8 +184,8 @@ app.controller("homeController", function ($scope, service) {
         $("#volume").val("");
         $("#pagu").val("");
         $("#keluaran").val("");
-        $("#id_perangkat_desa").val("");
-        fun.jabatan ="";
+        fun.id_perangkat="";
+        fun.jabatan = "";
         fun.id_kegiatan = "";
         fun.ket = "Form Menambahkan Anggaran Kegiatan Desa";
         fun.aksi = false;
@@ -189,7 +239,7 @@ app.controller("homeController", function ($scope, service) {
             const nameAttr = $(element).attr("name"); // Get the name attribute of the current element
             payloads[nameAttr] = $(element).val();
         });
-        payloads["pagu"]=fun.pagu;
+        payloads["pagu"] = fun.pagu;
         payloads["id_kegiatan"] = (fun.id_kegiatan === undefined) ? "" : fun.id_kegiatan;
         var check = fun.validation(payloads);
         if (check !== null) {
@@ -221,7 +271,7 @@ app.controller("homeController", function ($scope, service) {
             const nameAttr = $(element).attr("name"); // Get the name attribute of the current element
             payloads[nameAttr] = $(element).val();
         });
-        payloads["pagu"]=fun.pagu;
+        payloads["pagu"] = fun.pagu;
         payloads["id_kegiatan"] = (fun.id_kegiatan === undefined) ? "" : fun.id_kegiatan;
         var obj = { ...payloads };
         service.update_data(obj, fun.id, res => {

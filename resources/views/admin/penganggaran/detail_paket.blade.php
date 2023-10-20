@@ -71,8 +71,8 @@
                                             <div class="alert alert-info poppins">@{{ ket }}</div>
                                         </div>
                                         <div class="col-2">
-                                            <button class="btn btn-primary poppins" data-toggle="modal"
-                                                data-target="#myModal" ng-click="tambahData()" style="width: 100%;"><i
+                                            <button class="btn btn-primary poppins"
+                                                 ng-click="tambahData()" style="width: 100%;"><i
                                                     class="ti-plus"></i> Tambah Data</button>
                                         </div>
                                         <div class="col-2">
@@ -110,7 +110,7 @@
                                             <tr>
                                                 <td>Pagu</td>
                                                 <td>
-                                                    <p>@{{ pagu }}</p>
+                                                    <p>@{{ formatRupiah(pagu) }}</p>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -152,7 +152,7 @@
                                         <tfoot>
                                             <tr>
                                                 <td colspan="5">Total</td>
-                                                <td class="text-center">@{{totalnilai}}</td>
+                                                <td class="text-center">@{{formatRupiah(totalnilai)}}</td>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -171,12 +171,19 @@
 
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title">@{{ ket }}</h4>
+                        <h4 class="modal-title" style="font-size: 13px;">@{{ ket }}</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
                     <!-- Modal body -->
                     <div class="modal-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>Sisa Pagu</td>
+                                <td>:</td>
+                                <td>@{{formatRupiah(sisapagu)}}</td>
+                            </tr>
+                        </table>
                         <div class="form-item">
                             <select class="forms-label">
                                 <option value="">Pilih Pola Kegiatan</option>
@@ -208,12 +215,12 @@
                             <p class="poppins"><small style="color: red"> * </small> Wajib Di Isi</p>
                         </div>
                         <div class="form-item">
-                            <input type="text" class="forms-label" />
+                            <input type="text" class="forms-label" id="uraian" />
                             <label>Uraian</label>
                             <p class="poppins"><small style="color: red"> * </small> Wajib Di Isi</p>
                         </div>
                         <div class="form-item">
-                            <input type="text" class="forms-label" />
+                            <input type="text" class="forms-label" id="" />
                             <label>Satuan</label>
                             <p class="poppins"><small style="color: red"> * </small> Wajib Di Isi</p>
                         </div>

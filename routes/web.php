@@ -45,6 +45,11 @@ Route::middleware(["auth", "checkrole:admin"])->prefix("admin")->group(function 
     Route::get("jenis-belanja", [PageController::class, "pageJenisBelanja"]);
     Route::get("objek-belanja", [PageController::class, "pageObjekBelanja"]);
 
+    // data rencana anggaran belanja desa
+    Route::get("rab",[PageController::class,"pageRab"]);
+    Route::get("rab/rincian",[PageController::class,"pageRabRincian"]);
+
+
     // data master pendapatan desa
     Route::get("kelompok-pendapatan", [PageController::class, "pageKelompokPendapatan"]);
     Route::get("jenis-pendapatan", [PageController::class, "pageJenisPendapatan"]);

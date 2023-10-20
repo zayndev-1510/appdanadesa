@@ -133,6 +133,23 @@ app.controller("homeController", function ($scope, service) {
         fun.read_data_json();
     }
 
+    fun.tambahData = () => {
+        fun.clear_input();
+
+        fun.aksi = false;
+        if (fun.totalnilai == fun.pagu || fun.totalnilai > fun.pagu) {
+            swal({
+                text: "Maaf tidak bisa menambahkan total dan pagu telah sama !",
+                icon: "warning"
+            });
+            $('#myModal').modal('hide');
+            return;
+        }
+        fun.sisapagu=fun.pagu-fun.totalnilai;
+
+        $('#myModal').modal('show');
+    }
+
     fun.get_all();
     fun.get_bidang();
     fun.get_kegiatan();
@@ -237,8 +254,8 @@ app.controller("homeController", function ($scope, service) {
         service.get_detail_anggaran(id, (res) => {
             const { data } = res;
             fun.detaildata = data;
-            const sum = data.reduce((accumulator, row) => accumulator +row.nilai, 0);
-            fun.totalnilai=fun.formatRupiah(sum);
+            const sum = data.reduce((accumulator, row) => accumulator + row.nilai, 0);
+            fun.totalnilai = (sum);
         });
     }
 
@@ -258,7 +275,7 @@ app.controller("homeController", function ($scope, service) {
         fun.id_kegiatan = id_kegiatan;
         fun.ket_input = "";
         fun.karyawan = nama_lengkap;
-        fun.pagu = fun.formatRupiah(pagu);
+        fun.pagu = (pagu);
         pagu_detail = pagu;
         fun.detail_data_anggaran(id);
     }
@@ -280,7 +297,6 @@ app.controller("homeController", function ($scope, service) {
         var payloads = [];
         var check = true;
         $(".forms-label").each((index, element) => {
-
             const name = $(element).attr("name"); // Get the name attribute of the current element
             const value = $(element).val();
 
@@ -299,7 +315,7 @@ app.controller("homeController", function ($scope, service) {
             payloads["nilai"] = parseInt(fun.nilai);
         }
 
-        if (payloads["nilai"] > pagu_detail) {
+        if (payloads["nilai"] > fun.sisapagu) {
             swal({
                 text: "Nilai tidak boleh melebihi pagu !",
                 icon: "warning"
@@ -316,6 +332,7 @@ app.controller("homeController", function ($scope, service) {
                 });
                 fun.clear_input();
                 fun.detail_data_anggaran(fun.id_anggaran_kegiatan);
+                $('#myModal').modal('hide');
                 return;
             }
             swal({
