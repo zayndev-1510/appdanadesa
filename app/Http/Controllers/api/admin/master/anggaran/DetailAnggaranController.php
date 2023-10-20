@@ -41,4 +41,9 @@ class DetailAnggaranController extends Controller
         return $this->repo->getForm();
     }
 
+    public function get_detail_kegiatan(int $id):JsonResponse
+    {
+        return $this->repo->detailKegiatan($id);
+    }
+
 }

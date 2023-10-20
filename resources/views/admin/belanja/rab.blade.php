@@ -30,33 +30,26 @@
                                 <thead class="bg-light" style="font-size: 12px;">
                                     <tr class="text-center">
                                         <th>Kode</th>
+                                        <th>Rincian</th>
                                         <th>Kegiatan</th>
-                                        <th>Lokasi</th>
-                                        <th>Waktu</th>
-                                        <th>Keluaran</th>
-                                        <th>Volume</th>
-                                        <th>Pelaksana</th>
-                                        <th>Pagu</th>
+                                        <td>Paket Kegiatan</td>
+                                        <th>Anggaran</th>
                                         <th>
                                             Aksi
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody style="font-size: 12px">
-                                    <tr class="text-center" ng-repeat="row in anggaran_kegiatan">
-                                        <td>@{{ row.kode_bidang }} @{{ row.kode_sub_bidang }} @{{ row.kode_kegiatan }}</td>
+                                    <tr class="text-center" ng-repeat="row in datarab">
+                                        <td>@{{ row.kode_kelompok }} @{{ row.kode_jenis }} @{{ row.kode_objek }}</td>
+                                        <td>@{{ row.rincian }}</td>
                                         <td>@{{ row.kegiatan }}</td>
-                                        <td>@{{ row.lokasi }}</td>
-                                        <td>@{{ row.waktu }}</td>
-                                        <td>@{{ row.keluaran }}</td>
-                                        <td>@{{ row.volume }}</td>
-                                        <td>@{{ row.nama_lengkap }}</td>
-                                        <td>@{{ row.pagu }}</td>
+                                        <td>@{{row.nama_paket}}</td>
+                                        <td>@{{ row.anggaran }}</td>
                                         <td>
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <button class="alert alert-info" ng-click="edit(row)"
-                                                        data-toggle="modal" data-target="#myModal"> Edit</button>
+                                                    <button class="alert alert-info" ng-click="edit(row)"> Edit</button>
                                                 </div>
                                                 <div class="col-6">
                                                     <button class="alert alert-danger" ng-click="delete(row)">
@@ -67,6 +60,7 @@
                                     </tr>
                                 </tbody>
                             </table>
+
                         </div>
                     </div>
                 </div>
@@ -76,37 +70,15 @@
                     <div class="card-body">
                         <div class="data-tab">
                             <div class="row">
-                                <div class="col-12">
-                                    <div class="alert alert-info poppins">@{{ ket_input }}</div>
-                                </div>
 
-                                <div class="col-6" style="margin-top: 10px;">
-                                    <div class="row" style="margin-bottom: 20px;">
-                                        <div class="col-4">
-                                            <select class="form-control" ng-change="get_sub_bidang(id_bidang)"
-                                                ng-model="id_bidang">
-                                                <option value="">Pilih Bidang</option>
-                                                <option ng-repeat="row in databidang" value="@{{ row.id }}">
-                                                    @{{ row.keterangan }}</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-4">
-                                            <select class="form-control" ng-model="id_sub_bidang">
-                                                <option value="">Pilih Sub Bidang</option>
-                                                <option ng-repeat="row in data_sub_bidang" value="@{{ row.id }}">
-                                                    @{{ row.sub_bidang }}</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-4">
-                                            <button class="btn btn-success" ng-click="filter_data(id_sub_bidang)">Filter
-                                                Data</button>
-                                        </div>
-                                    </div>
+                                <div class="col-8" style="margin-top: 10px;">
                                     <table datatable="ng" class="table table-bordered table-jabatan">
                                         <thead class="bg-light" style="font-size: 12px;">
                                             <tr class="text-center">
                                                 <th>Kode</th>
                                                 <th>Kegiatan</th>
+                                                <th>Keluaran</th>
+                                                <th>Pagu</th>
                                                 <th>
                                                     Aksi
                                                 </th>
@@ -117,16 +89,20 @@
                                                 <td>@{{ row.kode_bidang }} . @{{ row.kode_sub_bidang }} .
                                                     @{{ row.kode_kegiatan }}</td>
                                                 <td>@{{ row.kegiatan }}</td>
+                                                <td>@{{ row.keluaran }}</td>
+                                                <td>@{{ formatRupiah(row.pagu) }}</td>
                                                 <td>
-                                                    <button class="btn btn-primary"
-                                                        ng-click="pilih_kegiatan(row)">Pilih</button>
+                                                    <button class="btn btn-primary" ng-click="pilih_kegiatan(row,0)"
+                                                        ng-hide="row.action">Pilih</button>
+                                                    <button class="btn btn-danger" ng-click="pilih_kegiatan(row,1)"
+                                                        ng-show="row.action">Batal</button>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
 
-                                <div class="col-6">
+                                <div class="col-4">
                                     <div class="alert alert-info poppins">@{{ ket }}</div>
                                     <table class="table table-bordered" style="margin-top: 25px;">
                                         <tbody>
@@ -143,62 +119,49 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Lokasi</td>
+                                                <td>Paket Kegiatan</td>
                                                 <td>
-                                                    <input type="text" class="form-control anggaran-kegiatan"
-                                                        name="lokasi" id="lokasi" />
+                                                    <select class="form-control form-rab" ng-model="id_paket"
+                                                        ng-change="get_nilai_paket(id_paket)">
+                                                        <option value="">Pilih Paket Kegiatan</option>
+                                                        <option ng-repeat="row in paketkegiatan"
+                                                            value="@{{ row.id }}">@{{ row.paket }}</option>
+                                                    </select>
+                                            </tr>
+                                            <tr>
+                                                <td>Nilai</td>
+                                                <td>
+                                                    <p>@{{ nilai }}</p>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Waktu</td>
+                                                <td>Kelompok</td>
                                                 <td>
-                                                    <select class="form-control anggaran-kegiatan" name="waktu"
-                                                        id="waktu">
-                                                        <option value="">Pilih Waktu Pengerjaan</option>
-                                                        <option ng-repeat="row in datatahun"
+                                                    <select class="form-control form-rab" ng-model="id_kelompok"
+                                                        ng-change="get_jenis_data(id_kelompok)">
+                                                        <option value="">Pilih Kelompok</option>
+                                                        <option ng-repeat="row in datakelompok"
                                                             value="@{{ row.id }}">@{{ row.keterangan }}</option>
                                                     </select>
-                                                </td>
                                             </tr>
                                             <tr>
-                                                <td>Nama Pelaksana</td>
+                                                <td>Jenis</td>
                                                 <td>
-                                                    <select class="form-control anggaran-kegiatan" ng-model="id_perangkat"
-                                                        ng-change="get_jabatan(id_perangkat)" name="id_perangkat_desa"
-                                                        id="id_perangkat_desa">
-                                                        <option value="">Pilih Perangkat Desa</option>
-                                                        <option ng-repeat="row in dataperangkat"
-                                                            value="@{{ row.id }}">@{{ row.namalengkap }}
-                                                        </option>
+                                                    <select class="form-control form-rab" ng-model="id_jenis"
+                                                        ng-change="get_objek_data(id_jenis)">
+                                                        <option value="">Pilih Jenis</option>
+                                                        <option ng-repeat="row in datajenis"
+                                                            value="@{{ row.id }}">@{{ row.keterangan }}</option>
                                                     </select>
-                                                </td>
                                             </tr>
                                             <tr>
-                                                <td>Jabatan</td>
+                                                <td>Objek</td>
                                                 <td>
-                                                    <p class="poppins">@{{ jabatan }}</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Keluaran</td>
-                                                <td>
-                                                    <input type="text" class="form-control anggaran-kegiatan"
-                                                        name="keluaran" id="keluaran" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Volume</td>
-                                                <td>
-                                                    <input type="text" class="form-control anggaran-kegiatan"
-                                                        name="volume" id="volume" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Pagu</td>
-                                                <td>
-                                                    <input type="text" class="form-control anggaran-kegiatan"
-                                                        name="pagu" id="pagu" />
-                                                </td>
+                                                    <select class="form-control form-rab">
+                                                        <option value="">Pilih Objek</option>
+                                                        <option ng-repeat="row in dataobjek"
+                                                            value="@{{ row.id }}">@{{ row.keterangan }}</option>
+                                                    </select>
                                             </tr>
                                             <tr>
                                                 <td colspan="2">
@@ -208,7 +171,7 @@
                                                         ng-click="update()"><i class="ti-save"></i> PERBARUI</button>
                                                     <button type="button" class="btn btn-danger" ng-click="batal()"><i
                                                             class="ti-close"></i>
-                                                        BATAL</button>
+                                                        KEMBALI</button>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -219,9 +182,9 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+
     </div>
 
     <div id="cover-spin">
@@ -235,6 +198,6 @@
     <script src="{{ asset('assets/angularjs/angular-route.min.js') }}"></script>
     <script src="{{ asset('assets/angularjs/angular-datatables.min.js') }}"></script>
     <script src="{{ asset('assets/angularjs/sweetalert.min.js') }}"></script>
-    <script src="{{ asset('assets/js/admin/anggaran/kegiatan/app.js') }}"></script>
-    <script src="{{ asset('assets/js/admin/anggaran/kegiatan/service.js') }}"></script>
+    <script src="{{ asset('assets/js/admin/belanja/rab/app.js') }}"></script>
+    <script src="{{ asset('assets/js/admin/belanja/rab/service.js') }}"></script>
 @endsection

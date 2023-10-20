@@ -124,4 +124,21 @@ class DetailAnggaranRepo
             return response()->json(["message" => "error " . $th->getMessage(), "success" => false], 500);
         }
     }
+
+    public function detailKegiatan(int $id): JsonResponse
+    {
+        try {
+            DetailAnggaranModel::query()->findOrFail($id);
+            $data=DB::table("detail_anggaran_kegiatan as dak")
+            ->join("anggaran_kegiatan as ak","ak.id","=","dak.id_anggaran_kegiatan")
+            ->whereRaw("dak.id_anggaran_kegiatan=?",[$id])
+            ->selectRaw("dak.id,dak.id_anggaran_kegiatan,dak.nama_paket as paket,dak.nilai,target")->get();
+            return response()->json(["message" => "success", "success" => true, "data" => $data], 200);
+        } catch (ModelNotFoundException $th) {
+            return response()->json(["message"=> "Invalid ID", "success"=> false]);
+        }
+        catch (\Throwable $th) {
+            return response()->json(["message" => "error " . $th->getMessage(), "success" => false], 500);
+        }
+    }
 }

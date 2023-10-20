@@ -15,6 +15,8 @@ use App\Http\Controllers\api\admin\master\ObjekPendapatan;
 use App\Http\Controllers\api\admin\master\perangkatController;
 use App\Http\Controllers\api\admin\master\PolaKegiatanController;
 use App\Http\Controllers\api\admin\master\ProfilController;
+use App\Http\Controllers\api\admin\master\rab\RabController;
+use App\Http\Controllers\api\admin\master\rab\RabDetailController;
 use App\Http\Controllers\api\admin\master\RapController;
 use App\Http\Controllers\api\admin\master\SettingController;
 use App\Http\Controllers\api\admin\master\SubBidangController;
@@ -163,6 +165,7 @@ Route::prefix("v1")->group(function(){
             route::post("/",[DetailAnggaranController::class,"save_data"]);
             route::put("/{id}",[DetailAnggaranController::class,"update_data"]);
             route::delete("/{id}",[DetailAnggaranController::class,"delete_data"]);
+            route::get("/paket/{id}",[DetailAnggaranController::class,"get_detail_kegiatan"]);
         });
 
         // Tahun Anggaran
@@ -195,6 +198,23 @@ Route::prefix("v1")->group(function(){
 
         route::prefix("get-form")->group(function(){
             route::get("/",[DetailAnggaranController::class,"get_form"]);
+        });
+
+        // Rencana Anggaran Belanja
+        route::prefix("rab")->group(function(){
+            route::get("/",[RabController::class,"get_all"]);
+            route::post("/",[RabController::class,"save_data"]);
+            route::put("/{id}",[RabController::class,"update_data"]);
+            route::delete("/{id}",[RabController::class,"delete_data"]);
+        });
+
+
+        // Rincian Rencana Anggaran Belanja
+        route::prefix("detail-rab")->group(function(){
+            route::get("/{id}",[RabDetailController::class,"get_detail_rab"]);
+            route::post("/",[RabDetailController::class,"save_data"]);
+            route::put("/{id}",[RabDetailController::class,"update_data"]);
+            route::delete("/{id}",[RabDetailController::class,"delete_data"]);
         });
     });
 
