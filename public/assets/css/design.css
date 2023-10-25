@@ -498,3 +498,12 @@ html {
     margin-top: 10px;
 
 }
+
+.canvas-dashboard{
+    background-color: white;
+    padding: 10px;
+}
+.canvas-dashboard h4{
+    font-size: 20px;
+    margin-bottom: 10px;
+}

@@ -87,7 +87,7 @@
 
                             {{-- // Navigation Data Master --}}
                             <li>
-                                <a href="#" aria-expanded="true"><i class="ti-calendar"></i><span> Data Master
+                                <a href="#" aria-expanded="true"><i class="ti-package"></i><span> Data Master
                                     </span></a>
 
                                 {{-- // Sub Menu Data Master --}}
@@ -193,7 +193,7 @@
 
                                             {{-- // Data Perangkat Desa --}}
                                             <li>
-                                                <a href="{{ url('admin/perangkat-desa') }}">
+                                                <a href="{{ url('admin/perangkat') }}">
                                                     <i class="ti-user" aria-hidden="true"></i>
                                                     <span>Perangkat Desa</span>
                                                 </a>
@@ -201,6 +201,13 @@
                                         </ul>
                                     </li>
                                     {{--  --}}
+
+                                    <li>
+                                        <a href="{{ url('admin/anggaran-tahun') }}">
+                                            <i class="ti-money" aria-hidden="true"></i>
+                                            <span>Anggaran Tahun</span>
+                                        </a>
+                                    </li>
 
                                     <li>
                                         <a href="{{ url('admin/sumber-dana') }}">
@@ -268,7 +275,7 @@
 
                             {{-- // Navigation Data Pendapatan --}}
                             <li>
-                                <a href="#" aria-expanded="true"><i class="ti-calendar"></i><span>Pendapatan
+                                <a href="#" aria-expanded="true"><i class="ti-money"></i><span>Pendapatan
                                     </span></a>
                                 <ul class="collapse">
                                     {{-- // Menu Data Jabatan --}}
@@ -284,23 +291,54 @@
                                 </ul>
                             </li>
 
-
-
                             <li>
-                                <a href="#" aria-expanded="true"><i class="ti-calendar"></i><span>Belanja
+                                <a href="#" aria-expanded="true"><i class="ti-shopping-cart"></i><span>Belanja
                                     </span></a>
 
                                 {{-- // Sub Menu Data Master --}}
                                 <ul class="collapse">
                                     <li>
-                                        <a href="{{ url('admin/rab') }}">
+                                        <a href="{{ url('admin/rak') }}">
                                             <i class="ti-user" aria-hidden="true"></i>
                                             <span>RAB DESA </span>
                                         </a>
                                     </li>
                                     {{-- // Menu Data Jabatan --}}
                                     <li>
-                                        <a href="{{ url('admin/rab/rincian') }}">
+                                        <a href="{{ url('admin/rab/') }}">
+                                            <i class="ti-user" aria-hidden="true"></i>
+                                            <span>RAB RINCIAN DESA </span>
+                                        </a>
+                                    </li>
+
+                                    {{--  --}}
+
+                                </ul>
+                                {{--  --}}
+
+                            </li>
+
+                            <li>
+                                <a href="#" aria-expanded="true"><i class="ti-clipboard"></i><span>Laporan
+                                    </span></a>
+
+                                {{-- // Sub Menu Data Master --}}
+                                <ul class="collapse">
+                                    <li>
+                                        <a href="{{ url('admin/rak/laporan') }}">
+                                            <i class="ti-user" aria-hidden="true"></i>
+                                            <span>RAK Desa </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('admin/rap/laporan') }}">
+                                            <i class="ti-user" aria-hidden="true"></i>
+                                            <span>RAP Desa </span>
+                                        </a>
+                                    </li>
+                                    {{-- // Menu Data Jabatan --}}
+                                    <li>
+                                        <a href="{{ url('admin/rab/laporan') }}">
                                             <i class="ti-user" aria-hidden="true"></i>
                                             <span>RAB RINCIAN DESA </span>
                                         </a>
@@ -443,7 +481,7 @@
         <!-- footer area start-->
         <footer>
             <div class="footer-area">
-                <p class="poppins">© Copyright 2018. All right reserved. Template by <a href="">IT KREATIF</a>.
+                <p class="poppins">© Copyright 2023. All right reserved. Template by <a href="">IT KREATIF</a>.
                 </p>
             </div>
         </footer>

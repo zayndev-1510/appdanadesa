@@ -1,11 +1,20 @@
 app.service("service", ["$http", function ($http) {
 
-
-
-
     this.get_kegiatan = (callback) => {
         $http({
             url: URL_API + "anggaran-kegiatan",
+            method: "GET"
+        }).then(function (e) {
+
+            callback(e.data);
+        }).catch(function (err) {
+
+        });
+    }
+
+    this.get_anggaran_tahun= (callback) => {
+        $http({
+            url: URL_API + "anggaran-tahun",
             method: "GET"
         }).then(function (e) {
 
@@ -145,6 +154,28 @@ app.service("service", ["$http", function ($http) {
         });
     }
 
+    this.update_rab_rinci = function (obj, id,callback) {
+        $http({
+            url: URL_API + "detail-rab/"+id,
+            method: "PUT",
+            data: obj,
+        }).then(function successCallback(e) {
+            callback(e.data);
+        }).catch(function (err) {
+            callback(err);
+        });
+    }
+
+    this.delete_rab_rinci = function (id,callback) {
+        $http({
+            url: URL_API + "detail-rab/"+id,
+            method: "DELETE",
+        }).then(function successCallback(e) {
+            callback(e.data);
+        }).catch(function (err) {
+            callback(err);
+        });
+    }
 
 
 

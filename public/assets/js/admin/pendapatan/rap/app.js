@@ -13,6 +13,13 @@ app.controller("homeController", function ($scope, service) {
     var dataobjek = [];
 
     var formattedValue = "";
+
+    $(".form-item").each((index, element) => {
+        const inputsAndSelects = $(element).find(':input');
+        const name = $(inputsAndSelects).attr("name");
+        const label = $(element).find("label");
+        $(label).attr('for', name);
+    })
     fun.get_all = () => {
         service.get_all(res => {
             fun.rap = res.data;
@@ -28,8 +35,16 @@ app.controller("homeController", function ($scope, service) {
         });
     }
 
+    fun.get_anggaran_tahun = () => {
+        service.get_anggaran_tahun(res => {
+            const { data } = res;
+            fun.anggaran_tahun = data;
+        })
+    }
+
     fun.get_all();
     fun.get_objek();
+    fun.get_anggaran_tahun();
 
 
     fun.getJenis = () => {
@@ -49,28 +64,51 @@ app.controller("homeController", function ($scope, service) {
         fun.dataobjek = filter;
     }
 
-    fun.pilih_objek = (row) => {
+    fun.pilih_objek = (row, a) => {
         const obj = {
             id_objek: row.id,
-            total: 0
+            tahun_anggaran: $("#tahun_anggaran").val()
         }
-        service.save_data(obj, (res) => {
-            if (res.success) {
+        if (a == 0) {
+            service.save_rap(obj, (res) => {
+                const { success } = res;
+                if (success) {
+                    swal({
+                        text: "Penambahan Rincian Anggaran Pendapatan Berhasil",
+                        icon: "success"
+                    });
+                    fun.table = true;
+                    fun.form = false;
+                    fun.detail = false;
+                    fun.get_all();
+                    return true;
+                }
                 swal({
-                    text: "Penambahan Rincian Anggaran Pendapatan Berhasil",
-                    icon: "success"
+                    text: "Penambahan Rincian Anggaran Pendapatan Gagal",
+                    icon: "error"
                 });
-                fun.table = true;
-                fun.form = false;
-                fun.detail = false;
-                return;
-            }
-            swal({
-                text: "Penambahan Rincian Anggaran Pendapatan Gagal",
-                icon: "error"
-            });
+            })
+        } else {
+            service.update_rap(obj, fun.id_rap, (res) => {
+                const { success } = res;
+                if (success) {
+                    swal({
+                        text: "Pembaruan Rincian Anggaran Pendapatan Berhasil",
+                        icon: "success"
+                    });
+                    fun.table = true;
+                    fun.form = false;
+                    fun.detail = false;
+                    fun.get_all();
+                    return true;
+                }
+                swal({
+                    text: "Pembaruan Rincian Anggaran Pendapatan Gagal",
+                    icon: "error"
+                });
+            })
+        }
 
-        })
 
     }
 
@@ -163,7 +201,6 @@ app.controller("homeController", function ($scope, service) {
         fun.kode_rincian = row.kode_kelompok + "." + row.kode_jenis + "." + row.kode_objek;
         fun.rincian = row.rincian;
         fun.id_rap = row.id;
-
         service.check_nomor_urut(row.id, (res) => {
             const { detail, sumberdana } = res.data;
             const len = detail.length;
@@ -184,10 +221,9 @@ app.controller("homeController", function ($scope, service) {
         })
     }
     fun.tambah_detail_pendapatan = () => {
-        $("#uraian").val("");
-        $("#jumlah_satuan").val("");
-        $("#harga_satuan").val("");
-        $("#sumber_dana").val("");
+        $(".detail-rap").each((index, element) => {
+            $(element).val("");
+        })
     }
     fun.add_form = () => {
         fun.table = false;
@@ -203,7 +239,9 @@ app.controller("homeController", function ($scope, service) {
         const { no_urut, uraian, jumlah_satuan, harga_satuan, total, id_sumber } = row;
         fun.no_urut = no_urut
         $("#uraian").val(uraian);
-        $("#jumlah_satuan").val(jumlah_satuan);
+        var str = jumlah_satuan.spli(" ");
+        $("#jumlah").val(str[0]);
+        $("#satuan").val(str[1]);
         $("#harga_satuan").val(fun.formatRupiah(harga_satuan));
         $("#sumber_dana").val(id_sumber);
         fun.harga_satuan = harga_satuan;
@@ -249,11 +287,12 @@ app.controller("homeController", function ($scope, service) {
             params.id_rap = fun.id_rap;
 
             params.harga_satuan = Number(fun.harga_satuan);
-            const jml_satuan = params.jumlah_satuan.split(" ");
+            const jumlah = params.jumlah;
+            params.jumlah_satuan = params.jumlah + " " + params.satuan;
             params.id_sumber = parseInt(params.sumber_dana);
             delete params.sumber_dana;
             params.id = fun.id_rap;
-            params.total = Number(jml_satuan[0]) * Number(params.harga_satuan);
+            params.total = Number(jumlah) * Number(params.harga_satuan);
 
             service.save_data(params, res => {
                 if (res.success) {
@@ -335,4 +374,51 @@ app.controller("homeController", function ($scope, service) {
             });
         })
     }
+    fun.deleteRap = (row) => {
+        service.delete_rap(row.id, res => {
+            if (res.success) {
+                swal({
+                    text: "Hapus data berhasil",
+                    icon: "success"
+                });
+                fun.get_all();
+                return;
+            }
+            swal({
+                text: "Hapus data gagal",
+                icon: "error"
+            });
+        })
+    }
+
+    fun.editRap = (row) => {
+        fun.id_rap = row.id;
+        fun.table = false;
+        fun.form = true;
+        fun.detail = false;
+        $("#kelompok").val(row.id_kelompok);
+        const filterdata = datajenis.filter(value => {
+            return value.id_kelompok == row.id_kelompok;
+        })
+        fun.datajenis = filterdata;
+        setTimeout(() => {
+            $("#tahun_anggaran").val(row.tahun_anggaran);
+            $("#jenis").val(row.id_jenis)
+        }, 300);
+
+        const filterobjek = dataobjek.filter(value => {
+            value.status = 1;
+            return value.id == row.id_objek;
+        })
+        fun.dataobjek = filterobjek;
+    }
+
+    fun.kembali = () => {
+        fun.table = true;
+        fun.form = false;
+        fun.get_all();
+    }
+
+
+
 });

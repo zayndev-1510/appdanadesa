@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 
 class PageController extends Controller
 {
+
     /**
      * Summary of pageLogin
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
@@ -168,7 +169,7 @@ class PageController extends Controller
     public function pageObjekPendapatan()
     {
         [$data, $datalogin] = self::getResultData("Data Objek Pendapatan Desa");
-        return view("admin.pendapatan.objek", compact("data", "datalogin"));
+        return view("admin.pendapatan.objek_rap", compact("data", "datalogin"));
     }
 
     public function pageAnggaranKegiatan()
@@ -203,8 +204,199 @@ class PageController extends Controller
 
     public function pageRabRincian()
     {
+
         [$data, $datalogin] = self::getResultData("Data RAB Rincian Desa");
-        return view("admin.belanja.rab_rinci", compact("data", "datalogin"));
+        return view("admin.belanja.rincian", compact("data", "datalogin"));
     }
 
+    public function pageTahunAnggaran()
+    {
+        [$data, $datalogin] = self::getResultData("Data ahun Anggaran");
+        return view("admin.tahun_anggaran", compact("data", "datalogin"));
+    }
+
+    // data laporan
+
+    public function pageLaporanRak()
+    {
+        [$data, $datalogin] = self::getResultData("Laporan Rencana Anggaran Kegiatan");
+        return view("admin.penganggaran.laporan", compact("data", "datalogin"));
+    }
+
+    public function pageLaporanRab()
+    {
+        [$data, $datalogin] = self::getResultData("Laporan Rencana Anggaran Belanja");
+        return view("admin.belanja.laporan", compact("data", "datalogin"));
+    }
+
+    public function pageCetakRak(int $id)
+    {
+        [$data, $datalogin] = self::getResultData("Laporan Rencana Anggaran Kegiatan");
+        [$data->rak, $tahun_anggaran] = self::get_rak($id);
+        $profildesa = DB::table("profil_desa")->first();
+        $data->foto = url("uploads", $profildesa->foto);
+        $data->tahun_anggaran = $tahun_anggaran;
+        $perangkat = DB::table("perangkat_desa")->selectRaw("*")->WhereRaw("id_jabatan=?", [1])->orWhereRaw("id_jabatan=?", [2])->get();
+        $data->perangkat = [
+            "nama_kepala_desa" => $perangkat[0]->nama_lengkap,
+            "nama_sekretaris_desa" => $perangkat[1]->nama_lengkap,
+        ];
+        if (empty($data->rak)) {
+            return abort(404, 'Page not found');
+        }
+        // dd($data->rab);
+        return view("admin.penganggaran.cetak", compact("data", "datalogin"));
+    }
+
+    public function pageCetakRab(int $id)
+    {
+        [$data, $datalogin] = self::getResultData("Laporan Rencana Anggaran Kegiatan");
+
+        $profildesa = DB::table("profil_desa")->first();
+        $data->foto = url("uploads", $profildesa->foto);
+        $rab = self::get_rab($id);
+        [$data->rak, $tahun_anggaran] = self::get_rak($id);
+        $data->tahun_anggaran = 2023;
+        $data->rab = array_values($rab);
+        $perangkat = DB::table("perangkat_desa")->selectRaw("*")->WhereRaw("id_jabatan=?", [1])->orWhereRaw("id_jabatan=?", [2])->get();
+        $data->perangkat = [
+            "nama_kepala_desa" => $perangkat[0]->nama_lengkap,
+            "nama_sekretaris_desa" => $perangkat[1]->nama_lengkap,
+        ];
+
+        return view("admin.belanja.cetak", compact("data", "datalogin"));
+
+    }
+
+    private static function get_rak(int $id)
+    {
+        // load data jabatan desa
+        $query = DB::table("bidang as b")
+            ->join("sub_bidang as sb", "b.id", "=", "sb.id_bidang")
+            ->join("kegiatan as k", "sb.id", "=", "k.id_sub_bidang")
+            ->join("anggaran_kegiatan as ak", "k.id", "=", "ak.id_kegiatan")
+            ->join("tahun_anggaran as ta", "ta.id", "=", "ak.tahun_anggaran")
+            ->selectRaw("
+                b.id as id_bidang,b.keterangan as bidang,b.kode_bidang,
+                sb.id as id_sub_bidang,sb.kode_sub_bidang,sb.keterangan as sub_bidang,
+                k.id as id_kegiatan,k.kode_kegiatan,
+                k.keterangan as kegiatan,ak.id as id_anggaran,ak.pagu,ak.volume,
+                ta.tahun
+        ");
+        if ($id == 0) {
+            $query->get();
+        } else if ($id != 0) {
+            $query->whereRaw("ak.tahun_anggaran=?", [$id]);
+        }
+        $data = $query->get();
+
+        // Initialize an empty result array
+        $result = [];
+        $totalpagu = 0;
+        $tahun_anggaran = "";
+
+// Loop through the data and group by "id_bidang"
+        foreach ($data as $item) {
+            $item->anggaran = 0;
+            $id_bidang = $item->id_bidang;
+            $idSubBidang = $item->id_sub_bidang;
+
+            if (!array_key_exists($id_bidang, $result)) {
+                // If not, initialize an empty array for the "id_bidang"
+                $result[$id_bidang] = [
+                    'id_bidang' => $id_bidang,
+                    'bidang' => $item->bidang,
+                    'kode_bidang' => $item->kode_bidang,
+                    "total" => 0,
+                ];
+            }
+            if (!isset($result[$id_bidang]['sub_bidang'][$idSubBidang])) {
+                $result[$id_bidang]['sub_bidang'][$idSubBidang] = [
+                    'id_sub_bidang' => $idSubBidang,
+                    "sub_bidang" => $item->sub_bidang,
+                    "kode_sub_bidang" => $item->kode_sub_bidang,
+                    'kegiatan' => [],
+                ];
+            }
+            $result[$id_bidang]['sub_bidang'][$idSubBidang]['kegiatan'][] = [
+                'id_kegiatan' => $item->id_kegiatan,
+                'kode_kegiatan' => $item->kode_kegiatan,
+                'kegiatan' => $item->kegiatan,
+                'id_anggaran' => $item->id_anggaran,
+                'pagu' => $item->pagu,
+                'volume' => $item->volume,
+                "tahun_anggaran" => $item->tahun,
+            ];
+            $tahun_anggaran = $item->tahun;
+            $totalpagu += $item->pagu;
+            $result[$id_bidang]['total'] += $item->pagu;
+        }
+        return [
+            array_values($result), $tahun_anggaran,
+        ];
+
+    }
+
+    private static function get_rab(int $id)
+    {
+        $rab = DB::table("rab")->join("rab_rinci", "rab.id", "=", "rab_rinci.rab")
+            ->join("sumber_dana", "sumber_dana.id", "=", "rab_rinci.sumber_dana")
+            ->selectRaw("rab.id as rab,rab.kode,rab.anggaran,rab.tahun_anggaran,rab.id_kegiatan as id_anggaran,
+            rab_rinci.id as rab_rinci,rab_rinci.uraian,rab_rinci.jumlah,rab_rinci.harga,rab_rinci.sumber_dana,
+            sumber_dana.jenis")->get();
+        $kelompok = DB::table("kelompok_belanja_desa as kbd")
+            ->join("jenis_belanja_desa as jbd", "jbd.id_kelompok", "=", "kbd.id")
+            ->join("objek_belanja_desa as obd", "obd.id_jenis", "=", "jbd.id")
+            ->selectRaw("kbd.id as id_kelompok,kbd.kode as kode_kelompok,kbd.keterangan as kelompok,
+                jbd.id as id_jenis,jbd.kode as kode_jenis,jbd.keterangan as jenis,
+                obd.id as id_objek,obd.kode as kode_objek,obd.keterangan as objek
+            ")->get();
+        // dd($rab);
+        $result = [];
+
+        foreach ($kelompok as $key => $item) {
+            $id_kelompok = $item->id_kelompok;
+            $id_jenis = $item->id_jenis;
+            if (!array_key_exists($id_kelompok, $result)) {
+                //         // If not, initialize an empty array for the "id_bidang"
+                $result[$id_kelompok] = [
+                    'id_kelompok' => $id_kelompok,
+                    'kode_kelompok' => $item->kode_kelompok,
+                    'kelompok' => $item->kelompok,
+                    "id_anggaran" => 0,
+
+                ];
+            }
+
+            if (!isset($result[$id_kelompok]['jenis'][$id_jenis])) {
+                $result[$id_kelompok]['jenis'][$id_jenis] = [
+                    'id_jenis' => $id_jenis,
+                    "id_kelompok" => $id_kelompok,
+                    "kode_jenis" => $item->kode_jenis,
+                    "jenis" => $item->jenis,
+
+                ];
+            }
+            foreach ($rab as $keys => $value) {
+                // Check if the current "id_objek" is found in $rab
+                if (($item->id_objek == $value->kode)) {
+                    $result[$id_kelompok]['jenis'][$id_jenis]['objek'][] = [
+                        'id_objek' => $item->id_objek,
+                        "id_anggaran" => $value->id_anggaran,
+                        'kode_objek' => $item->kode_objek,
+                        'objek' => $item->objek,
+                        "total" => $value->anggaran,
+                        "uraian" => $value->uraian,
+                        "jumlah" => $value->jumlah,
+                        "harga" => $value->harga,
+                        "sumber_dana" => $value->jenis,
+                    ];
+                    $result[$id_kelompok]["id_anggaran"] = $value->id_anggaran;
+                }
+            }
+        }
+
+        return $result;
+
+    }
 }

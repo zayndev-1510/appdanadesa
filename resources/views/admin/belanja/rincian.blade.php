@@ -41,11 +41,11 @@
                                         <td>@{{ row.rincian }}</td>
                                         <td>@{{ row.kegiatan }}</td>
                                         <td>@{{ row.nama_paket }}</td>
-                                        <td>@{{ row.anggaran }}</td>
+                                        <td>@{{ formatRupiah(row.anggaran) }}</td>
                                         <td>
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <button class="alert alert-info" ng-click="rincian(row)">
+                                                    <button class="alert alert-info" ng-click="rincianRab(row)">
                                                         Rincian</button>
                                                 </div>
 
@@ -63,8 +63,8 @@
                     <div class="card-body">
                         <div class="data-tab">
                             <div class="row">
-
                                 <div class="col-6" style="margin-top: 10px;">
+                                    <div class="alert alert-info poppins">Data Rincian Rencana Anggara Belanja</div>
                                     <table datatable="ng" class="table table-bordered table-jabatan">
                                         <thead class="bg-light" style="font-size: 12px;">
                                             <tr class="text-center">
@@ -81,12 +81,12 @@
                                             <tr class="text-center" ng-repeat="row in rabrinci">
                                                 <td>@{{ row.nomor_urut }}</td>
                                                 <td>@{{ row.uraian }}</td>
-                                                <td>@{{ row.harga }}</td>
+                                                <td>@{{ formatRupiah(row.total) }}</td>
                                                 <td>@{{ row.jenis }}</td>
                                                 <td>
-                                                    <button class="btn btn-primary" ng-click="pilih_kegiatan(row,0)"
+                                                    <button class="btn btn-primary" ng-click="editRincian(row)"
                                                       >Edit</button>
-                                                    <button class="btn btn-danger" ng-click="pilih_kegiatan(row,1)"
+                                                    <button class="btn btn-danger" ng-click="deleteRincian(row)"
                                                        >Hapus</button>
                                                 </td>
                                             </tr>
@@ -94,7 +94,7 @@
                                     </table>
                                 </div>
 
-                                <div class="col-6">
+                                <div class="col-6" style="margin-top: 10px;">
                                     <div class="alert alert-info poppins">@{{ ket }}</div>
                                     <table class="table table-bordered" style="margin-top: 25px;">
                                         <tbody>
@@ -123,13 +123,13 @@
                                             <tr>
                                                 <td>Pagu</td>
                                                 <td>
-                                                    <p>@{{ pagu }}</p>
+                                                    <p>@{{ formatRupiah(pagu) }}</p>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Nilai Paket</td>
                                                 <td>
-                                                    <p>@{{ nilai }}</p>
+                                                    <p>@{{ formatRupiah(nilai) }}</p>
                                                 </td>
                                             </tr>
                                             <tr>

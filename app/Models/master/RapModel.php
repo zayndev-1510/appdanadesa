@@ -14,5 +14,5 @@ class RapModel extends Model
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-    protected $fillable = ["id","id_objek","total"];
+    protected $fillable = ["id","id_objek","total","tahun_anggaran"];
 }

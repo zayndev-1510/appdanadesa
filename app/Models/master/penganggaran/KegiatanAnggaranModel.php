@@ -15,5 +15,6 @@ class KegiatanAnggaranModel extends Model
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
-    protected $fillable = ["id", "id_kegiatan", "lokasi", "waktu", "id_perangkat_desa", "keluaran", "volume", "pagu"];
+    protected $fillable = ["id", "id_kegiatan", "lokasi", "waktu", "id_perangkat_desa",
+        "keluaran", "volume", "pagu","tahun_anggaran"];
 }

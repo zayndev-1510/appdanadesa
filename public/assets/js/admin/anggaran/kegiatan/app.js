@@ -28,6 +28,14 @@ app.controller("homeController", function ($scope, service) {
         });
     }
 
+    fun.get_anggaran_tahun=()=>{
+        service.get_anggaran_tahun(res=>{
+            const {data}=res;
+            fun.datatemp=data;
+
+        });
+    }
+
     fun.get_perangkat_desa = () => {
         service.get_perangkat_desa(res => {
             const { data } = res;
@@ -75,6 +83,7 @@ app.controller("homeController", function ($scope, service) {
         service.get_all(res => {
             const { data } = res;
             fun.anggaran_kegiatan = data;
+            console.log(data);
         })
     }
 
@@ -88,6 +97,7 @@ app.controller("homeController", function ($scope, service) {
     fun.get_kegiatan();
     fun.get_tahun_anggaran();
     fun.get_perangkat_desa();
+    fun.get_anggaran_tahun();
 
     fun.pilih_kegiatan = (row) => {
         const { id, kode_kegiatan, kode_bidang, kode_sub_bidang, kegiatan } = row;
@@ -197,7 +207,7 @@ app.controller("homeController", function ($scope, service) {
     fun.edit = (row) => {
         fun.aksi = true;
         const { id, kode_kegiatan, kode_sub_bidang, kode_bidang, id_kegiatan, lokasi,
-            waktu, keluaran, volume, id_perangkat, pagu, kegiatan, jabatan
+            waktu, keluaran, volume,tahun_anggaran, id_perangkat, pagu, kegiatan, jabatan
         } = row;
         fun.ket = "Form Memperbarui Anggaran Kegiatan Desa";
         fun.id = id;
@@ -212,6 +222,7 @@ app.controller("homeController", function ($scope, service) {
         $("#pagu").val(pagu);
         $("#keluaran").val(keluaran);
         $("#id_perangkat_desa").val(id_perangkat);
+        $("#tahun_anggaran").val(tahun_anggaran);
         fun.jabatan = jabatan;
         fun.id_kegiatan = id_kegiatan;
         fun.ket_input = "Jika ingin memperbarui anggaran kegiatan anda bisa memilih ulang kembali kegiatan jika dibutuhkan"

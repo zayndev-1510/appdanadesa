@@ -1,163 +1,72 @@
 /*jshint esversion: 6 */
 var app = angular.module("homeApp", ['ngRoute']);
 
-function random_rgba() {
-    var o = Math.round,
-        r = Math.random,
-        s = 255;
-    return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')';
-}
 
-function getRandomRgb() {
-    var num = Math.round(0xffffff * Math.random());
-    var r = num >> 16;
-    var g = num >> 8 & 255;
-    var b = num & 255;
-    return 'rgb(' + r + ', ' + g + ', ' + b + ')';
-}
-app.controller("homeController", function($scope, service) {
+
+
+app.controller("homeController", function ($scope, service) {
 
     var fun = $scope;
     var service = service;
-    const CAPTION_BULAN = [];
-    const CAPTIION_BULAN_PRODUK_KELUAR = []
-    const DATA_PRODUK_MASUK = []
-    const BACKGROUND_GRAFIK = [];
-    const DATA_PRODUK_KELUAR = []
+    let tahun_aktif = 0;
 
 
-    const NAME_MONTH = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
+    fun.formatRupiah = (amount) => {
+        const formatter = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0
+        });
 
-    fun.dataDashboard = () => {
-
-        service.dataDashboard(obj => {
-
-            fun.produk = obj.data.stokproduk;
-            fun.produkmasuk = obj.data.produkmasuk;
-            fun.produkkeluar = obj.data.produkkeluar
-            fun.kasir = obj.data.kasir;
-            fun.totaltransaksikeluar = obj.data.totaltransaksikeluar
-            const grafikprodukkeluar = obj.grafikprodukkeluar
-            const grafikprodukmasuk = obj.grafikprodukmasuk
-            fun.grafikDataProdukKeluar(grafikprodukkeluar)
-            fun.grafikDataProdukMasuk(grafikprodukmasuk)
-        })
+        return formatter.format(amount);
     }
-
-    fun.grafikDataProdukKeluar = (datagrafik) => {
-
-        for (var i = 0; i < datagrafik.length; i++) {
-            var obj = datagrafik[i]
-            CAPTION_BULAN.push(NAME_MONTH[obj.bulan - 1])
-            DATA_PRODUK_KELUAR.push(obj.jumlah)
-            BACKGROUND_GRAFIK.push(getRandomRgb());
-
-        }
-
-        var datagrafikalumni = {
-            labels: CAPTION_BULAN,
-            datasets: [{
-                data: DATA_PRODUK_KELUAR,
-                backgroundColor: BACKGROUND_GRAFIK,
-                borderColor: BACKGROUND_GRAFIK,
-                borderWidth: 1,
-
-            }]
-        }
-        var opt = {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            },
-            events: false,
-            legend: {
-                display: false
-            },
-            layout: {
-                padding: {
-                    top: 10
-                }
-            },
-            tooltips: {
-                enabled: true,
-                callbacks: {
-                    label: function(tooltipItem) {
-                        return tooltipItem.yLabel;
-                    }
-                }
-            },
-            hover: {
-                animationDuration: 0
-            },
-        };
-
-        var ctx = document.getElementById("myChart"),
-            myLineChart = new Chart(ctx, {
-                type: 'bar',
-                data: datagrafikalumni,
-                options: opt
+    fun.get_anggaran_kegiatan = () => {
+        service.get_anggaran_kegiatan(res => {
+            const { data } = res;
+            const filterdata = data.filter(value => {
+                return value.tahun_anggaran == tahun_aktif;
             });
+            fun.anggaran_kegiatan = filterdata;
+            fun.total = filterdata.reduce((accumulator, value) =>
+                accumulator + value.pagu, 0);
+        });
     }
-    fun.grafikDataProdukMasuk = (datagrafik) => {
 
-        for (var i = 0; i < datagrafik.length; i++) {
-            var obj = datagrafik[i]
-            CAPTIION_BULAN_PRODUK_KELUAR.push(NAME_MONTH[obj.bulan - 1])
-            DATA_PRODUK_MASUK.push(obj.jumlah)
-            BACKGROUND_GRAFIK.push(getRandomRgb());
+    fun.get_anggaran_pendapatan = () => {
+        service.get_anggaran_pendapatan(res => {
+            const { data } = res;
 
-        }
-
-        var datagrafikalumni = {
-            labels: CAPTIION_BULAN_PRODUK_KELUAR,
-            datasets: [{
-                data: DATA_PRODUK_MASUK,
-                backgroundColor: BACKGROUND_GRAFIK,
-                borderColor: BACKGROUND_GRAFIK,
-                borderWidth: 1,
-
-            }]
-        }
-        var opt = {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            },
-            events: false,
-            legend: {
-                display: false
-            },
-            layout: {
-                padding: {
-                    top: 10
-                }
-            },
-            tooltips: {
-                enabled: true,
-                callbacks: {
-                    label: function(tooltipItem) {
-                        return tooltipItem.yLabel;
-                    }
-                }
-            },
-            hover: {
-                animationDuration: 0
-            },
-        };
-
-        var ctx = document.getElementById("myChart2"),
-            myLineChart = new Chart(ctx, {
-                type: 'bar',
-                data: datagrafikalumni,
-                options: opt
+            const filterdata = data.filter(value => {
+                return value.tahun_anggaran == tahun_aktif;
             });
+
+            fun.rap = filterdata;
+            fun.totalrap = filterdata.reduce((accumulator, value) =>
+                accumulator + value.anggaran, 0);
+        });
     }
-    fun.dataDashboard();
+    fun.get_anggaran_rab = () => {
+        service.get_anggaran_rab(res => {
+            const { data } = res;
+            fun.datarab = data;
+            fun.totalrab = data.reduce((accumulator, value) =>
+                accumulator + value.anggaran, 0);
+        });
+    }
+
+    fun.get_anggaran_tahun = () => {
+        service.get_anggaran_tahun(res => {
+            const { data } = res;
+            const filter = data.filter(value => {
+                return value.status == 1;
+            })
+            tahun_aktif = filter[0].id;
+            fun.tahun_aktif = filter[0].tahun;
+        });
+    }
+    fun.get_anggaran_tahun();
+    fun.get_anggaran_kegiatan();
+    fun.get_anggaran_pendapatan();
+    fun.get_anggaran_rab();
 
 });

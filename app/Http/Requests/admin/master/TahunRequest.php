@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Requests\admin\master\anggaran;
+namespace App\Http\Requests\admin\master;
 
+use Auth;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class KegiatanAnggaranRequest extends FormRequest
+class TahunRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,6 +16,8 @@ class KegiatanAnggaranRequest extends FormRequest
     {
         return true;
     }
+
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,33 +26,29 @@ class KegiatanAnggaranRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "id_kegiatan" => ["required", "integer"],
-            "id_perangkat_desa"=>["required","integer"],
-            "lokasi"=>["required","string","max:100"],
-            "waktu"=>["required","string","max:100"],
-            "keluaran"=>["required","string","max:200"],
-            "volume"=>["required","string","max:50"],
-            "pagu"=>["required"],
-            "tahun_anggaran"=>["required"]
+            "tahun"=>["required","string","max:50"],
+            "status"=>["required","integer"]
         ];
     }
 
-    /**
+     /**
      * Summary of failedValidation
      * @param \Illuminate\Contracts\Validation\Validator $validator
      * @throws \Illuminate\Http\Exceptions\HttpResponseException
      * @return never
      */
     public function failedValidation(Validator $validator)
+
     {
         throw new HttpResponseException(response()->json([
 
-            'success' => false,
+            'success'   => false,
 
-            'message' => 'Validation errors',
+            'message'   => 'Validation errors',
 
-            'data' => $validator->errors()
+            'data'      => $validator->errors()
 
         ]));
+
     }
 }

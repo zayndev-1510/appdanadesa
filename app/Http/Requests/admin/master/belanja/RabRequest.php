@@ -26,8 +26,8 @@ class RabRequest extends FormRequest
         return [
             "id_kegiatan"=>["required","integer"],
             "kode"=>["required","integer"],
-            "anggaran"=>["required"],
-            "paket_kegiatan"=>["required"]
+            "paket_kegiatan"=>["required"],
+            "tahun_anggaran"=>["required","integer"],
         ];
     }
 
