@@ -25,7 +25,7 @@ class RapRequest extends FormRequest
     {
         return [
             "id_objek"=>["required"],
-            "total"=>["required"],
+            "tahun_anggaran"=>["required"],
         ];
     }
 

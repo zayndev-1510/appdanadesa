@@ -13,6 +13,7 @@ app.controller("homeController", function ($scope, service) {
     var data_kegiatan = [];
     var data_perangkat_desa = [];
     var pagu_detail = 0;
+    fun.totalnilai=0;
 
 
 
@@ -145,7 +146,7 @@ app.controller("homeController", function ($scope, service) {
             $('#myModal').modal('hide');
             return;
         }
-        fun.sisapagu=fun.pagu-fun.totalnilai;
+        fun.sisapagu=fun.pagu-Number(fun.totalnilai);
 
         $('#myModal').modal('show');
     }
@@ -252,7 +253,7 @@ app.controller("homeController", function ($scope, service) {
 
     fun.detail_data_anggaran = (id) => {
         service.get_detail_anggaran(id, (res) => {
-            const { data } = res;
+            const { data } = res
             fun.detaildata = data;
             const sum = data.reduce((accumulator, row) => accumulator + row.nilai, 0);
             fun.totalnilai = (sum);

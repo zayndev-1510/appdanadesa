@@ -22,6 +22,7 @@ use App\Http\Controllers\api\admin\master\SettingController;
 use App\Http\Controllers\api\admin\master\SubBidangController;
 use App\Http\Controllers\api\admin\master\SumberdanaController;
 use App\Http\Controllers\api\admin\LoginControllerAdmin;
+use App\Http\Controllers\api\admin\master\TahunAnggaranController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -215,6 +216,14 @@ Route::prefix("v1")->group(function(){
             route::post("/",[RabDetailController::class,"save_data"]);
             route::put("/{id}",[RabDetailController::class,"update_data"]);
             route::delete("/{id}",[RabDetailController::class,"delete_data"]);
+        });
+
+         // Tahun Anggaran
+         route::prefix("anggaran-tahun")->group(function(){
+            route::get("/",[TahunAnggaranController::class,"get_all"]);
+            route::post("/",[TahunAnggaranController::class,"save_data"]);
+            route::put("/{id}",[TahunAnggaranController::class,"update_data"]);
+            route::delete("/{id}",[TahunAnggaranController::class,"delete_data"]);
         });
     });
 

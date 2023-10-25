@@ -128,7 +128,7 @@ class DetailAnggaranRepo
     public function detailKegiatan(int $id): JsonResponse
     {
         try {
-            DetailAnggaranModel::query()->findOrFail($id);
+           
             $data=DB::table("detail_anggaran_kegiatan as dak")
             ->join("anggaran_kegiatan as ak","ak.id","=","dak.id_anggaran_kegiatan")
             ->whereRaw("dak.id_anggaran_kegiatan=?",[$id])

@@ -34,6 +34,7 @@
                                         <th>Anggaran</th>
                                         <th>Tanggal Buat</th>
                                         <th>Tanggal Update</th>
+                                        <th>Tahun Anggaran</th>
                                         <th>
                                             Aksi
                                         </th>
@@ -58,9 +59,13 @@
                                             <p class="margin-table-top">@{{ row.updated_at }}</p>
                                         </td>
                                         <td>
+                                            <p class="margin-table-top">@{{ row.tahun }}</p>
+                                        </td>
+                                        <td>
+                                            <button class="alert alert-warning" ng-click="editRap(row)"> Edit Data</button>
                                             <button class="alert alert-info" ng-click="detailRincian(row)"> Detail
                                                 Rincian</button>
-                                            <button class="alert alert-danger">Hapus Data</button>
+                                            <button class="alert alert-danger" ng-click="deleteRap(row)">Hapus Data</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -81,8 +86,8 @@
                                 <div class="col-12" style="margin-bottom: 20px">
                                     <div class="row">
                                         <div class="col-4">
-                                            <select class="form-control kelompok" ng-change="getJenis()"
-                                                ng-model="kelompok">
+                                            <select class="form-control kelompok" ng-change="getJenis()" ng-model="kelompok"
+                                                name="kelompok" id="kelompok">
                                                 <option value="">Pilih Kelompok</option>
                                                 <option ng-repeat="row in datakelompok" value="@{{ row.id }}">
                                                     @{{ row.keterangan }}</option>
@@ -91,7 +96,7 @@
                                                 Kelompok Pendapatan</p>
                                         </div>
                                         <div class="col-4">
-                                            <select class="form-control jenis">
+                                            <select class="form-control jenis" name="jenis" id="jenis">
                                                 <option value="">Pilih Jenis</option>
                                                 <option ng-repeat="row in datajenis" value="@{{ row.id }}">
                                                     @{{ row.keterangan }}</option>
@@ -101,6 +106,7 @@
                                         </div>
                                         <div class="col-4">
                                             <button class="btn btn-success" ng-click="filterData()">Filter Data</button>
+                                            <button class="btn btn-danger" ng-click="kembali()">Kembali</button>
                                         </div>
                                     </div>
                                 </div>
@@ -111,6 +117,7 @@
                                             <tr class="text-center">
                                                 <th>Kode</th>
                                                 <th>Objek</th>
+                                                <th>Tahun Anggaran</th>
                                                 <th>
                                                     Aksi
                                                 </th>
@@ -122,9 +129,17 @@
                                                 </td>
                                                 <td>@{{ row.keterangan }}</td>
                                                 <td>
-                                                    <button class="btn btn-primary" ng-click="pilih_objek(row)"
+                                                    <select class="form-control" name="tahun_anggaran" id="tahun_anggaran">
+                                                        <option value="">Pilih Tahun Anggaran</option>
+                                                        <option ng-repeat="row in anggaran_tahun"
+                                                            value="@{{ row.id }}">@{{ row.tahun }}</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-primary" ng-click="pilih_objek(row,0)"
                                                         ng-if="row.status==0">Tambahkan</button>
-
+                                                    <button class="btn btn-warning" ng-click="pilih_objek(row,1)"
+                                                        ng-if="row.status==1">Perbarui</button>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -167,7 +182,7 @@
                                             <tr>
                                                 <td>Total Anggaran</td>
                                                 <td>:</td>
-                                                <td>@{{ totalanggaran | currency: "Rp. ": 0}}</td>
+                                                <td>@{{ totalanggaran | currency: "Rp. ": 0 }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -194,23 +209,38 @@
                                                 </td>
                                             </tr>
                                             <tr ng-repeat="row in detailrap" class="text-center poppins">
-                                                <td> <p class="margin-table-top">@{{ row.no_urut }}</p></td>
-                                                <td> <p class="margin-table-top">@{{ row.uraian }}</p></td>
-                                                <td> <p class="margin-table-top">@{{ row.jumlah_satuan }}</p></td>
-                                                <td> <p class="margin-table-top">@{{ row.harga_satuan  | currency: "Rp. ": 0  }}</p></td>
-                                                <td> <p class="margin-table-top">@{{ row.total  | currency: "Rp. ": 0 }}</p></td>
-                                                <td> <p class="margin-table-top">@{{ row.jenis }}</p></td>
+                                                <td>
+                                                    <p class="margin-table-top">@{{ row.no_urut }}</p>
+                                                </td>
+                                                <td>
+                                                    <p class="margin-table-top">@{{ row.uraian }}</p>
+                                                </td>
+                                                <td>
+                                                    <p class="margin-table-top">@{{ row.jumlah_satuan }}</p>
+                                                </td>
+                                                <td>
+                                                    <p class="margin-table-top">@{{ row.harga_satuan | currency: "Rp. ": 0 }}</p>
+                                                </td>
+                                                <td>
+                                                    <p class="margin-table-top">@{{ row.total | currency: "Rp. ": 0 }}</p>
+                                                </td>
+                                                <td>
+                                                    <p class="margin-table-top">@{{ row.jenis }}</p>
+                                                </td>
                                                 <td class="text-center">
                                                     <button class="alert alert-warning" data-toggle="modal"
                                                         data-target="#myModal" ng-click="edit(row)">Edit Data</button>
-                                                        <button class="alert alert-danger" ng-click="delete(row)">Hapus Data</button>
+                                                    <button class="alert alert-danger" ng-click="delete(row)">Hapus
+                                                        Data</button>
                                                 </td>
                                             </tr>
                                             <tr ng-if="datalen!=0">
-                                                <td colspan="6" class="text-center">@{{no_urut}}</td>
+                                                <td colspan="6" class="text-center">@{{ no_urut }}</td>
                                                 <td class="text-center">
                                                     <button class="alert alert-success" data-toggle="modal"
-                                                        data-target="#myModal" ng-click="tambah_detail_pendapatan()">Tambah Detail Rincian</button>
+                                                        data-target="#myModal"
+                                                        ng-click="tambah_detail_pendapatan()">Tambah Detail
+                                                        Rincian</button>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -246,12 +276,27 @@
                                     <p class="poppins" style="font-size: 12px;"><small style="color: red"> * </small>
                                         Wajib Di Isi</p>
                                 </div>
-                                <div class="form-item">
-                                    <input type="text" class="forms-label detail_rap" name="jumlah_satuan"
-                                        id="jumlah_satuan">
-                                    <label for="jml_satuan">Jumlah Satuan</label>
-                                    <p class="poppins" style="font-size: 12px;"><small style="color: red"> * </small>
-                                        Wajib Di Isi</p>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-item">
+                                            <input type="number" class="forms-label detail_rap" name="jumlah"
+                                                id="jumlah">
+                                            <label for="jml_satuan">Jumlah</label>
+                                            <p class="poppins" style="font-size: 12px;"><small style="color: red"> *
+                                                </small>
+                                                Wajib Di Isi</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-item">
+                                            <input type="text" class="forms-label detail_rap" name="satuan"
+                                                id="satuan">
+                                            <label for="jml_satuan">Satuan</label>
+                                            <p class="poppins" style="font-size: 12px;"><small style="color: red"> *
+                                                </small>
+                                                Wajib Di Isi</p>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-item">
                                     <input type="text" class="forms-label detail_rap" name="harga_satuan"

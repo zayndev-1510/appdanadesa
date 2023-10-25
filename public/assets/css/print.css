@@ -18,15 +18,50 @@
 .table {
     width: 100%;
     margin-top: 30px;
+
 }
 
 .table tr th {
     font-size: 15px;
-    border-bottom: 2px solid black;
+    border: 1px solid black;
     padding: 5px;
 }
 
 .table tr td {
     padding: 5px;
-    border-bottom: 2px solid #CCC;
+    border: 1px solid black;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* Create three equally sized columns */
+    gap: 10px;
+    /* Adjust the gap as needed */
+    justify-content: space-between;
+    padding: 10px;
+    /* Add padding to the container */
+    height: 100vh;
+    text-align: center;
+    /* Adjust the height as needed */
+    margin-left: 120px;
+    margin-top: 20px;
+}
+
+.column {
+    background-color: #3498db;
+    color: #fff;
+    padding: 20px;
+
+    text-align: center;
+    border: 1px solid #2980b9;
+    border-radius: 5px;
+}
+.kotak-ttd{
+    border: 1px solid;
+    width: 50%;
 }

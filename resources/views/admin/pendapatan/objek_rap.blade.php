@@ -40,9 +40,9 @@
                                 </thead>
                                 <tbody style="font-size: 12px">
                                     <tr class="text-center" ng-repeat="row in objekdata">
-                                        <td>@{{row.kode_kelompok}} @{{row.kode_jenis}} @{{ row.kode }}</td>
-                                        <td>@{{row.ket_kelompok}}</td>
-                                        <td>@{{row.ket_jenis}}</td>
+                                        <td>@{{ row.kode_kelompok }}.@{{ row.kode_jenis }}.@{{ row.kode }}</td>
+                                        <td>@{{ row.ket_kelompok }}</td>
+                                        <td>@{{ row.ket_jenis }}</td>
                                         <td>@{{ row.keterangan }}</td>
                                         <td>
                                             <span class="fa fa-edit" style="font-size: 20px;color: yellow;cursor: pointer;"
@@ -63,7 +63,8 @@
                         <div class="data-tab">
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="alert alert-info poppins">PIlih terlebih dahulu kelompok pendapatan untuk menampilkan data jenis pendapatan desa</div>
+                                    <div class="alert alert-info poppins">PIlih terlebih dahulu kelompok pendapatan untuk
+                                        menampilkan data jenis pendapatan desa</div>
                                 </div>
                                 <div class="col-12">
                                     <table datatable="ng" class="table table-bordered table-jabatan">
@@ -77,19 +78,23 @@
                                             </tr>
                                         </thead>
                                         <tbody style="font-size: 12px">
-                                            <tr class="text-center" ng-repeat="row in kelompokdata">
+                                            <tr class="text-center" ng-repeat="row in datakelompok">
                                                 <td>@{{ row.kode }}</td>
-                                                <td>@{{ row.keterangan }}</td>
+                                                <td>@{{ row.keterangan }} @{{row.status}}</td>
                                                 <td>
-                                                    <button class="btn btn-primary"
-                                                        ng-click="pilih_kelompok(row)">Pilih</button>
+                                                    <button class="btn btn-primary" ng-click="pilih_kelompok(row,1)"
+                                                        ng-if="row.status==0">Pilih</button>
+                                                    <button class="btn btn-danger" ng-click="pilih_kelompok(row,0)"
+                                                        ng-if="row.status==1">Batal</button>
+
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="col-6">
-                                    <div class="alert alert-info poppins">Data Jenis Pendapatan Desa Berdasarkan Kelompok Pendapatan Desa Yang Dipilih</div>
+                                    <div class="alert alert-info poppins">Data Jenis Pendapatan Desa Berdasarkan Kelompok
+                                        Pendapatan Desa Yang Dipilih</div>
                                     <table datatable="ng" class="table table-bordered table-jabatan">
                                         <thead class="bg-light" style="font-size: 12px;">
                                             <tr class="text-center">
@@ -106,14 +111,17 @@
                                                 <td>@{{ row.keterangan }}</td>
                                                 <td>
                                                     <button class="btn btn-primary"
-                                                        ng-click="pilih_jenis(row)">Pilih</button>
+                                                        ng-click="pilih_jenis(row,1)" ng-if="row.status==0">Pilih</button>
+                                                        <button class="btn btn-danger"
+                                                        ng-click="pilih_jenis(row,0)" ng-if="row.status==1">Batal</button>
+
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="col-6">
-                                    <div class="alert alert-info poppins">@{{ket}}</div>
+                                    <div class="alert alert-info poppins">@{{ ket }}</div>
                                     <table class="table table-bordered" style="margin-top: 25px;">
                                         <tbody>
                                             <tr>
@@ -147,7 +155,7 @@
                                                         ng-click="save()"><i class="ti-save"></i> SIMPAN</button>
                                                     <button type="button" class="btn btn-success" ng-show="aksi"
                                                         ng-click="update()"><i class="ti-save"></i> PERBARUI</button>
-                                                    <button type="button" class="btn btn-danger"data-dismiss="modal"><i
+                                                    <button type="button" class="btn btn-danger" ng-click="batal()"><i
                                                             class="ti-close"></i>
                                                         BATAL</button>
 

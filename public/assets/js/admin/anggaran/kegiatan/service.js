@@ -1,6 +1,18 @@
 app.service("service", ["$http", function ($http) {
 
 
+
+    this.get_anggaran_tahun = function (callback) {
+        $http({
+            url: URL_API + "anggaran-tahun",
+            method: "GET"
+        }).then(function (e) {
+
+            callback(e.data);
+        }).catch(function (err) {
+
+        });
+    }
     this.get_pola_kegiatan = function (callback) {
         $http({
             url: URL_API + "pola-kegiatan",

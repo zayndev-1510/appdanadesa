@@ -23,6 +23,12 @@ app.controller("homeController", function ($scope, service) {
             fun.sumberdana = data;
         })
     }
+
+    fun.clear_input = () => {
+        $(".form-rab-detail").each((index, element) => {
+            $(element).val("");
+        });
+    }
     fun.get_rab();
     fun.get_sumber_dana();
 
@@ -30,9 +36,16 @@ app.controller("homeController", function ($scope, service) {
         var len = 0;
         service.get_rincian_rab(row.id, res => {
             const { data } = res;
+            const filter = data.filter(value => {
+                const str = value.jumlah.split(" ");
+                const jumlah = str[0];
+                value.total = jumlah * value.harga;
+                return value;
+            })
+
             len = data.length;
             var nomor_urut = null;
-            fun.rabrinci = data;
+            fun.rabrinci = filter;
             if (len === 0) {
                 nomor_urut = "0000001";
             } else {
@@ -40,20 +53,21 @@ app.controller("homeController", function ($scope, service) {
             }
             fun.nomor_urut = nomor_urut;
             fun.nama_paket = row.nama_paket;
-        fun.rincian = row.rincian;
-        fun.kegiatan = row.kegiatan;
-        fun.pagu = row.pagu;
-        fun.nilai = row.nilai_paket;
-        fun.rab = row.id;
+            fun.rincian = row.rincian;
+            fun.kegiatan = row.kegiatan;
+            fun.pagu = row.pagu;
+            fun.nilai = row.nilai_paket;
+            fun.rab = row.id;
 
         });
     }
-    fun.rincian = (row) => {
+    fun.rincianRab = (row) => {
         fun.table = false;
         fun.form = true;
-
+        fun.data = row;
+        fun.ket = "Menambahkan Rincian Rencana Anggaran Belanja";
         fun.get_rab_rinci(row);
-
+        fun.clear_input();
     }
 
     fun.formatRupiah = (amount) => {
@@ -138,11 +152,92 @@ app.controller("homeController", function ($scope, service) {
                 if (success) {
                     swal({
                         text: "Simpan data berhasil",
-                        icon: "warning"
+                        icon: "success"
                     });
+                    fun.get_rab_rinci(fun.data);
+                    fun.get_rab();
+                    fun.clear_input();
                     return;
                 }
             })
         }
+    }
+
+    fun.editRincian = (row) => {
+        fun.aksi = true;
+        fun.id_rab_rinci = row.id;
+        const { sumber_dana, rab, uraian, jumlah, harga } = row;
+        fun.rab = rab;
+        $("#sumber_dana").val(sumber_dana);
+        $("#uraian").val(uraian);
+        var str = jumlah.split(" ");
+        $("#jumlah").val(str[0]);
+        $("#satuan").val(str[1]);
+        $("#harga_satuan").val((harga))
+    }
+
+    fun.update = () => {
+        var check = true;
+        var payloads = {}
+        payloads.nomor_urut = fun.nomor_urut;
+        payloads.rab = fun.rab;
+        $(".form-rab-detail").each((index, element) => {
+            var id_element = $(element).attr("id");
+            var value = $(element).val();
+            $(element).attr("name", id_element);
+            if (value === '') {
+                swal({
+                    text: id_element + " masih kosong",
+                    icon: "warning"
+                });
+                check = false;
+                return false;
+            }
+            payloads[id_element] = value;
+        });
+        if (check) {
+            delete payloads.harga_satuan;
+            payloads.harga = parseInt(fun.harga);
+            payloads.jumlah = payloads.jumlah + " " + payloads.satuan;
+            service.update_rab_rinci(payloads, fun.id_rab_rinci, res => {
+                const { success } = res;
+                if (success) {
+                    swal({
+                        text: "Update data berhasil",
+                        icon: "success"
+                    });
+                    fun.get_rab_rinci(fun.data);
+                    fun.get_rab();
+                    return;
+                }
+                swal({
+                    text: "Update data gagal",
+                    icon: "error"
+                })
+            })
+        }
+    }
+
+    fun.deleteRincian = (row) => {
+        service.delete_rab_rinci(row.id, res => {
+            const { success } = res;
+            if (success) {
+                swal({
+                    text: "hapus data berhasil ",
+                    icon: "success"
+                });
+                fun.get_rab_rinci(fun.data);
+                return;
+            }
+            swal({
+                text: "hapus data gagal",
+                icon: "error"
+            });
+        });
+    }
+    fun.batal = () => {
+        fun.table = true;
+        fun.form = false;
+        fun.clear_input();
     }
 });

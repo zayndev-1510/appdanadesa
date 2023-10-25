@@ -201,6 +201,15 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td>Tahun Anggaran</td>
+                                                <td>
+                                                    <select class="form-control anggaran-kegiatan" name="tahun_anggaran" id="tahun_anggaran">
+                                                        <option value="">Pilih Tahun Anggaran</option>
+                                                        <option ng-repeat="row in datatemp" value="@{{row.id}}">@{{row.tahun}}</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td colspan="2">
                                                     <button type="button" class="btn btn-success" ng-hide="aksi"
                                                         ng-click="save()"><i class="ti-save"></i> SIMPAN</button>

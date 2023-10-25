@@ -39,6 +39,7 @@ Route::middleware(["auth", "checkrole:admin"])->prefix("admin")->group(function 
     Route::get("kegiatan", [PageController::class, "pageKegiatan"]);
     Route::get("pola-kegiatan", [PageController::class, "pagePolaKegiatan"]);
     Route::get("rkd", [PageController::class, "pageRkd"]);
+    Route::get("anggaran-tahun", [PageController::class, "pageTahunAnggaran"]);
 
     // data master belanja desa
     Route::get("kelompok-belanja", [PageController::class, "pageKelompokBelanja"]);
@@ -46,9 +47,8 @@ Route::middleware(["auth", "checkrole:admin"])->prefix("admin")->group(function 
     Route::get("objek-belanja", [PageController::class, "pageObjekBelanja"]);
 
     // data rencana anggaran belanja desa
-    Route::get("rab",[PageController::class,"pageRab"]);
-    Route::get("rab/rincian",[PageController::class,"pageRabRincian"]);
-
+    Route::get("rab", [PageController::class, "pageRab"]);
+    Route::get("rab/rincian", [PageController::class, "pageRabRincian"]);
 
     // data master pendapatan desa
     Route::get("kelompok-pendapatan", [PageController::class, "pageKelompokPendapatan"]);
@@ -62,5 +62,14 @@ Route::middleware(["auth", "checkrole:admin"])->prefix("admin")->group(function 
 
     // Pengaturan
     Route::get("pengaturan", [PageController::class, "pageSetting"]);
+
+    // Data Laporan Rencana Anngaran Kegiatan
+    Route::get("rak/laporan", [PageController::class, "pageLaporanRak"]);
+    Route::get("rak/laporan/cetak/{id}", [PageController::class, "pageCetakRak"]);
+
+    // Data Laporan Rencana Belanjaan
+    Route::get("rab/laporan", [PageController::class, "pageLaporanRab"]);
+    Route::get("rab/laporan/cetak/{id}", [PageController::class, "pageCetakRab"]);
+
 
 });

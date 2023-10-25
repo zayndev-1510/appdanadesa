@@ -67,6 +67,131 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="canvas-dashboard">
+                                <h4 class="poppins alert alert-info">Data Rencana Anggaran Kegiatan Tahun
+                                    @{{ tahun_aktif }}</h4>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table datatable="ng" class="table table-bordered table-jabatan">
+                                            <thead class="bg-light" style="font-size: 12px;">
+                                                <tr class="text-center">
+                                                    <th>Kode</th>
+                                                    <th>Kegiatan</th>
+                                                    <th>Lokasi</th>
+                                                    <th>Waktu</th>
+                                                    <th>Keluaran</th>
+                                                    <th>Volume</th>
+                                                    <th>Pelaksana</th>
+                                                    <th>Pagu</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="font-size: 12px">
+                                                <tr class="text-center" ng-repeat="row in anggaran_kegiatan">
+                                                    <td>@{{ row.kode_bidang }} @{{ row.kode_sub_bidang }} @{{ row.kode_kegiatan }}
+                                                    </td>
+                                                    <td>@{{ row.kegiatan }}</td>
+                                                    <td>@{{ row.lokasi }}</td>
+                                                    <td>@{{ row.waktu }}</td>
+                                                    <td>@{{ row.keluaran }}</td>
+                                                    <td>@{{ row.volume }}</td>
+                                                    <td>@{{ row.nama_lengkap }}</td>
+                                                    <td>@{{ formatRupiah(row.pagu) }}</td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="6">Total Anggaran Kegiatan Tahun @{{tahun_aktif}}</td>
+                                                    <td class="text-center">:</td>
+                                                    <td class="text-center">@{{ formatRupiah(total) }}</td>
+                                                </tr>
+                                            </tfoot>
+
+                                        </table>
+                                    </div>
+                                </div>
+                                <h4 class="poppins alert alert-success"">Data Anggaran Pendapatan Tahun
+                                    @{{ tahun_aktif }}</h4>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table datatable="ng" class="table table-bordered table-jabatan">
+                                            <thead class="bg-light" style="font-size: 12px;">
+                                                <tr class="text-center">
+                                                    <th>Kode Rincian</th>
+                                                    <th>Nama Rincian</th>
+                                                    <th>Anggaran</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="font-size: 12px">
+                                                <tr class="text-center" ng-repeat="row in rap">
+                                                    <td>
+                                                        <p class="margin-table-top">@{{ row.kode_kelompok }}
+                                                            @{{ row.kode_jenis }}
+                                                            @{{ row.kode_objek }}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="margin-table-top">@{{ row.rincian }}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="margin-table-top">@{{ row.anggaran | currency: "Rp. ": 0 }} </p>
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="1">Total Anggaran Pendapatan Tahun
+                                                        @{{ tahun_aktif }}</td>
+                                                    <td class="text-center">:</td>
+                                                    <td class="text-center">@{{ formatRupiah(totalrap) }}</td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                                <h4 class="poppins alert alert-warning">Data Rencana Anggaran Belanjaan Tahun
+                                    @{{ tahun_aktif }}</h4>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table datatable="ng" class="table table-bordered table-jabatan">
+                                            <thead class="bg-light" style="font-size: 12px;">
+                                                <tr class="text-center">
+                                                    <th>Kode</th>
+                                                    <th>Rincian</th>
+                                                    <th>Kegiatan</th>
+                                                    <td>Paket Kegiatan</td>
+                                                    <th>Anggaran</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="font-size: 12px">
+                                                <tr class="text-center" ng-repeat="row in datarab">
+                                                    <td>@{{ row.kode_kelompok }} @{{ row.kode_jenis }}
+                                                        @{{ row.kode_objek }}</td>
+                                                    <td>@{{ row.rincian }}</td>
+                                                    <td>@{{ row.kegiatan }}</td>
+                                                    <td>@{{ row.nama_paket }}</td>
+                                                    <td>@{{ formatRupiah(row.anggaran) }}</td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="3">Total Rencana Anggaran Belanjaan Tahun
+                                                        @{{ tahun_aktif }}</td>
+                                                    <td class="text-center">:</td>
+                                                    <td class="text-center">@{{ formatRupiah(totalrab) }}</td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 {{-- <div class="col-12">
                     <div class="row">
                         <div class="col-6">
@@ -108,4 +233,3 @@
     <script src="{{ asset('assets/js/admin/dashboard/app.js') }}"></script>
     <script src="{{ asset('assets/js/admin/dashboard/service.js') }}"></script>
 @endsection
-
