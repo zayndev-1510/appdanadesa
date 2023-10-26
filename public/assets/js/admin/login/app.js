@@ -49,7 +49,7 @@ app.controller("homeController", function($scope, service) {
             var success=res.success;
             if(success){
                 swal({
-                    text:res.message,
+                    text:"Anda Berhasil Masuk",
                     icon:"success"
                 });
                 setInterval(function(){

@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\admin\PageController;
 use App\Http\Controllers\api\admin\LoginControllerAdmin;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\Controller\ErrorController;
 
@@ -26,6 +27,7 @@ Route::get("home", [PageController::class, "pageHome"]);
 
 Route::get("logout", [LoginControllerAdmin::class, "logout"])->middleware("auth");
 
+Route::get("tes", [HomeController::class, "index"]);
 Route::middleware(["auth", "checkrole:admin"])->prefix("admin")->group(function () {
 
     // data master umum
@@ -70,6 +72,5 @@ Route::middleware(["auth", "checkrole:admin"])->prefix("admin")->group(function 
     // Data Laporan Rencana Belanjaan
     Route::get("rab/laporan", [PageController::class, "pageLaporanRab"]);
     Route::get("rab/laporan/cetak/{id}", [PageController::class, "pageCetakRab"]);
-
 
 });
