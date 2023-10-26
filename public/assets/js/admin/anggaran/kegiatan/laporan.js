@@ -47,7 +47,7 @@ app.controller("homeController", function ($scope, service) {
             });
             return;
         }
-        window.location.href = URL_APP + "admin/rab/laporan/cetak/" + tahun_anggaran;
+        window.location.href = URL_APP + "admin/rak/laporan/cetak/" + tahun_anggaran;
     }
 
 

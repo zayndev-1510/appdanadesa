@@ -107,6 +107,8 @@
 
         </div>
         <script>
+            window.print();
+
             window.addEventListener('afterprint', function() {
                 // Navigate back to the previous page
                 window.history.back();

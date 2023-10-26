@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -6,7 +7,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>SISTEM INFORMASI AKADEMIK TK</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="{{ asset('uploads/' . $data->logo_rel) }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('uploads/' . $datalayout->logo_rel) }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/themify-icons.css') }}">
@@ -70,7 +71,7 @@
             <div class="sidebar-header" style="background-color: #483D8B;color:white;">
                 <div class="logo">
 
-                    <p style="color: white;font-weight: bolder;">{{ $data->title }}</p>
+                    <p style="color: white;font-weight: bolder;">{{ $datalayout->title }}</p>
 
                 </div>
             </div>
