@@ -73,7 +73,7 @@
                                         <div class="col-2">
                                             <button class="btn btn-primary poppins"
                                                  ng-click="tambahData()" style="width: 100%;"><i
-                                                    class="ti-plus"></i> Tambah Data</button>
+                                                    class="ti-plus"></i> Paket</button>
                                         </div>
                                         <div class="col-2">
                                             <button class="btn btn-danger poppins" ng-click="batal()"

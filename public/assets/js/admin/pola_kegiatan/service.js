@@ -1,10 +1,16 @@
 app.service("service", ["$http", function($http) {
 
 
+    const accessToken=localStorage.getItem("TOKEN_API");
+
+
     this.get_all = function(callback) {
         $http({
             url: URL_API+"pola-kegiatan",
-            method: "GET"
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function(e) {
 
             callback(e.data);
@@ -17,6 +23,9 @@ app.service("service", ["$http", function($http) {
             url: URL_API + "pola-kegiatan/",
             method: "POST",
             data: obj,
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function successCallback(e) {
             callback(e.data);
         }).catch(function (err) {
@@ -29,6 +38,9 @@ app.service("service", ["$http", function($http) {
             url: URL_API + "pola-kegiatan/"+id,
             method: "PUT",
             data: obj,
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function successCallback(e) {
             callback(e.data);
         }).catch(function (err) {
@@ -40,6 +52,9 @@ app.service("service", ["$http", function($http) {
         $http({
             url: URL_API + "pola-kegiatan/"+id,
             method: "DELETE",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function successCallback(e) {
             callback(e.data);
         }).catch(function (err) {

@@ -44,10 +44,9 @@ app.controller("homeController", function($scope, service) {
             password: password.value
         }
         service.LoginAkun(obj, (res) => {
-
-
             var success=res.success;
-            if(success){
+            const {token}=res;
+            if(success){-
                 swal({
                     text:"Anda Berhasil Masuk",
                     icon:"success"

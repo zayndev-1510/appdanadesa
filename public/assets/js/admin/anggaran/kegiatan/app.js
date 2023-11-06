@@ -28,10 +28,10 @@ app.controller("homeController", function ($scope, service) {
         });
     }
 
-    fun.get_anggaran_tahun=()=>{
-        service.get_anggaran_tahun(res=>{
-            const {data}=res;
-            fun.datatemp=data;
+    fun.get_anggaran_tahun = () => {
+        service.get_anggaran_tahun(res => {
+            const { data } = res;
+            fun.datatemp = data;
 
         });
     }
@@ -83,7 +83,6 @@ app.controller("homeController", function ($scope, service) {
         service.get_all(res => {
             const { data } = res;
             fun.anggaran_kegiatan = data;
-            console.log(data);
         })
     }
 
@@ -194,7 +193,7 @@ app.controller("homeController", function ($scope, service) {
         $("#volume").val("");
         $("#pagu").val("");
         $("#keluaran").val("");
-        fun.id_perangkat="";
+        fun.id_perangkat = "";
         fun.jabatan = "";
         fun.id_kegiatan = "";
         fun.ket = "Form Menambahkan Anggaran Kegiatan Desa";
@@ -207,7 +206,7 @@ app.controller("homeController", function ($scope, service) {
     fun.edit = (row) => {
         fun.aksi = true;
         const { id, kode_kegiatan, kode_sub_bidang, kode_bidang, id_kegiatan, lokasi,
-            waktu, keluaran, volume,tahun_anggaran, id_perangkat, pagu, kegiatan, jabatan
+            waktu, keluaran, volume, tahun_anggaran, id_perangkat, pagu, kegiatan, jabatan
         } = row;
         fun.ket = "Form Memperbarui Anggaran Kegiatan Desa";
         fun.id = id;

@@ -1,11 +1,15 @@
 app.service("service", ["$http", function ($http) {
 
 
+    const accessToken=localStorage.getItem("TOKEN_API");
 
     this.get_anggaran_tahun = function (callback) {
         $http({
             url: URL_API + "anggaran-tahun",
-            method: "GET"
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function (e) {
 
             callback(e.data);
@@ -16,7 +20,10 @@ app.service("service", ["$http", function ($http) {
     this.get_pola_kegiatan = function (callback) {
         $http({
             url: URL_API + "pola-kegiatan",
-            method: "GET"
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function (e) {
 
             callback(e.data);
@@ -29,9 +36,11 @@ app.service("service", ["$http", function ($http) {
     this.get_form = function (callback) {
         $http({
             url: URL_API + "get-form",
-            method: "GET"
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function (e) {
-
             callback(e.data);
         }).catch(function (err) {
 
@@ -43,7 +52,10 @@ app.service("service", ["$http", function ($http) {
     this.get_sumber_dana = function (callback) {
         $http({
             url: URL_API + "sumber-dana",
-            method: "GET"
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function (e) {
 
             callback(e.data);
@@ -55,7 +67,10 @@ app.service("service", ["$http", function ($http) {
     this.get_bidang = function (callback) {
         $http({
             url: URL_API + "sub_bidang",
-            method: "GET"
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function (e) {
 
             callback(e.data);
@@ -66,7 +81,10 @@ app.service("service", ["$http", function ($http) {
     this.get_kegiatan = (callback) => {
         $http({
             url: URL_API + "kegiatan",
-            method: "GET"
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function (e) {
 
             callback(e.data);
@@ -78,7 +96,10 @@ app.service("service", ["$http", function ($http) {
     this.get_tahun_anggaran = (callback) => {
         $http({
             url: URL_API + "tahun-anggaran",
-            method: "GET"
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function (e) {
 
             callback(e.data);
@@ -90,7 +111,10 @@ app.service("service", ["$http", function ($http) {
     this.get_perangkat_desa = (callback) => {
         $http({
             url: URL_API + "perangkat-desa",
-            method: "GET"
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function (e) {
 
             callback(e.data);
@@ -101,7 +125,10 @@ app.service("service", ["$http", function ($http) {
     this.get_all = function (callback) {
         $http({
             url: URL_API + "anggaran-kegiatan",
-            method: "GET"
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function (e) {
 
             callback(e.data);
@@ -115,6 +142,9 @@ app.service("service", ["$http", function ($http) {
             url: URL_API + "anggaran-kegiatan/",
             method: "POST",
             data: obj,
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function successCallback(e) {
             callback(e.data);
         }).catch(function (err) {
@@ -127,6 +157,9 @@ app.service("service", ["$http", function ($http) {
             url: URL_API + "anggaran-kegiatan/" + id,
             method: "PUT",
             data: obj,
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function successCallback(e) {
             callback(e.data);
         }).catch(function (err) {
@@ -138,6 +171,9 @@ app.service("service", ["$http", function ($http) {
         $http({
             url: URL_API + "anggaran-kegiatan/" + id,
             method: "DELETE",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function successCallback(e) {
             callback(e.data);
         }).catch(function (err) {
@@ -151,7 +187,10 @@ app.service("service", ["$http", function ($http) {
     this.get_detail_anggaran = function (id,callback) {
         $http({
             url: URL_API + "detail-kegiatan/"+id,
-            method: "GET"
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function (e) {
 
             callback(e.data);
@@ -165,6 +204,9 @@ app.service("service", ["$http", function ($http) {
             url: URL_API + "detail-kegiatan/",
             method: "POST",
             data: obj,
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function successCallback(e) {
             callback(e.data);
         }).catch(function (err) {
@@ -177,6 +219,9 @@ app.service("service", ["$http", function ($http) {
             url: URL_API + "detail-kegiatan/"+id,
             method: "PUT",
             data: obj,
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function successCallback(e) {
             callback(e.data);
         }).catch(function (err) {
@@ -188,17 +233,13 @@ app.service("service", ["$http", function ($http) {
         $http({
             url: URL_API + "detail-kegiatan/"+id,
             method: "DELETE",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function successCallback(e) {
             callback(e.data);
         }).catch(function (err) {
             callback(err);
         });
     }
-
-
-
-
-
-
-
 }]);
