@@ -1,10 +1,14 @@
 app.service("service", ["$http", function($http) {
 
+    const accessToken=localStorage.getItem("TOKEN_API");
 
     this.dataJabatan = function(callback) {
         $http({
             url: URL_API+"jabatan-desa",
-            method: "GET"
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function(e) {
 
             callback(e.data);
@@ -16,7 +20,10 @@ app.service("service", ["$http", function($http) {
     this.dataPerangkat = function(callback) {
         $http({
             url: URL_API+"perangkat-desa",
-            method: "GET"
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function(e) {
 
             callback(e.data);
@@ -25,11 +32,13 @@ app.service("service", ["$http", function($http) {
         });
     }
     this.createPerangkat = function(obj, callback) {
-
         $http({
             url:URL_API+"perangkat-desa",
             method: "POST",
-            data: obj
+            data: obj,
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function(e) {
 
             callback(e.data);
@@ -42,7 +51,10 @@ app.service("service", ["$http", function($http) {
         $http({
             url: URL_API+"perangkat-desa/"+id,
             method: "PUT",
-            data: obj
+            data: obj,
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function(e) {
 
             callback(e.data);
@@ -55,6 +67,9 @@ app.service("service", ["$http", function($http) {
         $http({
             url: URL_API+"perangkat-desa/"+id,
             method: "DELETE",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
 
         }).then(function(e) {
 

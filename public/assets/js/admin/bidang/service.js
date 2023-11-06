@@ -1,9 +1,13 @@
 app.service("service", ["$http", function($http) {
 
+    const accessToken=localStorage.getItem("TOKEN_API");
     this.dataBidang = function(callback) {
         $http({
             url: URL_API+"bidang",
-            method: "GET"
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function(e) {
 
             callback(e.data);
@@ -15,7 +19,10 @@ app.service("service", ["$http", function($http) {
         $http({
             url:URL_API+"bidang",
             method: "POST",
-            data: obj
+            data: obj,
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function(e) {
 
             callback(e.data);
@@ -27,7 +34,10 @@ app.service("service", ["$http", function($http) {
         $http({
             url: URL_API+"bidang/"+id,
             method: "PUT",
-            data: obj
+            data: obj,
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function(e) {
 
             callback(e.data);
@@ -36,10 +46,13 @@ app.service("service", ["$http", function($http) {
         });
     }
 
-    this.deleteSumberDana = function(id,callback) {
+    this.deleteBidang = function(id,callback) {
         $http({
             url: URL_API+"bidang/"+id,
             method: "DELETE",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
 
         }).then(function(e) {
 
@@ -48,7 +61,4 @@ app.service("service", ["$http", function($http) {
 
         });
     }
-
-
-
 }]);

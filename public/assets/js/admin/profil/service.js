@@ -1,9 +1,14 @@
 app.service("service", ["$http", function($http) {
 
+    const accessToken=localStorage.getItem("TOKEN_API");
+
     this.dataProfilDesa = function(callback) {
         $http({
             url: URL_API+"profil-desa",
-            method: "GET"
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function(e) {
 
             callback(e.data);
@@ -17,7 +22,8 @@ app.service("service", ["$http", function($http) {
             method: "POST",
             data: fd,
             headers: {
-                'Content-Type': undefined
+                'Content-Type': undefined,
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
             },
         }).then(function successCallback(e) {
             callback(e.data);
@@ -25,9 +31,4 @@ app.service("service", ["$http", function($http) {
             callback(err);
         });
     }
-
-    this.uploadFotoMahasiswa=function(fd, id,callback) {
-
-    }
-
 }]);

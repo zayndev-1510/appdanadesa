@@ -1,9 +1,13 @@
 app.service("service", ["$http", function ($http) {
 
+    const accessToken=localStorage.getItem("TOKEN_API");
     this.get_anggaran_tahun = function (callback) {
         $http({
             url: URL_API + "anggaran-tahun",
-            method: "GET"
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function (e) {
             callback(e.data);
         }).catch(function (err) {
@@ -14,7 +18,10 @@ app.service("service", ["$http", function ($http) {
         $http({
             url: URL_API + "anggaran-tahun",
             method: "POST",
-            data: obj
+            data: obj,
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function (e) {
             callback(e.data);
         }).catch(function (err) {
@@ -25,7 +32,10 @@ app.service("service", ["$http", function ($http) {
         $http({
             url: URL_API + "anggaran-tahun/" + id,
             method: "PUT",
-            data: obj
+            data: obj,
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function (e) {
 
             callback(e.data);
@@ -38,7 +48,9 @@ app.service("service", ["$http", function ($http) {
         $http({
             url: URL_API + "anggaran-tahun/" + id,
             method: "DELETE",
-
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function (e) {
 
             callback(e.data);
@@ -46,7 +58,4 @@ app.service("service", ["$http", function ($http) {
 
         });
     }
-
-
-
 }]);

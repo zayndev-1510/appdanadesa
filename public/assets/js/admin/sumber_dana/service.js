@@ -1,9 +1,14 @@
 app.service("service", ["$http", function($http) {
 
+    const accessToken=localStorage.getItem("TOKEN_API");
+
     this.dataSumberDana = function(callback) {
         $http({
             url: URL_API+"sumber-dana",
-            method: "GET"
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function(e) {
 
             callback(e.data);
@@ -16,7 +21,10 @@ app.service("service", ["$http", function($http) {
         $http({
             url:URL_API+"sumber-dana",
             method: "POST",
-            data: obj
+            data: obj,
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function(e) {
 
             callback(e.data);
@@ -28,7 +36,10 @@ app.service("service", ["$http", function($http) {
         $http({
             url: URL_API+"sumber-dana/"+id,
             method: "PUT",
-            data: obj
+            data: obj,
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function(e) {
 
             callback(e.data);
@@ -41,7 +52,9 @@ app.service("service", ["$http", function($http) {
         $http({
             url: URL_API+"sumber-dana/"+id,
             method: "DELETE",
-
+            headers: {
+                'Authorization': 'Bearer ' + accessToken // Attach the access token as a Bearer token
+            }
         }).then(function(e) {
 
             callback(e.data);
