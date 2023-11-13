@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 26, 2023 at 10:26 AM
--- Server version: 8.0.34-0ubuntu0.22.04.1
+-- Generation Time: Nov 13, 2023 at 06:47 PM
+-- Server version: 8.0.35-0ubuntu0.22.04.1
 -- PHP Version: 8.1.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -46,10 +46,7 @@ CREATE TABLE `anggaran_kegiatan` (
 --
 
 INSERT INTO `anggaran_kegiatan` (`id`, `id_kegiatan`, `lokasi`, `waktu`, `id_perangkat_desa`, `keluaran`, `volume`, `pagu`, `tahun_anggaran`, `created_at`, `updated_at`) VALUES
-(18, 2, 'Desa Kakunawe', '12', 21, 'Terbayaranya SILAP Dan Tunjangan Kepala Desa', '12 Bulan', 300000000, 2, '2023-10-22 18:43:31', '2023-10-24 11:38:24'),
-(19, 3, 'Desa Kakunawe', '12', 23, 'Terbayaranya SILAP Dan Tunjangan Perangkat Desa', '12 Bulan', 50000000, 2, '2023-10-22 11:12:51', '2023-10-22 11:12:51'),
-(20, 8, 'Desa Kakunawe', '12', 21, 'Penyediaan Insentif/Operasional RT/RW', '12 Bulan', 80000000, 2, '2023-10-24 07:01:40', '2023-10-24 07:01:40'),
-(21, 61, 'Desa Kakunawe', '12', 21, 'Tersedianya Sarana Perkantoran Pemerintahan', '12 Bulan', 60000000, 2, '2023-10-24 07:23:34', '2023-10-24 07:23:34');
+(24, 2, 'Desa kakunawe', '12', 24, 'Tebayarnya Gaji Kepala Desa', '12 Bulan', 60000000, 2, '2023-11-12 09:24:43', '2023-11-12 09:24:43');
 
 -- --------------------------------------------------------
 
@@ -103,9 +100,7 @@ CREATE TABLE `detail_anggaran_kegiatan` (
 --
 
 INSERT INTO `detail_anggaran_kegiatan` (`id`, `id_anggaran_kegiatan`, `nama_paket`, `nilai`, `id_pola_kegiatan`, `target`, `uraian`, `satuan`, `id_sumber_dana`, `sifat_kegiatan`, `lokasi_kegiatan`, `created_at`, `updated_at`) VALUES
-(19, 18, 'SILTAP Desa', 200000000, 5, 'Terbayarnya SILTAP Kepala Desa', 'SILTAP Desa', 'OB', 4, 'NON FISIK LAINNYA', 'Tes', '2023-10-22 18:45:52', '2023-10-24 11:39:05'),
-(20, 19, 'Tunjangan Perangkat Desa', 50000000, 5, 'Tunjangan Perangkat Desa', 'Tunjangan Perangkat Desa', 'OB', 4, 'NON FISIK LAINNYA', 'Desa Kakunawe', '2023-10-22 11:13:44', '2023-10-22 11:13:44'),
-(21, 18, 'Terbayar Tunjangan Kepala Desa', 100000000, 5, 'Terbayar Tunjangan Kepala Desa', 'Terbayar Tunjangan Kepala Desa', 'OB', 4, 'NON FISIK LAINNYA', 'Desa Kakunawe', '2023-10-24 11:39:50', '2023-10-24 11:40:07');
+(26, 24, 'Paket Siltap', 60000000, 5, 'Terbayaranya SIltap', 'Terbayaranya SIltap', '12 Bulan', 4, 'NON FISIK LAINNYA', 'Desa Kakunawe', '2023-11-12 09:25:04', '2023-11-12 09:25:04');
 
 -- --------------------------------------------------------
 
@@ -433,7 +428,189 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (46, '2023_10_13_063229_create_detail_anggaran_kegiatan', 30),
 (47, '2023_10_17_084216_create_rab', 31),
 (48, '2023_10_20_072450_create_rab_rinci', 32),
-(49, '2023_10_22_122831_create_tahun_anggaran', 33);
+(49, '2023_10_22_122831_create_tahun_anggaran', 33),
+(50, '2016_06_01_000001_create_oauth_auth_codes_table', 34),
+(51, '2016_06_01_000002_create_oauth_access_tokens_table', 34),
+(52, '2016_06_01_000003_create_oauth_refresh_tokens_table', 34),
+(53, '2016_06_01_000004_create_oauth_clients_table', 34),
+(54, '2016_06_01_000005_create_oauth_personal_access_clients_table', 34);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `oauth_access_tokens`
+--
+
+CREATE TABLE `oauth_access_tokens` (
+  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint UNSIGNED DEFAULT NULL,
+  `client_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `scopes` text COLLATE utf8mb4_unicode_ci,
+  `revoked` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `expires_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `oauth_access_tokens`
+--
+
+INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
+('00e58bde68b641c77900d2d88597e2e0f68dc66931460013172e62d5cacffc6daec9ea1db403f21a', 17, 1, 'myApp', '[]', 0, '2023-10-25 23:21:44', '2023-10-25 23:21:44', '2024-10-26 07:21:44'),
+('017520d19955a3a32838a7d469bfd87280f63bdb1e55687cadf54b9fd8a247278ba1798864aa6845', 17, 1, 'myApp', '[]', 0, '2023-10-26 00:55:30', '2023-10-26 00:55:30', '2023-10-26 09:05:30'),
+('03424e55c7f45f4f2169459a36de76143907da01161069c1ce927d51ce73dc633a4c25335ec0780b', 17, 1, 'myApp', '[]', 0, '2023-10-26 00:55:30', '2023-10-26 00:55:30', '2023-10-26 09:05:30'),
+('0828191d9555aeb83bcd7a8fc0a06327cf2285e2e029411ed4fa9172d620370a48ab83ed53417bbd', 17, 1, 'myApp', '[]', 0, '2023-10-25 20:20:01', '2023-10-25 20:20:01', '2024-10-26 04:20:01'),
+('082f85017405c1e570c38a1d9594f92cb4c7197ad13e98fe78bd7440f9ca2f2e2631cba23e5dcebd', 17, 1, 'myApp', '[]', 0, '2023-11-05 21:48:52', '2023-11-05 21:48:52', '2023-11-06 12:48:52'),
+('09c51e840e75bdf273eda6b03d0ccc6c050026b4e3a6296c1894379bcde177f4eb8a1acf85ae72bd', 17, 1, 'myApp', '[]', 0, '2023-11-05 19:46:40', '2023-11-05 19:46:40', '2023-11-06 03:56:40'),
+('09f10bb8ed1d0afc63532247e20ebc82e4b7393731ee08be4ab4ad4d4107bc8eac12bfb3212e3d77', 17, 1, 'myApp', '[]', 0, '2023-10-26 00:49:14', '2023-10-26 00:49:14', '2023-10-26 08:59:14'),
+('0a33f53b0f64611a22034fd9ab357645d358645d64448f97da816977c2dda9b2ba1dd76703e7f049', 17, 1, 'myApp', '[]', 0, '2023-10-25 20:26:42', '2023-10-25 20:26:42', '2024-10-26 04:26:42'),
+('0b083b6e3242444f9523434681ba46bf95d10875824b47ee5f47f1e88458ca50bf96f0f5d53aff3e', 17, 1, 'myApp', '[]', 0, '2023-10-25 23:48:02', '2023-10-25 23:48:02', '2023-10-26 08:48:02'),
+('0c0c8858c2ea36a952b75e14e5ceb57229780d230806e50e7babd12f2eecc02112a97d177c4618c8', 17, 1, 'myApp', '[]', 0, '2023-10-25 23:35:20', '2023-10-25 23:35:20', '2023-10-26 12:35:20'),
+('0c3378e4bb4bdcd5dcf1734d8246ab6aec165b21af2d618b865d6d408a6d5c869f5604c673888684', 17, 1, 'myApp', '[]', 0, '2023-11-05 22:25:34', '2023-11-05 22:25:34', '2023-11-06 13:25:34'),
+('0f2f86376303e7bd961ffd22ac5d762ad2f0413ae4f2a06765f45441c571012a1e99f116995b4b55', 17, 1, 'myApp', '[]', 0, '2023-11-12 08:21:53', '2023-11-12 08:21:53', '2023-11-12 23:21:53'),
+('1a5daaaab52969f5eeceaa9ed4640a682f91e0363a1f596f8a5efd228c6270abbd138827ed98a0e0', 17, 1, 'myApp', '[]', 0, '2023-11-12 07:55:40', '2023-11-12 07:55:40', '2023-11-12 22:55:40'),
+('1c8b3c006d4520bf5471430351f9be2b39fbdee3958a5f087055001f5b535f236127127bb68cd00e', 17, 1, 'myApp', '[]', 0, '2023-10-25 21:26:19', '2023-10-25 21:26:19', '2024-10-26 05:26:19'),
+('1ef2642fddc7ddd1d30dd3ec4cff62d43c481b35c0bfd98faf108b06a8c59a872651003cda294e7d', 17, 1, 'myApp', '[]', 0, '2023-11-05 19:36:27', '2023-11-05 19:36:27', '2023-11-06 03:46:27'),
+('20b8e4deee1efd8ec1aa59d06103e3dbf844d2a653de0b3e4803aff3f4de20d093826ce291565091', 17, 1, 'myApp', '[]', 0, '2023-11-12 06:46:49', '2023-11-12 06:46:49', '2023-11-12 21:46:49'),
+('236c2be13db733ab4d2cb5c806631a19ca5677c984badab71236f2dfc269085d9539fff4ae66d65f', 17, 1, 'myApp', '[]', 0, '2023-11-12 07:56:55', '2023-11-12 07:56:55', '2023-11-12 22:56:55'),
+('26c0d877c28b17c7ca10d4c7f0f4252aa940a88595b97342bb5764431a4829038a4d257314ee1793', 17, 1, 'myApp', '[]', 0, '2023-10-25 21:26:01', '2023-10-25 21:26:01', '2024-10-26 05:26:01'),
+('2ca20be0a50316467f23419af15edfbec11148be5fecf8b94d37f7cabe29540f40e757bbf1337930', 17, 1, 'myApp', '[]', 0, '2023-10-25 23:48:42', '2023-10-25 23:48:42', '2023-10-26 08:48:42'),
+('307064d4c120bb2dba1d9e0ac2ee684039a98131e19f4aa654c44fb27cc514861d36498802609775', 17, 1, 'myApp', '[]', 0, '2023-11-12 06:46:49', '2023-11-12 06:46:49', '2023-11-12 21:46:49'),
+('319ea0e90010bc596608152e2b75e1feb2d4fc71f58650e42d0f7895d5b41e065baf21307de47dfd', 17, 1, 'myApp', '[]', 0, '2023-10-25 23:48:25', '2023-10-25 23:48:25', '2023-10-26 08:48:25'),
+('31d2c7c9d3ff7f09e3db67f5a824fec2d2be008df43929eaa92549b14773df22c7a2a280703a918c', 17, 1, 'myApp', '[]', 0, '2023-11-05 19:47:26', '2023-11-05 19:47:26', '2023-11-06 10:47:26'),
+('3283980d25fb49c3da8e749854720642187e806a2ef1870d371556bbd97c3f939fd3d2dce5a24742', 17, 1, 'myApp', '[]', 0, '2023-11-05 20:49:06', '2023-11-05 20:49:06', '2023-11-06 11:49:06'),
+('36bce1e0e6636a8b12c84995041da2fc0d1b810dd353326550bae13e01c1655395e965e5b88dab39', 17, 1, 'myApp', '[]', 0, '2023-11-12 07:55:08', '2023-11-12 07:55:08', '2023-11-12 22:55:08'),
+('3ab7790d15744c14b6cb70c6dec65dfa347040fb50b875eca7ed9e5b3b61fb37deb78230b97e4f4e', 17, 1, 'myApp', '[]', 0, '2023-11-12 08:20:05', '2023-11-12 08:20:05', '2023-11-12 23:20:05'),
+('3bce9e5a7b81e2f547b502089f178f3ad7642e57605660555fa44089d57601bf9f86b0f1d2e2cc7a', 17, 1, 'myApp', '[]', 0, '2023-11-05 18:55:03', '2023-11-05 18:55:03', '2023-11-06 03:05:03'),
+('3c788dcf35a91c69d22f30b3860ff1f850fff4d967357ddfb6684b501867d7d0a50de9319ac5820d', 17, 1, 'myApp', '[]', 0, '2023-10-25 23:35:09', '2023-10-25 23:35:09', '2023-10-26 12:35:09'),
+('3f989f888e8b743ebf7d1633bc9c80bb8e42140d37b117d8107a24806f164ebef35726f03ba0f232', 17, 1, 'myApp', '[]', 0, '2023-11-12 09:11:56', '2023-11-12 09:11:56', '2023-11-13 00:11:56'),
+('41684440e3ced6c7fec08db1f74fa84eddad60fb5a1a11e586355bfaeb0bb3d054f0e8dd8f568fee', 17, 1, 'myApp', '[]', 0, '2023-11-05 18:55:03', '2023-11-05 18:55:03', '2023-11-06 03:05:03'),
+('4dd08c8244cc41c5791b7d5e48bd28df40728eead5b8059aa0385bde557b5cf574ea903b34484624', 17, 1, 'myApp', '[]', 0, '2023-10-26 00:53:11', '2023-10-26 00:53:11', '2023-10-26 09:03:11'),
+('52cffa5f7d9cc77dccae459ef80d484a43560cbfa1614e1655d87a37f9e19ae50e3d2b4c821ef8af', 17, 1, 'myApp', '[]', 0, '2023-11-05 22:35:53', '2023-11-05 22:35:53', '2023-11-06 13:35:53'),
+('53c6f54ce444b63a4bae9aa8f66508069048497719a501c67dbe9db3afd77569c747a0217604f357', 17, 1, 'myApp', '[]', 0, '2023-11-05 19:58:58', '2023-11-05 19:58:58', '2023-11-06 10:58:58'),
+('553d7b76629e2ad78e38e27f85584341102fef9a1f3ec996981c40de774baabefdcb6ea0f0747e8b', 17, 1, 'myApp', '[]', 0, '2023-10-25 21:25:56', '2023-10-25 21:25:56', '2024-10-26 05:25:56'),
+('5cf5619f8de6357dab1f39549e4d6d6996b924d711ffb06c4edbcf6781544bb453860b22c419a91c', 17, 1, 'myApp', '[]', 0, '2023-10-25 21:08:03', '2023-10-25 21:08:03', '2024-10-26 05:08:03'),
+('62cf20eaea44946763af09037d5f6212a5ab0448b19f59f98c0a8e998544904b48818bc99cc393f4', 17, 1, 'myApp', '[]', 0, '2023-10-26 01:20:56', '2023-10-26 01:20:56', '2023-10-26 09:30:56'),
+('630a4ff047b660b708ab98c5b1dbcad51d74a17dbeac7f5a911f134608d5b645ba7ef08512079ddc', 17, 1, 'myApp', '[]', 0, '2023-11-05 22:52:24', '2023-11-05 22:52:24', '2023-11-06 13:52:24'),
+('65be572f4e7741861bd2685291b344696c8e1a4e76f1cdd22665b7efa3be8217d2d2ef05a1b22e83', 17, 1, 'myApp', '[]', 0, '2023-11-12 09:22:11', '2023-11-12 09:22:11', '2023-11-13 00:22:11'),
+('672f1a2c1ff17c39e20128524e2c8edde4374e00568339849e3310ec5faa623fd5d47288d59b3759', 17, 1, 'myApp', '[]', 0, '2023-10-26 00:53:11', '2023-10-26 00:53:11', '2023-10-26 09:03:11'),
+('689d3ba87c748f6bfba1ba930d90cbbab9b17a2add21ad7c92b88f4c4d816b49f3183f65d515e0d8', 17, 1, 'myApp', '[]', 0, '2023-10-26 03:23:55', '2023-10-26 03:23:55', '2023-10-26 11:33:55'),
+('6a2df370290baf1d9f75069008ec967a8c325bb4a42833a19188a96294e9ffc56cfe460047bb658b', 17, 1, 'myApp', '[]', 0, '2023-11-12 07:55:40', '2023-11-12 07:55:40', '2023-11-12 22:55:40'),
+('6db0f56914e0c5d5f45c0a464f387a1fa56fa93d62e038217519f40f0b046a36fe7b262ae1242440', 17, 1, 'myApp', '[]', 0, '2023-10-25 23:48:24', '2023-10-25 23:48:24', '2023-10-26 08:48:24'),
+('6fb4e5dbedc2acb007ab10e2d5993fc282e718fa6f740639d136ac29682a1d8caadfce4ea8bf492f', 17, 1, 'myApp', '[]', 0, '2023-11-06 01:51:20', '2023-11-06 01:51:20', '2023-11-06 16:51:20'),
+('7127e14c817adc1b244ff82d357d1b60c96f4acf109ff6142333def0847255d3699e15338f9d9aaf', 17, 1, 'myApp', '[]', 0, '2023-11-05 21:19:07', '2023-11-05 21:19:07', '2023-11-06 12:19:07'),
+('740461a0a9d0105bd9ef7ecf341f6630656a996adb29c5217e396d372bb0a00629ba6f157eef3be8', 17, 1, 'myApp', '[]', 0, '2023-10-25 23:36:47', '2023-10-25 23:36:47', '2023-10-26 12:36:47'),
+('7ab91ecaa95255782042eef7942da127e36fceb06df717857af0962fe4d99aaa60a92bcb59b3556d', 17, 1, 'myApp', '[]', 0, '2023-11-12 07:56:55', '2023-11-12 07:56:55', '2023-11-12 22:56:55'),
+('8346901fad3953fa8bed4179f6d4d60ae7e7052d0712ae2864e85b91ff07ff90c571586e7aa78cf8', 17, 1, 'myApp', '[]', 0, '2023-11-12 08:21:53', '2023-11-12 08:21:53', '2023-11-12 23:21:53'),
+('8ae5efc75c83fb09bb4b01cbe90fa2752dd84a13abc0f6ac97466499193e653697dc72a669cd3b8e', 17, 1, 'myApp', '[]', 0, '2023-11-05 22:45:55', '2023-11-05 22:45:55', '2023-11-06 13:45:55'),
+('8b63031cb78fbc15e15341572157583040314dc4a4f52e59d53c81c39182d0171ecf9f676a5445d6', 17, 1, 'myApp', '[]', 0, '2023-10-25 23:48:42', '2023-10-25 23:48:42', '2023-10-26 08:48:42'),
+('8b759604acdc8c897700d41b810e3366b1fdd8f7ade776c77b7875782733ed80c4a5c5d82f4dd8db', 17, 1, 'myApp', '[]', 0, '2023-10-25 21:25:58', '2023-10-25 21:25:58', '2024-10-26 05:25:58'),
+('8d250d41c308d157b986ca59748da0ec1d951380bc17f53c2030064e0721a15a3883e3700d54c98b', 17, 1, 'myApp', '[]', 0, '2023-10-26 01:02:15', '2023-10-26 01:02:15', '2023-10-26 09:12:15'),
+('a0c6ecc18f7323c64b9eb1e24f2b5a083cefe07e8fc2fe7e2fb185c4b392ed2410abe2ddd6865870', 17, 1, 'myApp', '[]', 0, '2023-10-25 20:31:31', '2023-10-25 20:31:31', '2024-10-26 04:31:31'),
+('a23e34c4c97282290f5a36a653887587204dd356a7b78204eef8f5eb9d8b736d8086135db4b17125', 17, 1, 'myApp', '[]', 0, '2023-10-25 21:24:17', '2023-10-25 21:24:17', '2024-10-26 05:24:17'),
+('a54c40b34881e9505f15a06f9a2a5c3917563751205d2e9ad052440d777ce9a69aca668a5bcd68b4', 17, 1, 'myApp', '[]', 0, '2023-11-05 23:02:31', '2023-11-05 23:02:31', '2023-11-06 14:02:31'),
+('a5ce11e694ac706e6c21a7b5c254183a8c21eea68dec8edaec355a203ef7808b5ed9be09e39457cc', 17, 1, 'myApp', '[]', 0, '2023-11-06 02:19:33', '2023-11-06 02:19:33', '2023-11-06 17:19:33'),
+('a9d50b8a65384da92a7cb56d6ea51982c68ab71908d6c93c5787b865dd0be515ff17299927e8cdc8', 17, 1, 'myApp', '[]', 0, '2023-11-13 02:44:19', '2023-11-13 02:44:19', '2023-11-13 17:44:19'),
+('aaac0cfeb8e1756eaa5c0bf8edada1df2fa03638c0fab9d75146cabf59c640fc04a903500bd25504', 17, 1, 'myApp', '[]', 0, '2023-11-05 19:47:26', '2023-11-05 19:47:27', '2023-11-06 10:47:26'),
+('ac771fe2bc3f983d6d4ebacbd6f755870166b1d1eccf0dbee83080b4357bb5c1dc64effb07b20975', 17, 1, 'myApp', '[]', 0, '2023-10-25 23:49:12', '2023-10-25 23:49:12', '2023-10-26 07:51:12'),
+('ac88bba4e1eb79ee6849643f2efc78cbc7629137ea043304f12ff2bcc8d14ed60688bdb97e3ac3b0', 17, 1, 'myApp', '[]', 0, '2023-11-06 01:51:20', '2023-11-06 01:51:20', '2023-11-06 16:51:20'),
+('ae000aaa30fd2c92ef278451cbe359605376fe35599ff09753c7320a034f6d4f94c70819089cab20', 17, 1, 'myApp', '[]', 0, '2023-11-05 22:52:24', '2023-11-05 22:52:24', '2023-11-06 13:52:24'),
+('b6397241b1092ef02841a9f0fc8644c406fb544c1f502f483ef35e141e77c0f687a696b18b276adf', 17, 1, 'myApp', '[]', 0, '2023-11-05 20:22:41', '2023-11-05 20:22:41', '2023-11-06 11:22:41'),
+('b83005425b900fea9b5d7da0497418bd3938911fe54e7b3633dc8b42aab05d5ca05d1ac354385230', 17, 1, 'myApp', '[]', 0, '2023-11-13 02:44:19', '2023-11-13 02:44:19', '2023-11-13 17:44:19'),
+('bc8969b62a2d3bb24c9cd091b68ec7fa38838b9e4bf6550e28e553c564b7cd4d3bddb00aca86c881', 17, 1, 'myApp', '[]', 0, '2023-10-25 23:46:36', '2023-10-25 23:46:36', '2023-10-26 08:46:36'),
+('c630799006a47207ca6533776eb610fa01a0add3250fe0395993f0871159761a086cafb0dc601043', 17, 1, 'myApp', '[]', 0, '2023-10-25 21:08:53', '2023-10-25 21:08:53', '2024-10-26 05:08:53'),
+('c8067880db8cb5f663cbb87625ff3f0433baa938d9cf3db7468f26458cc26cd23f0fab77f3a378b4', 17, 1, 'myApp', '[]', 0, '2023-10-26 01:10:29', '2023-10-26 01:10:29', '2023-10-26 09:20:29'),
+('ce3cd1c3db397dc56558eeb79b3d2c8921284572e76012a4278677f488359a286c1fec379caef86e', 17, 1, 'myApp', '[]', 0, '2023-10-25 20:19:58', '2023-10-25 20:19:58', '2024-10-26 04:19:58'),
+('d3fd4534ffea0045ff3aa2891c8c2c77e3a3f41899d3f93266787858645a5b85cdb3d4ed933a76ae', 17, 1, 'myApp', '[]', 0, '2023-10-26 01:09:02', '2023-10-26 01:09:02', '2023-10-26 09:19:02'),
+('d8baa461cdd988ecb517a90af81b85234062b1a74225acda3c60e381b97a1e68d4fc65752fd5f489', 17, 1, 'myApp', '[]', 0, '2023-11-12 09:01:52', '2023-11-12 09:01:52', '2023-11-13 00:01:52'),
+('de22516f82675a229cc5e11eba0e15e1b4e7fa99af1d96c8c1517d834ec74b2bb9efb14426663ab6', 17, 1, 'myApp', '[]', 0, '2023-11-05 22:15:26', '2023-11-05 22:15:26', '2023-11-06 13:15:26'),
+('ebbce5c9c546428c728c2262695033fc6811d75f0c2094194a1b2bf93772faf9fb46238a6b79443e', 17, 1, 'myApp', '[]', 0, '2023-10-25 20:26:13', '2023-10-25 20:26:13', '2024-10-26 04:26:13'),
+('ee461ec010ca732a942ff247e937d1dcaa7fe5f77bb9a3817598142fe88a4998fd11acb12ccf7a06', 17, 1, 'myApp', '[]', 0, '2023-10-25 20:21:28', '2023-10-25 20:21:28', '2024-10-26 04:21:28'),
+('ee946975b1f7c5d13a87f39db6c20b553c228d75e691534b2025a98e5fbe7d7eed89e83737704fbf', 17, 1, 'myApp', '[]', 0, '2023-10-26 01:10:29', '2023-10-26 01:10:29', '2023-10-26 09:20:29'),
+('f0696630b8352cafec034f53d8fe8ec2f28739435031cfabc9cd18eaf77c63e69f7d666568ec67f3', 17, 1, 'myApp', '[]', 0, '2023-10-25 23:49:12', '2023-10-25 23:49:12', '2023-10-26 07:51:12'),
+('f277f5fea869628d8f3a275accb051cf214276d7379c6cdede63c715da6294ed27c4025de36f01f6', 17, 1, 'myApp', '[]', 0, '2023-10-25 20:20:07', '2023-10-25 20:20:07', '2024-10-26 04:20:07'),
+('f4246e201e22447a1b935547c93943a9c53a6910f928215d0bc642cac28af554aa1b6fca4bf1707a', 17, 1, 'myApp', '[]', 0, '2023-10-25 23:46:25', '2023-10-25 23:46:25', '2023-10-26 08:46:25'),
+('f56aa2df20ccda835d4ee0bac2216b05a34569362ff5ecce545d937e6cfa511e0041713ad8f567b2', 17, 1, 'myApp', '[]', 0, '2023-10-26 01:08:52', '2023-10-26 01:08:52', '2023-10-26 09:18:52'),
+('f68bc8e66d4c138dc494e05d952fdaeb0565d6e29891c2453d00782a2d065c54dee718e50235ad33', 17, 1, 'myApp', '[]', 0, '2023-10-26 00:49:14', '2023-10-26 00:49:14', '2023-10-26 08:59:14'),
+('fe643ec8934e2f12ebc539a99f4c773adcbed70633798231d35f9ced96ca34d45a86c3e5027f0aa4', 17, 1, 'myApp', '[]', 0, '2023-10-26 01:08:25', '2023-10-26 01:08:25', '2023-10-26 09:18:25');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `oauth_auth_codes`
+--
+
+CREATE TABLE `oauth_auth_codes` (
+  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `client_id` bigint UNSIGNED NOT NULL,
+  `scopes` text COLLATE utf8mb4_unicode_ci,
+  `revoked` tinyint(1) NOT NULL,
+  `expires_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `oauth_clients`
+--
+
+CREATE TABLE `oauth_clients` (
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `secret` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `provider` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `redirect` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `personal_access_client` tinyint(1) NOT NULL,
+  `password_client` tinyint(1) NOT NULL,
+  `revoked` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `oauth_clients`
+--
+
+INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `provider`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'Laravel Personal Access Client', 'QZUP1tx53QIsob6dVi3mFp3dgBbKN7rLeVYfnNH3', NULL, 'http://localhost', 1, 0, 0, '2023-10-25 19:59:06', '2023-10-25 19:59:06'),
+(2, NULL, 'Laravel Password Grant Client', '5xvMy4MorjCxJRb9WAZXl8zjWlAEegwESfRCehHl', 'users', 'http://localhost', 0, 1, 0, '2023-10-25 19:59:06', '2023-10-25 19:59:06');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `oauth_personal_access_clients`
+--
+
+CREATE TABLE `oauth_personal_access_clients` (
+  `id` bigint UNSIGNED NOT NULL,
+  `client_id` bigint UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `oauth_personal_access_clients`
+--
+
+INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
+(1, 1, '2023-10-25 19:59:06', '2023-10-25 19:59:06');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `oauth_refresh_tokens`
+--
+
+CREATE TABLE `oauth_refresh_tokens` (
+  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `access_token_id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `revoked` tinyint(1) NOT NULL,
+  `expires_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -659,8 +836,7 @@ CREATE TABLE `rab` (
 --
 
 INSERT INTO `rab` (`id`, `id_kegiatan`, `paket_kegiatan`, `kode`, `anggaran`, `tahun_anggaran`, `created_at`, `updated_at`) VALUES
-(17, 18, 19, 2, 200000000, 2, '2023-10-24 11:40:29', '2023-10-24 11:57:40'),
-(18, 18, 21, 3, 100000000, 2, '2023-10-24 11:40:40', '2023-10-24 11:58:11');
+(22, 24, 26, 2, 60000000, 2, '2023-11-12 09:25:18', '2023-11-12 09:25:41');
 
 -- --------------------------------------------------------
 
@@ -685,8 +861,7 @@ CREATE TABLE `rab_rinci` (
 --
 
 INSERT INTO `rab_rinci` (`id`, `rab`, `nomor_urut`, `uraian`, `jumlah`, `harga`, `sumber_dana`, `created_at`, `updated_at`) VALUES
-(13, 17, '0000001', 'Terbayar Tunjangan Kepala Desa', '10  OB', '20000000', 4, '2023-10-24 11:57:40', '2023-10-24 11:57:40'),
-(14, 18, '0000001', 'Terbayar Tunjangan Kepala Desa', '10 OB', '10000000', 4, '2023-10-24 11:58:11', '2023-10-24 11:58:11');
+(17, 22, '0000001', 'Terbayaranya SIltap', '12 Bulan', '5000000', 4, '2023-11-12 09:25:41', '2023-11-12 09:25:41');
 
 -- --------------------------------------------------------
 
@@ -840,7 +1015,7 @@ CREATE TABLE `tahun_anggaran` (
 --
 
 INSERT INTO `tahun_anggaran` (`id`, `tahun`, `status`, `created_at`, `updated_at`) VALUES
-(2, '2023', 1, '2023-10-22 05:32:24', '2023-10-23 08:07:29'),
+(2, '2023', 1, '2023-10-22 05:32:24', '2023-11-05 19:36:33'),
 (4, '2022', 0, '2023-10-22 07:32:02', '2023-10-22 07:32:02'),
 (5, '2021', 0, '2023-10-22 07:32:13', '2023-10-22 07:32:13'),
 (6, '2020', 0, '2023-10-22 07:32:20', '2023-10-22 07:32:20');
@@ -915,7 +1090,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `id_pengguna`, `username`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `role`) VALUES
 (14, 19, 'munarwis01', 'Munarwis S.Pd', 'munarwis@gmail.com', NULL, '$2y$10$GxiVNGVORd69CADBeECHzOZ8fiPdLCJrXhMUHiAfMFOv2NeJ9FRG6', NULL, NULL, NULL, 'perangkat'),
 (16, 21, 'maskut03', 'Maskut', 'maskut@gmail.com', NULL, '$2y$10$vtT83hbCfs3sQoyrXwxKJ.D20RL2nDRUurSKLFaXYm4VPRc0gaLJe', NULL, NULL, NULL, 'perangkat'),
-(17, 22, 'sulaiman04', 'Sulaiman', 'sulaiman@gmail.com', NULL, '$2y$10$mhohbFyUyc0Eaj3BM6DOS.EySSDVUQxW7meRkz3IL1LgQi816TkcW', NULL, NULL, NULL, 'admin'),
+(17, 22, 'sulaiman07', 'Sulaiman', 'sulaiman@gmail.com', NULL, '$2y$10$GxiVNGVORd69CADBeECHzOZ8fiPdLCJrXhMUHiAfMFOv2NeJ9FRG6', NULL, NULL, NULL, 'admin'),
 (18, 23, 'nurasmira05', 'Nur Asmira S.Ak', 'nurasmira@gmail.com', NULL, '$2y$10$yv/qyr/I6Duj334A3QJDeOUXDe9QhFHq/LJ4P1t/h9iCtSITDgHmO', NULL, NULL, NULL, 'perangkat'),
 (19, 24, 'andiarif1510', 'Andi Arif', 'kopralgamers1510@gmail.com', NULL, '$2y$10$PMfu90rGCYJGspnrAjyoJegyuyxiMEfgVR0PlJvOULpHNv38SaCsu', NULL, NULL, NULL, 'perangkat');
 
@@ -995,6 +1170,40 @@ ALTER TABLE `kelompok_pendapatan_desa`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `oauth_access_tokens`
+--
+ALTER TABLE `oauth_access_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `oauth_access_tokens_user_id_index` (`user_id`);
+
+--
+-- Indexes for table `oauth_auth_codes`
+--
+ALTER TABLE `oauth_auth_codes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `oauth_auth_codes_user_id_index` (`user_id`);
+
+--
+-- Indexes for table `oauth_clients`
+--
+ALTER TABLE `oauth_clients`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `oauth_clients_user_id_index` (`user_id`);
+
+--
+-- Indexes for table `oauth_personal_access_clients`
+--
+ALTER TABLE `oauth_personal_access_clients`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `oauth_refresh_tokens`
+--
+ALTER TABLE `oauth_refresh_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `oauth_refresh_tokens_access_token_id_index` (`access_token_id`);
 
 --
 -- Indexes for table `objek_belanja_desa`
@@ -1115,19 +1324,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `anggaran_kegiatan`
 --
 ALTER TABLE `anggaran_kegiatan`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `bidang`
 --
 ALTER TABLE `bidang`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `detail_anggaran_kegiatan`
 --
 ALTER TABLE `detail_anggaran_kegiatan`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `detail_rap`
@@ -1181,7 +1390,19 @@ ALTER TABLE `kelompok_pendapatan_desa`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+
+--
+-- AUTO_INCREMENT for table `oauth_clients`
+--
+ALTER TABLE `oauth_clients`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `oauth_personal_access_clients`
+--
+ALTER TABLE `oauth_personal_access_clients`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `objek_belanja_desa`
@@ -1229,13 +1450,13 @@ ALTER TABLE `profil_desa`
 -- AUTO_INCREMENT for table `rab`
 --
 ALTER TABLE `rab`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `rab_rinci`
 --
 ALTER TABLE `rab_rinci`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `rap`
@@ -1253,7 +1474,7 @@ ALTER TABLE `rkd`
 -- AUTO_INCREMENT for table `sub_bidang`
 --
 ALTER TABLE `sub_bidang`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `sumber_dana`

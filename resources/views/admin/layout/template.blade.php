@@ -498,6 +498,7 @@
         var URL_API = "<?php echo getenv('URL_API'); ?>";
         var URL_FILE = "<?php echo getenv('URL_FILE'); ?>";
         var URL_APP = "<?php echo getenv('URL_APP'); ?>";
+        localStorage.setItem("TOKEN_API",  {!! json_encode(session('token')) !!});
     </script>
 
     @yield('javascript')
