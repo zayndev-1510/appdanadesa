@@ -11,15 +11,11 @@ use App\Models\master\belanja\RabModel;
 use App\Models\master\penganggaran\DetailAnggaranModel;
 use App\Models\master\penganggaran\KegiatanAnggaranModel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-
 class KegiatanAnggaranRepo
 {
-
-    
 
     /**
      * Summary of getData
@@ -35,18 +31,18 @@ class KegiatanAnggaranRepo
                 ->join("sub_bidang as sb", "sb.id", "=", "k.id_sub_bidang")
                 ->join("perangkat_desa as pd", "pd.id", "=", "ak.id_perangkat_desa")
                 ->join("jabatan_desa as jd", "jd.id", "=", "pd.id_jabatan")
-                ->join("tahun_anggaran as ta","ta.id","ak.tahun_anggaran")
+                ->join("tahun_anggaran as ta", "ta.id", "ak.tahun_anggaran")
                 ->selectRaw("ak.id,ak.id_kegiatan,b.id as id_bidang,ak.keluaran,
                 sb.id as id_sub_bidang,k.keterangan as kegiatan,ak.lokasi,
                 k.kode_kegiatan,b.kode_bidang,sb.kode_sub_bidang,
                 ak.tahun_anggaran,
                 ak.waktu,ak.volume,pd.id as id_perangkat,pd.nama_lengkap,jd.jabatan,ak.pagu")
-                ->orderBy("ak.id","ASC")
+                ->orderBy("ak.id", "ASC")
                 ->get();
             return response()->json(["message" => "success", "success" => true, "data" => $data], 200);
 
         } catch (\Throwable $th) {
-            return response()->json(["message" => "error ".$th->getMessage(), "success" => false], 500);
+            return response()->json(["message" => "error " . $th->getMessage(), "success" => false], 500);
         }
     }
 
@@ -82,12 +78,12 @@ class KegiatanAnggaranRepo
         try {
             // validation id  is valid or not
             KegiatanAnggaranModel::query()->findOrFail($id)->delete();
-            DetailAnggaranModel::query()->where("id_anggaran_kegiatan",$id)->delete();
+            DetailAnggaranModel::query()->where("id_anggaran_kegiatan", $id)->delete();
             $deletedModel = RabModel::where("id_kegiatan", $id)->first();
-            if($deletedModel){
-                $rab="". $deletedModel->id;
+            if ($deletedModel) {
+                $rab = "" . $deletedModel->id;
                 $deletedModel->delete();
-                RabDetailModel::query()->where("rab",$rab)->delete();
+                RabDetailModel::query()->where("rab", $rab)->delete();
             }
 
             return response()->json(["message" => "success", "success" => true], 200);
@@ -99,15 +95,15 @@ class KegiatanAnggaranRepo
         }
     }
 
-    public function getTahunAnggaran():JsonResponse
+    public function getTahunAnggaran(): JsonResponse
     {
         try {
 
-            $data=DB::table("tahun_setting")->selectRaw("*")->get();
+            $data = DB::table("tahun_setting")->selectRaw("*")->get();
             return response()->json(["message" => "success", "success" => true, "data" => $data], 200);
 
         } catch (\Throwable $th) {
-            return response()->json(["message" => "error ".$th->getMessage(), "success" => false], 500);
+            return response()->json(["message" => "error " . $th->getMessage(), "success" => false], 500);
         }
     }
 }

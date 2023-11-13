@@ -305,7 +305,7 @@
                                     </li>
                                     {{-- // Menu Data Jabatan --}}
                                     <li>
-                                        <a href="{{ url('admin/rab/') }}">
+                                        <a href="{{ url('admin/rab/rincian') }}">
                                             <i class="ti-user" aria-hidden="true"></i>
                                             <span>RAB RINCIAN DESA </span>
                                         </a>

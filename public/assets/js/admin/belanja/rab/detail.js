@@ -238,6 +238,6 @@ app.controller("homeController", function ($scope, service) {
     fun.batal = () => {
         fun.table = true;
         fun.form = false;
-        fun.clear_input();
+        location.reload();
     }
 });
