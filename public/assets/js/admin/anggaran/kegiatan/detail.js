@@ -13,7 +13,7 @@ app.controller("homeController", function ($scope, service) {
     var data_kegiatan = [];
     var data_perangkat_desa = [];
     var pagu_detail = 0;
-    fun.totalnilai=0;
+    fun.totalnilai = 0;
 
 
 
@@ -140,13 +140,13 @@ app.controller("homeController", function ($scope, service) {
         fun.aksi = false;
         if (fun.totalnilai == fun.pagu || fun.totalnilai > fun.pagu) {
             swal({
-                text: "Maaf tidak bisa menambahkan total dan pagu telah sama !",
+                text: "Maaf tidak bisa menambahkan total dan pagu telah cukup !",
                 icon: "warning"
             });
             $('#myModal').modal('hide');
             return;
         }
-        fun.sisapagu=fun.pagu-Number(fun.totalnilai);
+        fun.sisapagu = fun.pagu - Number(fun.totalnilai);
 
         $('#myModal').modal('show');
     }
@@ -313,7 +313,8 @@ app.controller("homeController", function ($scope, service) {
         });
         if (check) {
             payloads["id_anggaran_kegiatan"] = fun.id_anggaran_kegiatan;
-            payloads["nilai"] = parseInt(fun.nilai);
+            let str = payloads["satuan"].split(" ");
+            payloads["nilai"] = parseInt(fun.nilai) * str[0];
         }
 
         if (payloads["nilai"] > fun.sisapagu) {
@@ -325,6 +326,7 @@ app.controller("homeController", function ($scope, service) {
         }
 
         var obj = { ...payloads };
+
         service.save_detail_rak(obj, res => {
             if (res.success) {
                 swal({
@@ -351,7 +353,8 @@ app.controller("homeController", function ($scope, service) {
             payloads[name] = value;
         });
         payloads["id_anggaran_kegiatan"] = fun.id_anggaran_kegiatan;
-        payloads["nilai"] = parseInt(fun.nilai);
+        let str = payloads["satuan"].split(" ");
+        payloads["nilai"] = parseInt(fun.nilai) * str[0];
         const id = fun.id_detail;
         var obj = { ...payloads };
         service.update_detail_rak(obj, id, (res) => {
